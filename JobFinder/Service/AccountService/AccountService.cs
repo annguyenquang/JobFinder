@@ -1,13 +1,17 @@
-﻿using JobFinder.Core.Entity;
+﻿using AutoMapper;
+using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
+using JobFinder.Model.Account;
 
 namespace JobFinder.Service
 {
-    public class AccountService(IAccountRepository _accountRepository) : IAccountService
+    public class AccountService(IAccountRepository _accountRepository, IMapper _mapper) : IAccountService
     {
-        public Account GetAccount(Guid id)
+        public AccountModel GetAccount(Guid id)
         {
-            return _accountRepository.GetAccount(id);
+
+            var entity = _accountRepository.GetAccount(id);
+            return _mapper.Map<AccountModel>(entity); 
         }
     }
 }
