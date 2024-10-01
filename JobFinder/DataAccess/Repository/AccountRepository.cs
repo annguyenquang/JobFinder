@@ -1,6 +1,6 @@
 ﻿using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
-using JobFinder.DataAccess.Repository.Persistent;
+using JobFinder.DataAccess.Persistent;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobFinder.DataAccess.Repository
