@@ -66,7 +66,7 @@ namespace JobFinder.DataAccess.Repository
         {
             var entity = await DbSet.Where(predicate).FirstOrDefaultAsync();
 
-            if (entity == null) throw new ResourceNotFoundException(typeof(TEntity));
+            if (entity == null) throw new Exception($"Resouce of type {typeof(TEntity)} is not folder");
 
             return entity;
         }
