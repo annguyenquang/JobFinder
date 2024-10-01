@@ -11,30 +11,5 @@ namespace JobFinder.DataAccess.Repository
         {
 
         }
-        public Account CreateAccount(Account account)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAccount(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Account GetAccount(Guid id)
-        {
-            var entity = DbSet.FirstOrDefault(x => x.Id == id);
-            return entity; 
-        }
-
-        public IEnumerable<Account> GetAccounts()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Account UpdateAccount(Account account)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

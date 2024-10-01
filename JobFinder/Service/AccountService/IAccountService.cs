@@ -5,6 +5,6 @@ namespace JobFinder.Service
 {
     public interface IAccountService
     {
-        AccountModel GetAccount(Guid id);
+        Task<AccountModel> GetAccount(Guid id);
     }
 }
