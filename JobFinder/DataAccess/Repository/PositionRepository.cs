@@ -6,8 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobFinder.DataAccess.Repository
 {
-    public class PositionRepository(DatabaseContext _dbContext) : IPositionRepository
+    public class PositionRepository: BaseRepository<Position> ,IPositionRepository
     {
+        public PositionRepository(DatabaseContext _dbContext) : base(_dbContext)
+        {
+        }
         public Task<Position> CreatePosition(Position position)
         {
             throw new NotImplementedException();
@@ -20,7 +23,7 @@ namespace JobFinder.DataAccess.Repository
 
         public Task<Position> GetPosition(Guid id)
         {
-            var entity = _dbContext.Positions.FirstOrDefaultAsync(x => x.Id == id);
+            var entity = DbSet.FirstOrDefaultAsync(x => x.Id == id);
             return entity;
         }
 
