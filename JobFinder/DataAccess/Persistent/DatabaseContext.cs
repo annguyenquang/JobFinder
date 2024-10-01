@@ -1,7 +1,7 @@
 ﻿using JobFinder.Core.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobFinder.DataAccess.Repository.Persistent
+namespace JobFinder.DataAccess.Persistent
 {
     public class DatabaseContext : DbContext
     {

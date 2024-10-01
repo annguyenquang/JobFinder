@@ -4,6 +4,7 @@ namespace JobFinder.Service
 {
     public interface IPositionService
     {
-        Task<PositionModel> GetPosition(Guid id);
+        Task<PositionModel> GetPositionAsync(Guid id);
+        Task<CreatePositionReponseModel> CreatePositionAsync(CreatePositionModel position);
     }
 }

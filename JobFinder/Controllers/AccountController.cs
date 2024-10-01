@@ -10,9 +10,9 @@ namespace JobFinder.Controllers
     public class AccountController (IAccountService _accountService) : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAccount(Guid id)
+        public async Task<IActionResult> GetAccount(Guid id)
         {
-            var account = _accountService.GetAccount(id);
+            var account = await _accountService.GetAccount(id);
             return Ok(account);
         }
     }

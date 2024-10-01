@@ -7,10 +7,9 @@ namespace JobFinder.Service
 {
     public class AccountService(IAccountRepository _accountRepository, IMapper _mapper) : IAccountService
     {
-        public AccountModel GetAccount(Guid id)
+        public async Task<AccountModel> GetAccount(Guid id)
         {
-
-            var entity = _accountRepository.GetAccount(id);
+            var entity = await _accountRepository.GetAsync(id);
             return _mapper.Map<AccountModel>(entity); 
         }
     }

@@ -1,8 +1,8 @@
-using JobFinder.Core.Entity;
+﻿using JobFinder.Core.Entity;
 
 namespace JobFinder.Model
 {
-    public class PositionModel : BaseResponseModel
+    public class CreatePositionModel
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
@@ -11,4 +11,5 @@ namespace JobFinder.Model
         public DateTime CloseDate { get; set; }
         public Guid FirmId { get; set; }
     }
+    public class CreatePositionReponseModel : BaseResponseModel { }
 }
