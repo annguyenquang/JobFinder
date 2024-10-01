@@ -1,6 +1,6 @@
 namespace JobFinder.Model
 {
-    public class BaseModel
+    public class BaseResponseModel
     {
         public Guid Id { get; set; }
     }
