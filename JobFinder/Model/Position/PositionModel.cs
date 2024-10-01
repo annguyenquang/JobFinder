@@ -1,6 +1,8 @@
-﻿namespace JobFinder.Core.Entity
+using JobFinder.Core.Entity;
+
+namespace JobFinder.Model
 {
-    public class Position : BaseEntity
+    public class PositionModel : BaseModel
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
@@ -8,12 +10,5 @@
         public PositionStatus Status { get; set; }
         public DateTime CloseDate { get; set; }
         public Guid FirmId { get; set; }
-        public Firm Firm { get; set; } = null!;
-    }
-
-    public enum PositionStatus
-    {
-        Closed = 0,
-        Open = 1,
     }
 }

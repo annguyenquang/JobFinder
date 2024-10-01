@@ -6,6 +6,7 @@ namespace JobFinder.Service
         public static void AddService(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IPositionService, PositionService>();
         }
     }
 }
