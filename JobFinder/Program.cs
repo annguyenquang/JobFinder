@@ -1,4 +1,4 @@
-using JobFinder.DataAccess.Repository;
+using JobFinder.DataAccess;
 using JobFinder.Service;
 using Microsoft.EntityFrameworkCore;
 

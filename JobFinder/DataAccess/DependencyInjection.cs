@@ -1,8 +1,9 @@
 ﻿using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
+using JobFinder.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobFinder.DataAccess.Repository
+namespace JobFinder.DataAccess
 {
     public static class DependencyInjection
     {
