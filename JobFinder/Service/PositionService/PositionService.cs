@@ -11,7 +11,7 @@ namespace JobFinder.Service
         public async Task<PositionModel> GetPosition(Guid id)
         {
 
-            var entity = await _positionRepository.GetPosition(id);
+            var entity = await _positionRepository.GetAsync(id);
             return _mapper.Map<PositionModel>(entity);
         }
     }
