@@ -5,8 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobFinder.DataAccess.Repository
 {
-    public class AccountRepository (DatabaseContext _dbContext) : IAccountRepository
+    public class AccountRepository : BaseRepository<Account>,IAccountRepository
     {
+        public AccountRepository(DatabaseContext _dbContext) : base(_dbContext)
+        {
+
+        }
         public Account CreateAccount(Account account)
         {
             throw new NotImplementedException();
@@ -19,7 +23,7 @@ namespace JobFinder.DataAccess.Repository
 
         public Account GetAccount(Guid id)
         {
-            var entity = _dbContext.Accounts.FirstOrDefault(x => x.Id == id);
+            var entity = DbSet.FirstOrDefault(x => x.Id == id);
             return entity; 
         }
 
