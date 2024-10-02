@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JobFinder.Core.Entity;
 using JobFinder.Model;
+using JobFinder.Model.Position;
 
 namespace JobFinder.Service.AutoMapper
 {
@@ -11,6 +12,8 @@ namespace JobFinder.Service.AutoMapper
             CreateMap<Position, PositionModel>();
             CreateMap<CreatePositionModel, Position>();
             CreateMap<Position, CreatePositionReponseModel>();
+            CreateMap<UpdatePositionModel, Position>();
+            CreateMap<Position, UpdatePositionReponseModel>();
         }
     }
 }
