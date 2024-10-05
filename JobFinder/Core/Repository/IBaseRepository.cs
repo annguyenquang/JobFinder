@@ -1,6 +1,6 @@
 using JobFinder.Core.Entity;
+using JobFinder.Model.Utils;
 using JobFinder.Model.Utils.Fetching;
-using JobFinder.Model.Utils.Fetching.Filter;
 using System.Linq.Expressions;
 
 namespace JobFinder.Core.Repository
@@ -18,6 +18,8 @@ namespace JobFinder.Core.Repository
         Task<TEntity> AddAsync(TEntity entity);
 
         Task<TEntity> UpdateAsync(TEntity entity);
+
+        Task<TEntity> UpdateOnlyChangedProperties(Guid id, TEntity entity);
 
         Task<TEntity> DeleteAsync(TEntity entity);
 
