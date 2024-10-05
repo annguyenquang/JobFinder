@@ -7,6 +7,7 @@ namespace JobFinder.Service
         {
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IPositionService, PositionService>();
+            services.AddScoped<IFirmService, FirmService>();
         }
     }
 }

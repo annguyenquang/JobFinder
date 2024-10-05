@@ -9,7 +9,7 @@ namespace JobFinder.Service.AutoMapper
         public PositionProfile()
         {
             CreateMap<Position, PositionModel>();
-            CreateMap<CreatePositionModel, Position>();
+            CreateMap<CreateFirmModel, Position>();
             CreateMap<Position, CreatePositionReponseModel>();
             CreateMap<UpdatePositionModel, Position>();
             CreateMap<Position, UpdatePositionReponseModel>();

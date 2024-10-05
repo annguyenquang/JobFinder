@@ -1,11 +1,12 @@
-﻿using JobFinder.Core.Entity;
+﻿using Azure.Core.GeoJson;
+using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
+using JobFinder.Model.Utils;
 using JobFinder.Model.Utils.Fetching;
-using JobFinder.Model.Utils.Fetching.Filter;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace JobFinder.DataAccess.Repository
 {
@@ -120,5 +121,30 @@ namespace JobFinder.DataAccess.Repository
             return queryable.ToListAsync();
         }
 
+        public async Task<TEntity> UpdateOnlyChangedProperties(Guid id, TEntity newEntity)
+        {
+            var currentEntity = await GetAsync(id);
+            if (currentEntity == null)
+            {
+                throw new Exception("The id does not match any");
+            }
+            List<PropertyInfo> properties = [.. typeof(TEntity).GetProperties()];
+            // Filter out the unchangeable properties
+            properties = properties.Where(p =>
+                    p.Name != "Id"
+                    ).ToList();
+            foreach (PropertyInfo property in properties)
+            {
+                var newValue = property.GetValue(newEntity);
+                var currentValue = property.GetValue(newEntity);
+                if (newValue != null && newValue != currentValue)
+                {
+                    property.SetValue(currentEntity, newValue);
+                }
+            }
+            int result = await Context.SaveChangesAsync();
+            return currentEntity;
+
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using JobFinder.Core.Entity;
-using JobFinder.Model.Utils.Fetching.Filter;
 
 namespace JobFinder.Model.Utils.Fetching.Filters
 {

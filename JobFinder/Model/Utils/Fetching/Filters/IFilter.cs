@@ -1,6 +1,6 @@
 ﻿using JobFinder.Core.Entity;
 
-namespace JobFinder.Model.Utils.Fetching.Filter
+namespace JobFinder.Model.Utils
 {
     public interface IFilter<T> where T : BaseEntity
     {
