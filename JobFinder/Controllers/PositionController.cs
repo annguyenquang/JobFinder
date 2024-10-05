@@ -11,7 +11,7 @@ namespace JobFinder.Controllers
     public class PositionController(IPositionService _positionService) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAccount(Guid id)
+        public async Task<IActionResult> GetPosition(Guid id)
         {
             var account = await _positionService.GetPositionAsync(id);
             return Ok(account);
