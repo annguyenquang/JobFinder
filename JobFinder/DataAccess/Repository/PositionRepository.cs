@@ -2,8 +2,6 @@
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using System.Reflection;
 
 namespace JobFinder.DataAccess.Repository
