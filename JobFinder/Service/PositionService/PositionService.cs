@@ -3,11 +3,8 @@ using AutoMapper;
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.Model;
-using JobFinder.Model.Position;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Update.Internal;
-using System.Reflection;
-using System.Runtime.InteropServices;
+using JobFinder.Model.Utils.Fetching;
+using JobFinder.Model.Utils.Fetching.Filters;
 
 namespace JobFinder.Service
 {
@@ -20,9 +17,14 @@ namespace JobFinder.Service
             return _mapper.Map<CreatePositionReponseModel>(entity);
         }
 
+        public async Task<List<PositionModel>> GetAllPositionAsync(PositionFilter filter, Order order, Pagination pagination)
+        {
+            var entities = await _positionRepository.GetAllAsync(filter, order, pagination);
+            return _mapper.Map<List<PositionModel>>(entities);
+        }
+
         public async Task<PositionModel> GetPositionAsync(Guid id)
         {
-
             var entity = await _positionRepository.GetAsync(id);
             return _mapper.Map<PositionModel>(entity);
         }
@@ -31,24 +33,6 @@ namespace JobFinder.Service
             Position newPosition = _mapper.Map<Position>(newPositionModel);
             var res = await _positionRepository.UpdateAsync(id, newPosition);
             return _mapper.Map<UpdatePositionReponseModel>(res);
-        }
-
-        public async Task<UpdatePositionReponseModel> UpdatePositionAsync1(Guid id, UpdatePositionModel positionModel)
-        {
-            Position existingPosition = await _positionRepository.GetAsync(id);
-            //  
-            existingPosition.Title = positionModel.Title;
-            //existingPosition.Description = positionModel.Description;
-            //existingPosition.Salary = positionModel.Salary ?? 0;
-            if (positionModel.CloseDate.HasValue)
-            {
-                existingPosition.CloseDate = positionModel.CloseDate ?? DateTime.Now;
-            }
-            
-            var res = await _positionRepository.UpdateAsync(existingPosition);
-            return _mapper.Map<UpdatePositionReponseModel>(res);
-
-
         }
     }
 }

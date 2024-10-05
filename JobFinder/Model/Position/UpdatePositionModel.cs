@@ -1,6 +1,6 @@
 ﻿using JobFinder.Core.Entity;
 
-namespace JobFinder.Model.Position
+namespace JobFinder.Model
 {
     public class UpdatePositionModel
     {
