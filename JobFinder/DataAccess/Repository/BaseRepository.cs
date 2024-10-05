@@ -1,6 +1,8 @@
 ﻿using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
+using JobFinder.Model.Utils.Fetching;
+using JobFinder.Model.Utils.Fetching.Filter;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -97,5 +99,26 @@ namespace JobFinder.DataAccess.Repository
 
             return await queryable.ToListAsync();
         }
+
+        public Task<List<TEntity>> GetAllAsync(IFilter<TEntity> filer, Order order, Pagination pagination)
+        {
+            var queryable = DbSet.AsQueryable();
+            if (filer != null)
+            {
+                queryable = filer.filters(queryable);
+            }
+            if(order != null)
+            {
+                queryable = Order.ApplyOrdering(queryable, order.By, order.IsDesc);                
+            }
+            if (pagination != null)
+            {
+                int skip = pagination.PageSize * (pagination.Page - 1); 
+                int take = pagination.PageSize;
+                queryable = queryable.Skip(skip).Take(take);
+            }
+            return queryable.ToListAsync();
+        }
+
     }
 }

@@ -11,6 +11,8 @@ namespace JobFinder.Service.AutoMapper
             CreateMap<Position, PositionModel>();
             CreateMap<CreatePositionModel, Position>();
             CreateMap<Position, CreatePositionReponseModel>();
+            CreateMap<UpdatePositionModel, Position>();
+            CreateMap<Position, UpdatePositionReponseModel>();
         }
     }
 }

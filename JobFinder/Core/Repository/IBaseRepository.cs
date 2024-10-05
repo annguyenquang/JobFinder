@@ -1,4 +1,6 @@
 using JobFinder.Core.Entity;
+using JobFinder.Model.Utils.Fetching;
+using JobFinder.Model.Utils.Fetching.Filter;
 using System.Linq.Expressions;
 
 namespace JobFinder.Core.Repository
@@ -12,6 +14,7 @@ namespace JobFinder.Core.Repository
 
         Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
+        Task<List<TEntity>> GetAllAsync(IFilter<TEntity> filer, Order order, Pagination pagination); 
         Task<TEntity> AddAsync(TEntity entity);
 
         Task<TEntity> UpdateAsync(TEntity entity);
