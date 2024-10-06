@@ -1,4 +1,6 @@
 ﻿
+using JobFinder.Service.StorageService;
+
 namespace JobFinder.Service
 {
     public static class DependencyInjection
@@ -8,6 +10,7 @@ namespace JobFinder.Service
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<IFirmService, FirmService>();
+            services.AddScoped<IStorageService, AzureStorageService>();
         }
     }
 }
