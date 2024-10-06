@@ -57,7 +57,7 @@ namespace JobFinder.Service
             var res = await _firmRepository.UpdateAsync(currentFirm);
             return _mapper.Map<UpdateFirmReponseModel>(res);
         }
-        public async Task<List<PositionModel>> GetPositions(Guid id, PositionFilter filter, Order order, Pagination pagination)
+        public async Task<List<PositionModel>> GetFirmPositions(Guid id, PositionFilter filter, Order order, Pagination pagination)
         {
             var positions = await _firmRepository.GetFirmPositions(id, filter, order, pagination);
             return _mapper.Map<List<PositionModel>>(positions);

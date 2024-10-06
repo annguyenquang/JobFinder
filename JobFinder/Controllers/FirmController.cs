@@ -24,7 +24,7 @@ namespace JobFinder.Controllers
         [HttpGet("{id}/positions")]
         public async Task<IActionResult> GetFirmPositions(Guid id, [FromQuery] GetFirmPositionsParams param)
         {
-            var positions = await _firmService.GetPositions(id, param.Filter, param.Order, param.Pagination);
+            var positions = await _firmService.GetFirmPositions(id, param.Filter, param.Order, param.Pagination);
             return Ok(positions);
         } 
         [HttpPost]

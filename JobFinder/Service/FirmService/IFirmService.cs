@@ -11,6 +11,6 @@ namespace JobFinder.Service
         Task<List<FirmModel>> GetAllFirmAsync(FirmFilter filter, Order order, Pagination pagination);
         Task<CreateFirmResponseModel> CreateFirmAsync(CreateFirmModel firm);
         Task<UpdateFirmReponseModel> UpdateFirmAsync(Guid id, UpdateFirmModel firmModel);
-        Task<List<PositionModel>> GetPositions(Guid id, PositionFilter filter, Order order, Pagination pagination);
+        Task<List<PositionModel>> GetFirmPositions(Guid id, PositionFilter filter, Order order, Pagination pagination);
     }
 }
