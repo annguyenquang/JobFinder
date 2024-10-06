@@ -1,4 +1,3 @@
-
 using AutoMapper;
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
@@ -17,21 +16,17 @@ namespace JobFinder.Service
             var entity = await _firmRepository.AddAsync(firmEntity);
             return _mapper.Map<CreateFirmResponseModel>(entity);
         }
-
         public async Task<List<FirmModel>> GetAllFirmAsync(FirmFilter filter, Order order, Pagination pagination)
         {
 
             var entities = await _firmRepository.GetAllAsync(filter, order, pagination);
             return _mapper.Map<List<FirmModel>>(entities);
         }
-
         public async Task<FirmModel> GetFirmAsync(Guid id)
         {
             var entity = await _firmRepository.GetAsync(id);
             return _mapper.Map<FirmModel>(entity);
         }
-
-
         public async Task<UpdateFirmReponseModel> UpdateFirmAsync(Guid id, UpdateFirmModel newFirmModel)
         {
             Firm currentFirm = await _firmRepository.GetAsync(id);
@@ -62,7 +57,10 @@ namespace JobFinder.Service
             var res = await _firmRepository.UpdateAsync(currentFirm);
             return _mapper.Map<UpdateFirmReponseModel>(res);
         }
-
-
+        public async Task<List<PositionModel>> GetPositions(Guid id, PositionFilter filter, Order order, Pagination pagination)
+        {
+            var positions = await _firmRepository.GetFirmPositions(id, filter, order, pagination);
+            return _mapper.Map<List<PositionModel>>(positions);
+        }
     }
 }

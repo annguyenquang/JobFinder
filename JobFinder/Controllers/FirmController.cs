@@ -18,8 +18,14 @@ namespace JobFinder.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirmsByPagination([FromQuery] GetFirmsByPaginationParams param)
         {
-            var Firms = await _firmService.GetAllFirmAsync(param.Filter, param.Order, param.Pagination);
-            return Ok(Firms);
+            var firms = await _firmService.GetAllFirmAsync(param.Filter, param.Order, param.Pagination);
+            return Ok(firms);
+        } 
+        [HttpGet("{id}/positions")]
+        public async Task<IActionResult> GetFirmPositions(Guid id, [FromQuery] GetFirmPositionsParams param)
+        {
+            var positions = await _firmService.GetPositions(id, param.Filter, param.Order, param.Pagination);
+            return Ok(positions);
         } 
         [HttpPost]
         public async Task<IActionResult> CreateFirm(CreateFirmModel Firm)
@@ -33,6 +39,5 @@ namespace JobFinder.Controllers
             var response = await _firmService.UpdateFirmAsync(id, newFirmModel);
             return Ok(response);
         }
-
     }
 }
