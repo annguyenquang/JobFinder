@@ -1,5 +1,7 @@
+using Art.Web.Middlewares;
 using JobFinder.DataAccess;
 using JobFinder.Model.Utils;
+using JobFinder.Middlewares;
 using JobFinder.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,5 +31,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//middlewares
+app.UseMiddleware<TransactionMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 
 app.Run();
