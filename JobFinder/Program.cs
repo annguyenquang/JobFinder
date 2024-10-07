@@ -1,9 +1,10 @@
 using JobFinder.DataAccess;
+using JobFinder.Model.Utils;
 using JobFinder.Service;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+// Add app settings
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(AppSettings.AppSetting));
 // Add services to the container.
 builder.Services.AddControllers();
 //Injection Dependency
