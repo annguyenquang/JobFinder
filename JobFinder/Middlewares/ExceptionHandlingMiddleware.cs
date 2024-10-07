@@ -1,5 +1,5 @@
-﻿
-using JobFinder.Model;
+﻿using JobFinder.Model;
+using JobFinder.Model.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -26,15 +26,15 @@ namespace JobFinder.Middlewares
             var code = StatusCodes.Status500InternalServerError;
             var errors = new List<string> { ex.Message };
 
-            //code = ex switch
-            //{
-            //    NotFoundException => StatusCodes.Status404NotFound,
-            //    ResourceNotFoundException => StatusCodes.Status404NotFound,
-            //    BadRequestException => StatusCodes.Status400BadRequest,
-            //    UnprocessableRequestException => StatusCodes.Status422UnprocessableEntity,
-            //    UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
-            //    _ => code
-            //};
+            code = ex switch
+            {
+                NotFoundException => StatusCodes.Status404NotFound,
+                ResourceNotFoundException => StatusCodes.Status404NotFound,
+                BadRequestException => StatusCodes.Status400BadRequest,
+                UnprocessableRequestException => StatusCodes.Status422UnprocessableEntity,
+                UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+                _ => code
+            };
 
             var result = JsonConvert.SerializeObject(ApiResult<string>.Failure(errors), new JsonSerializerSettings()
             {

@@ -2,6 +2,7 @@
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
+using JobFinder.Model.Exceptions;
 using JobFinder.Model.Utils;
 using JobFinder.Model.Utils.Fetching;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace JobFinder.DataAccess.Repository
         public async Task<TEntity> GetAsync(Guid id)
         {
             var result = await DbSet.FindAsync(id);
-            if (result == null) throw new Exception($"Resouce of type {typeof(TEntity)} is not folder");
+            if (result == null) throw new NotFoundException($"Resouce of type {typeof(TEntity)} is not founded");
             return result;
         }
 

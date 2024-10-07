@@ -1,5 +1,4 @@
 ﻿using JobFinder.DataAccess.Persistent;
-using Microsoft.AspNetCore.Identity;
 
 namespace Art.Web.Middlewares
 {
