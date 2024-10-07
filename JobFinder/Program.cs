@@ -1,4 +1,6 @@
+using Art.Web.Middlewares;
 using JobFinder.DataAccess;
+using JobFinder.Middlewares;
 using JobFinder.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,5 +30,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//middlewares
+app.UseMiddleware<TransactionMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 
 app.Run();
