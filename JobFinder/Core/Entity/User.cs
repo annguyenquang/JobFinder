@@ -7,5 +7,6 @@
         public string LastName { get; set; } = string.Empty;
         public DateOnly DateOfBirth { get; set; }
         public Account Account { get; set; } = null!;
+        public IEnumerable<PositionApplication> PositionApplications { get; set; } = [];
     }
 }

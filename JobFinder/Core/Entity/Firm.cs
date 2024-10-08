@@ -8,6 +8,6 @@
         public string Address { get; set; } = string.Empty;
         public string Website { get; set; } = string.Empty;
         public Account Account { get; set; } = null!;
-        public IEnumerable<Position> Positions { get; set; } = new List<Position>();
+        public IEnumerable<Position> Positions { get; set; } = [];
     }
 }

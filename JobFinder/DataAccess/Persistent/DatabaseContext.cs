@@ -12,6 +12,8 @@ namespace JobFinder.DataAccess.Persistent
         public DbSet<Firm> Firms { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<PositionApplication> PositionApplications { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

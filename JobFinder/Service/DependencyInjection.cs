@@ -11,6 +11,7 @@ namespace JobFinder.Service
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<IFirmService, FirmService>();
             services.AddScoped<IStorageService, AzureStorageService>();
+            services.AddScoped<IPositionApplicationService, PositionApplicationService>();
         }
     }
 }

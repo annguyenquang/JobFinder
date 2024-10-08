@@ -9,6 +9,7 @@
         public DateTime CloseDate { get; set; }
         public Guid FirmId { get; set; }
         public Firm Firm { get; set; } = null!;
+        public IEnumerable<PositionApplication> PositionApplications { get; set; } = [];
     }
 
     public enum PositionStatus
