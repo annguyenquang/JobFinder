@@ -12,6 +12,8 @@ namespace JobFinder.Service.AutoMapper
             CreateMap<PositionApplication, CreatePositionApplicationReponseModel>();
             CreateMap<CreatePositionApplicationModel, PositionApplication>()
                 .ForMember(x => x.CVLink, opt => opt.Ignore());
+            CreateMap<Position, PositionModel>();
+            CreateMap<User, UserModel>();
         }
     }
 }

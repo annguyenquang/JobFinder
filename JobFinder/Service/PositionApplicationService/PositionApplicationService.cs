@@ -2,7 +2,10 @@
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.Model;
+using JobFinder.Model.Utils.Fetching;
+using JobFinder.Model.Utils;
 using JobFinder.Service.StorageService;
+using JobFinder.Model.Utils.Fetching.Filters;
 
 namespace JobFinder.Service
 {
@@ -29,9 +32,10 @@ namespace JobFinder.Service
             return _mapper.Map<CreatePositionApplicationReponseModel>(saveResult);
         }
 
-        public async Task<List<PositionApplication>> GetAllPositionApplicationsAsync()
+        public async Task<List<PositionApplicationModel>> GetAllPositionApplicationsAsync(PositionApplicationFilter filter, Order order, Pagination pagination)
         {
-            return await _positionApplicationRepo.GetAllAsync();
+            var listEntity = await _positionApplicationRepo.GetAllAsync(filter, order,pagination);
+            return _mapper.Map<List<PositionApplicationModel>>(listEntity);
         }
     }
 }
