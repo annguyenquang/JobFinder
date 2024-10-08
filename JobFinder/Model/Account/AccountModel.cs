@@ -1,4 +1,4 @@
-﻿namespace JobFinder.Model.Account
+﻿namespace JobFinder.Model
 {
     public class AccountModel
     {

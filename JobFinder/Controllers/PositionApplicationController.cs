@@ -2,7 +2,6 @@
 using JobFinder.Model;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 
 namespace JobFinder.Controllers
 {
@@ -15,6 +14,12 @@ namespace JobFinder.Controllers
         {
             var applications = await _positionApplicationService.GetAllPositionApplicationsAsync();
             return ApiResult<List<PositionApplication>>.Success(applications);
+        }
+        [HttpPost]
+        public async Task<ApiResult<CreatePositionApplicationReponseModel>> CreatePositionApplication([FromForm] CreatePositionApplicationModel newApplication)
+        {
+            var response = await _positionApplicationService.CreatePositionApplicationAsync(newApplication);
+            return ApiResult<CreatePositionApplicationReponseModel>.Success(response);
         }
     }
 }

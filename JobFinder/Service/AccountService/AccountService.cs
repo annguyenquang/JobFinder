@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
-using JobFinder.Model.Account;
+using JobFinder.Model;
 
 namespace JobFinder.Service
 {

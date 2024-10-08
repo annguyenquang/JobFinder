@@ -1,4 +1,5 @@
 ﻿using JobFinder.Core.Entity;
+using JobFinder.Model;
 
 namespace JobFinder.Service
 {
@@ -6,5 +7,7 @@ namespace JobFinder.Service
     {
 
         Task<List<PositionApplication>> GetAllPositionApplicationsAsync();
+        Task<CreatePositionApplicationReponseModel> CreatePositionApplicationAsync(CreatePositionApplicationModel newApplication);
+
     }
 }

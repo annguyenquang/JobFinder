@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using JobFinder.Core.Entity;
-using JobFinder.Model.Account;
+using JobFinder.Model;
 
 namespace JobFinder.Service.AutoMapper
 {
