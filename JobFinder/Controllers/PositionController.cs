@@ -11,28 +11,28 @@ namespace JobFinder.Controllers
     public class PositionController(IPositionService _positionService) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetPosition(Guid id)
+        public async Task<ApiResult<PositionModel>> GetPosition(Guid id)
         {
             var account = await _positionService.GetPositionAsync(id);
-            return Ok(account);
+            return ApiResult<PositionModel>.Success(account);
         }
         [HttpGet]
-        public async Task<IActionResult> GetPositionsByPagination([FromQuery] GetPositionsByPaginationParams param)
+        public async Task<ApiResult<IEnumerable<PositionModel>>> GetPositionsByPagination([FromQuery] GetPositionsByPaginationParams param)
         {
             var positions = await _positionService.GetAllPositionAsync(param.PositionFilter, param.Order, param.Pagination);
-            return Ok(positions);
+            return ApiResult<IEnumerable<PositionModel>>.Success(positions);
         } 
         [HttpPost]
-        public async Task<IActionResult> CreatePosition(CreatePositionModel position)
+        public async Task<ApiResult<CreatePositionReponseModel>> CreatePosition(CreatePositionModel position)
         {
             var response = await _positionService.CreatePositionAsync(position);
-            return Ok(response);
+            return ApiResult<CreatePositionReponseModel>.Success(response);
         }
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdatePosition(Guid id, [FromBody] UpdatePositionModel newPositionModel)
+        public async Task<ApiResult<UpdatePositionReponseModel>> UpdatePosition(Guid id, [FromBody] UpdatePositionModel newPositionModel)
         {
             var response = await _positionService.UpdatePositionAsync(id, newPositionModel);
-            return Ok(response);
+            return ApiResult<UpdatePositionReponseModel>.Success(response);
         }
 
     }
