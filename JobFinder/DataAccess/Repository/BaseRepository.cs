@@ -115,7 +115,7 @@ namespace JobFinder.DataAccess.Repository
             }
             if (pagination != null)
             {
-                int skip = pagination.PageSize * (pagination.Page - 1); 
+                int skip = pagination.PageSize * (pagination.Page - 1);
                 int take = pagination.PageSize;
                 queryable = queryable.Skip(skip).Take(take);
             }

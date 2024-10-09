@@ -9,7 +9,7 @@
         public DateTime CloseDate { get; set; }
         public Guid FirmId { get; set; }
         public Firm Firm { get; set; } = null!;
-        public IEnumerable<PositionApplication> PositionApplications { get; set; } = [];
+        public IEnumerable<PositionApplication> PositionApplications { get; set; } = new List<PositionApplication>();
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public Guid? CreatedBy { get; set; }

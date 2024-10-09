@@ -58,7 +58,7 @@ namespace JobFinder.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
 
                     b.HasData(
                         new
@@ -112,7 +112,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Firms");
+                    b.ToTable("Firms", (string)null);
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.Position", b =>
@@ -157,7 +157,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("FirmId");
 
-                    b.ToTable("Positions");
+                    b.ToTable("Positions", (string)null);
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.PositionApplication", b =>
@@ -194,7 +194,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PositionApplications");
+                    b.ToTable("PositionApplications", (string)null);
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.User", b =>
@@ -233,7 +233,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.Firm", b =>
