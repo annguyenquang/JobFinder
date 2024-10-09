@@ -4,6 +4,7 @@ using JobFinder.DataAccess.Persistent;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobFinder.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241008140711_AddCredentialColumn")]
+    partial class AddCredentialColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +61,7 @@ namespace JobFinder.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("Accounts");
 
                     b.HasData(
                         new
@@ -112,7 +115,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Firms", (string)null);
+                    b.ToTable("Firms");
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.Position", b =>
@@ -157,7 +160,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("FirmId");
 
-                    b.ToTable("Positions", (string)null);
+                    b.ToTable("Positions");
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.PositionApplication", b =>
@@ -194,7 +197,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PositionApplications", (string)null);
+                    b.ToTable("PositionApplications");
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.User", b =>
@@ -233,7 +236,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.Firm", b =>
