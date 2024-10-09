@@ -27,7 +27,7 @@ namespace JobFinder.Service
 
             string fileLink = await _storageService.UploadFile(newApplication.CVFile);
             newApplicationEntity.CVLink = fileLink;
-            _positionApplicationRepo.UpdateAsync(newApplicationEntity);
+            await _positionApplicationRepo.UpdateAsync(newApplicationEntity);
             
             return _mapper.Map<CreatePositionApplicationReponseModel>(saveResult);
         }
