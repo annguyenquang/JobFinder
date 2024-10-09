@@ -10,34 +10,34 @@ namespace JobFinder.Controllers
     public class FirmController(IFirmService _firmService) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetFirm(Guid id)
+        public async Task<ApiResult<FirmModel>> GetFirm(Guid id)
         {
             var account = await _firmService.GetFirmAsync(id);
-            return Ok(account);
+            return ApiResult<FirmModel>.Success(account);
         }
         [HttpGet]
-        public async Task<IActionResult> GetFirmsByPagination([FromQuery] GetFirmsByPaginationParams param)
+        public async Task<ApiResult<IEnumerable<FirmModel>>> GetFirmsByPagination([FromQuery] GetFirmsByPaginationParams param)
         {
             var firms = await _firmService.GetAllFirmAsync(param.Filter, param.Order, param.Pagination);
-            return Ok(firms);
+            return ApiResult<IEnumerable<FirmModel>>.Success(firms);
         } 
         [HttpGet("{id}/positions")]
-        public async Task<IActionResult> GetFirmPositions(Guid id, [FromQuery] GetFirmPositionsParams param)
+        public async Task<ApiResult<IEnumerable<PositionModel>>> GetFirmPositions(Guid id, [FromQuery] GetFirmPositionsParams param)
         {
             var positions = await _firmService.GetFirmPositions(id, param.Filter, param.Order, param.Pagination);
-            return Ok(positions);
+            return ApiResult<IEnumerable<PositionModel>>.Success(positions);
         } 
         [HttpPost]
-        public async Task<IActionResult> CreateFirm(CreateFirmModel Firm)
+        public async Task<ApiResult<CreateFirmResponseModel>> CreateFirm(CreateFirmModel Firm)
         {
             var response = await _firmService.CreateFirmAsync(Firm);
-            return Ok(response);
+            return ApiResult<CreateFirmResponseModel>.Success(response);
         }
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateFirm(Guid id, [FromBody] UpdateFirmModel newFirmModel)
+        public async Task<ApiResult<UpdateFirmReponseModel>> UpdateFirm(Guid id, [FromBody] UpdateFirmModel newFirmModel)
         {
             var response = await _firmService.UpdateFirmAsync(id, newFirmModel);
-            return Ok(response);
+            return ApiResult<UpdateFirmReponseModel>.Success(response);
         }
     }
 }
