@@ -1,6 +1,5 @@
 
 using JobFinder.Model;
-using JobFinder.Model.Utils.Fetching.Filters;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Mvc;
 

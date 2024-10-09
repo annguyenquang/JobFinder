@@ -1,6 +1,5 @@
-﻿using JobFinder.Core.Entity;
+﻿using JobFinder.Model;
 using JobFinder.Service;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobFinder.Controllers
@@ -10,10 +9,10 @@ namespace JobFinder.Controllers
     public class AccountController (IAccountService _accountService) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAccount(Guid id)
+        public async Task<ApiResult<AccountModel>> GetAccount(Guid id)
         {
             var account = await _accountService.GetAccount(id);
-            return Ok(account);
+            return ApiResult<AccountModel>.Success(account);
         }
     }
 }
