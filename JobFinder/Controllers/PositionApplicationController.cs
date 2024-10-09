@@ -1,5 +1,4 @@
-﻿using JobFinder.Core.Entity;
-using JobFinder.Model;
+﻿using JobFinder.Model;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Mvc;
 
