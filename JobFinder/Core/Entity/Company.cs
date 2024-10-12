@@ -1,6 +1,6 @@
 ﻿namespace JobFinder.Core.Entity
 {
-    public class Firm : BaseEntity, ICredentialEntity
+    public class Company : BaseEntity, ICredentialEntity
     {
         public Guid AccountId { get; set; }
         public string EmailContact { get; set; } = string.Empty;

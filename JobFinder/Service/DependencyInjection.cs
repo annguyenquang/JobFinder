@@ -1,5 +1,4 @@
-﻿
-using JobFinder.Service.StorageService;
+﻿using JobFinder.Service.StorageService;
 
 namespace JobFinder.Service
 {
@@ -9,7 +8,7 @@ namespace JobFinder.Service
         {
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IPositionService, PositionService>();
-            services.AddScoped<IFirmService, FirmService>();
+            services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IStorageService, AzureStorageService>();
             services.AddScoped<IPositionApplicationService, PositionApplicationService>();
         }

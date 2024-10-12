@@ -1,4 +1,3 @@
-
 using AutoMapper;
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
