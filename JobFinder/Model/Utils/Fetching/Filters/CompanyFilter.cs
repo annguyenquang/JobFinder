@@ -2,9 +2,9 @@
 
 namespace JobFinder.Model.Utils
 {
-    public class FirmFilter : IFilter<Firm>
+    public class CompanyFilter : IFilter<Company>
     {
-        public IQueryable<Firm> filters(IQueryable<Firm> queryable)
+        public IQueryable<Company> filters(IQueryable<Company> queryable)
         {
             throw new NotImplementedException();
         }

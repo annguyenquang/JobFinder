@@ -1,5 +1,4 @@
-﻿using Azure.Storage.Blobs.Models;
-using JobFinder.Core.Entity;
+﻿using JobFinder.Core.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobFinder.DataAccess.Persistent
@@ -10,7 +9,7 @@ namespace JobFinder.DataAccess.Persistent
         {
         }
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Firm> Firms { get; set; }
+        public DbSet<Company> Companies { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<PositionApplication> PositionApplications { get; set; }

@@ -9,7 +9,7 @@ namespace JobFinder.Model
         public double Salary { get; set; }
         public PositionStatus Status { get; set; }
         public DateTime CloseDate { get; set; }
-        public Guid FirmId { get; set; }
+        public Guid CompanyId { get; set; }
     }
     public class CreatePositionReponseModel : BaseResponseModel { }
 }
