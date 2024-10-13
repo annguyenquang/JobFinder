@@ -1,29 +1,25 @@
-
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
 using JobFinder.Model.Utils.Fetching;
 using JobFinder.Model.Utils.Fetching.Filters;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using System.Linq;
-using System.Reflection;
 
 namespace JobFinder.DataAccess.Repository
 {
-    public class FirmRepository : BaseRepository<Firm>, IFirmRepository
+    public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
-        public FirmRepository(DatabaseContext _dbContext) : base(_dbContext)
+        public CompanyRepository(DatabaseContext _dbContext) : base(_dbContext)
         {
         }
-        public async Task<List<Position>> GetFirmPositions(Guid firmId, PositionFilter filter, Order order, Pagination pagination)
+        public async Task<List<Position>> GetCompanyPositions(Guid companyId, PositionFilter filter, Order order, Pagination pagination)
         {
-            IQueryable<Firm> queryableFirm = DbSet
+            IQueryable<Company> queryableCompany = DbSet
                 .Include(x => x.Positions)
                 .AsQueryable();
-            queryableFirm = queryableFirm.Where(x => x.Id == firmId);
+            queryableCompany = queryableCompany.Where(x => x.Id == companyId);
 
-            var queryablePosition = queryableFirm.SelectMany(x => x.Positions);
+            var queryablePosition = queryableCompany.SelectMany(x => x.Positions);
             
             if (filter != null)
             {

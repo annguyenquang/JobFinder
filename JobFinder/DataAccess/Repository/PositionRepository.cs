@@ -1,4 +1,3 @@
-
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
@@ -23,8 +22,8 @@ namespace JobFinder.DataAccess.Repository
             // Filter out the unchangeable properties
             properties = properties.Where(p =>
                     p.Name != nameof(Position.Id)
-                    && p.Name != nameof(Position.FirmId)
-                    && p.Name != nameof(Position.Firm)
+                    && p.Name != nameof(Position.CompanyId)
+                    && p.Name != nameof(Position.Company)
                     ).ToList();
             foreach (PropertyInfo property in properties)
             {

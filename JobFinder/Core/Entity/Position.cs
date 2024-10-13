@@ -7,8 +7,8 @@
         public double Salary { get; set; }
         public PositionStatus Status { get; set; }
         public DateTime CloseDate { get; set; }
-        public Guid FirmId { get; set; }
-        public Firm Firm { get; set; } = null!;
+        public Guid CompanyId { get; set; }
+        public Company Company { get; set; } = null!;
         public IEnumerable<PositionApplication> PositionApplications { get; set; } = new List<PositionApplication>();
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

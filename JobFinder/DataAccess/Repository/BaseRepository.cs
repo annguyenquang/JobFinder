@@ -1,5 +1,4 @@
-﻿using Azure.Core.GeoJson;
-using JobFinder.Core.Entity;
+﻿using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
 using JobFinder.Model.Exceptions;
