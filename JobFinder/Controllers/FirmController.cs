@@ -16,10 +16,10 @@ namespace JobFinder.Controllers
             return ApiResult<FirmModel>.Success(account);
         }
         [HttpGet]
-        public async Task<ApiResult<IEnumerable<FirmModel>>> GetFirmsByPagination([FromQuery] GetFirmsByPaginationParams param)
+        public async Task<ApiResult<ListResponseModel<FirmModel>>> GetFirmsByPagination([FromQuery] GetFirmsByPaginationParams param)
         {
             var firms = await _firmService.GetAllFirmAsync(param.Filter, param.Order, param.Pagination);
-            return ApiResult<IEnumerable<FirmModel>>.Success(firms);
+            return ApiResult<ListResponseModel<FirmModel>>.Success(firms);
         } 
         [HttpGet("{id}/positions")]
         public async Task<ApiResult<IEnumerable<PositionModel>>> GetFirmPositions(Guid id, [FromQuery] GetFirmPositionsParams param)

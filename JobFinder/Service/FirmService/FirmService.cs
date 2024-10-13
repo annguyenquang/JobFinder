@@ -16,11 +16,17 @@ namespace JobFinder.Service
             var entity = await _firmRepository.AddAsync(firmEntity);
             return _mapper.Map<CreateFirmResponseModel>(entity);
         }
-        public async Task<List<FirmModel>> GetAllFirmAsync(FirmFilter filter, Order order, Pagination pagination)
+        public async Task<ListResponseModel<FirmModel>> GetAllFirmAsync(FirmFilter filter, Order order, Pagination pagination)
         {
 
-            var entities = await _firmRepository.GetAllAsync(filter, order, pagination);
-            return _mapper.Map<List<FirmModel>>(entities);
+            var entities = await _firmRepository.GetAllAsListModelAsync(filter, order, pagination);
+            var result = new ListResponseModel<FirmModel>
+            {
+                Data = _mapper.Map<List<FirmModel>>(entities.Data),
+                Total = entities.Total,
+                Pagination = pagination
+            };
+            return result;
         }
         public async Task<FirmModel> GetFirmAsync(Guid id)
         {

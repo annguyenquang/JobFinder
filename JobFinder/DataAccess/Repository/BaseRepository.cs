@@ -2,6 +2,7 @@
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
+using JobFinder.Model;
 using JobFinder.Model.Exceptions;
 using JobFinder.Model.Utils;
 using JobFinder.Model.Utils.Fetching;
@@ -146,6 +147,28 @@ namespace JobFinder.DataAccess.Repository
             int result = await Context.SaveChangesAsync();
             return currentEntity;
 
+        }
+
+        public async Task<ListModel<TEntity>> GetAllAsListModelAsync(IFilter<TEntity> filer, Order order, Pagination pagination)
+        {
+            var queryable = DbSet.AsQueryable();
+            if (filer != null)
+            {
+                queryable = filer.filters(queryable);
+            }
+            if(order != null)
+            {
+                queryable = Order.ApplyOrdering(queryable, order.By, order.IsDesc);                
+            }
+            int total = queryable.Count();
+            if (pagination != null)
+            {
+                int skip = pagination.PageSize * (pagination.Page - 1);
+                int take = pagination.PageSize;
+                queryable = queryable.Skip(skip).Take(take);
+            }
+            List<TEntity> entityList = await queryable.ToListAsync();
+            return new ListModel<TEntity>() { Data = entityList, Total = total };
         }
     }
 }
