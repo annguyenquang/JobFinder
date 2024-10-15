@@ -62,7 +62,7 @@ namespace JobFinder.Model.Utils.Fetching.Filters
             }
             if(LastUpdate.HasValue)
             {
-                querable = querable.Where(x => x.UpdatedAt >= (DateTime.Now - LastUpdate.Mafasdfasdf));
+                querable = querable.Where(x => x.UpdatedAt >= DateTime.Now.AddDays(-LastUpdate.Value.Day) );
             }
             //
             if (MinAgeRequirement.HasValue)

@@ -27,7 +27,7 @@ namespace JobFinder.Migrations
             migrationBuilder.InsertData(
                 table: "Accounts",
                 columns: new[] { "Id", "CreatedAt", "CreatedBy", "Email", "Password", "Phone", "UpdatedAt", "UpdatedBy", "Username" },
-                values: new object[] { new Guid("784097f0-dc2c-433c-9841-d1a759933ad4"), null, null, "admin@gmail.com", "Admin", "0123456789", null, null, "Admin" });
+                values: new object[] { new Guid("f2eb1697-1342-43b6-82e0-cce758ec73b6"), null, null, "admin@gmail.com", "Admin", "0123456789", null, null, "Admin" });
         }
 
         /// <inheritdoc />
@@ -36,7 +36,7 @@ namespace JobFinder.Migrations
             migrationBuilder.DeleteData(
                 table: "Accounts",
                 keyColumn: "Id",
-                keyValue: new Guid("784097f0-dc2c-433c-9841-d1a759933ad4"));
+                keyValue: new Guid("f2eb1697-1342-43b6-82e0-cce758ec73b6"));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CloseDate",
