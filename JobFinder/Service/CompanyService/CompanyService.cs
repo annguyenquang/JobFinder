@@ -10,6 +10,9 @@ namespace JobFinder.Service
 {
     public class CompanyService(ICompanyRepository _companyRepository, IMapper _mapper) : ICompanyService
     {
+        private const int DEFAULT_PAGENUMBER = 1;
+        private const int DEFAULT_PAGESIZE = 10;
+        private const int MAX_PAGESIZE = 30;
         public async Task<CreateCompanyResponseModel> CreateCompanyAsync(CreateCompanyModel company)
         {
             var companyEntity = _mapper.Map<Company>(company);
@@ -18,8 +21,8 @@ namespace JobFinder.Service
         }
         public async Task<ListResponseModel<CompanyModel>> GetAllCompanyAsync(CompanyFilter filter, Order order, Pagination pagination)
         {
-
-            var entities = await _companyRepository.GetAllAsListModelAsync(filter, order, pagination);
+            var returnPagination = Pagination.validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
+            var entities = await _companyRepository.GetAllAsListModelAsync(filter, order, returnPagination);
             var result = new ListResponseModel<CompanyModel>
             {
                 Data = _mapper.Map<List<CompanyModel>>(entities.Data),
