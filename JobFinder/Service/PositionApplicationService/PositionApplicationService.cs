@@ -11,6 +11,10 @@ namespace JobFinder.Service
 {
     public class PositionApplicationService(IPositionApplicationRepository _positionApplicationRepo, IStorageService _storageService, IMapper _mapper) : IPositionApplicationService
     {
+
+        private const int DEFAULT_PAGENUMBER = 1;
+        private const int DEFAULT_PAGESIZE = 10;
+        private const int MAX_PAGESIZE = 30;
         public async Task<CreatePositionApplicationReponseModel> CreatePositionApplicationAsync(CreatePositionApplicationModel newApplication)
         {
             if(Path.GetExtension(newApplication.CVFile.FileName.ToLower()) != ".pdf")
@@ -32,10 +36,12 @@ namespace JobFinder.Service
             return _mapper.Map<CreatePositionApplicationReponseModel>(saveResult);
         }
 
-        public async Task<List<PositionApplicationModel>> GetAllPositionApplicationsAsync(PositionApplicationFilter filter, Order order, Pagination pagination)
+        public async Task<ListResponseModel<PositionApplicationModel>> GetAllPositionApplicationsAsync(PositionApplicationFilter filter, Order order, Pagination pagination)
         {
-            var listEntity = await _positionApplicationRepo.GetAllAsync(filter, order,pagination);
-            return _mapper.Map<List<PositionApplicationModel>>(listEntity);
+            var resultPagination = Pagination.validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
+            var entities = await _positionApplicationRepo.GetAllAsListModelAsync(filter, order, resultPagination);
+            var models = _mapper.Map<List<PositionApplicationModel>>(entities.Data);
+            return new ListResponseModel<PositionApplicationModel> { Data = models, Total = entities.Total, Pagination = resultPagination };
         }
     }
 }

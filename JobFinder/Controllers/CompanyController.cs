@@ -1,4 +1,3 @@
-
 using JobFinder.Model;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -16,16 +15,16 @@ namespace JobFinder.Controllers
             return ApiResult<CompanyModel>.Success(account);
         }
         [HttpGet]
-        public async Task<ApiResult<IEnumerable<CompanyModel>>> GetCompanysByPagination([FromQuery] GetCompaniesByPaginationParams param)
+        public async Task<ApiResult<ListResponseModel<CompanyModel>>> GetCompanysByPagination([FromQuery] GetCompaniesByPaginationParams param)
         {
             var companies = await _companyService.GetAllCompanyAsync(param.Filter, param.Order, param.Pagination);
-            return ApiResult<IEnumerable<CompanyModel>>.Success(companies);
+            return ApiResult<ListResponseModel<CompanyModel>>.Success(companies);
         } 
         [HttpGet("{id}/positions")]
-        public async Task<ApiResult<IEnumerable<PositionModel>>> GetCompanyPositions(Guid id, [FromQuery] GetCompanyPositionsParams param)
+        public async Task<ApiResult<ListResponseModel<PositionModel>>> GetCompanyPositions(Guid id, [FromQuery] GetCompanyPositionsParams param)
         {
             var positions = await _companyService.GetCompanyPositions(id, param.Filter, param.Order, param.Pagination);
-            return ApiResult<IEnumerable<PositionModel>>.Success(positions);
+            return ApiResult<ListResponseModel<PositionModel>>.Success(positions);
         } 
         [HttpPost]
         public async Task<ApiResult<CreateCompanyResponseModel>> CreateCompany(CreateCompanyModel Company)

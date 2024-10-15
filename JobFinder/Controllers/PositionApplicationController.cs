@@ -9,10 +9,10 @@ namespace JobFinder.Controllers
     public class PositionApplicationController(IPositionApplicationService _positionApplicationService) : ControllerBase
     {
         [HttpGet]
-        public async Task<ApiResult<List<PositionApplicationModel>>> GetAllPositionApplication([FromQuery] GetAllPositionApplicationParams param)
+        public async Task<ApiResult<ListResponseModel<PositionApplicationModel>>> GetAllPositionApplication([FromQuery] GetAllPositionApplicationParams param)
         {
             var applications = await _positionApplicationService.GetAllPositionApplicationsAsync(param.Filter, param.Order, param.Pagination);
-            return ApiResult<List<PositionApplicationModel>>.Success(applications);
+            return ApiResult<ListResponseModel<PositionApplicationModel>>.Success(applications);
         }
         [HttpPost]
         public async Task<ApiResult<CreatePositionApplicationReponseModel>> CreatePositionApplication([FromForm] CreatePositionApplicationModel newApplication)
