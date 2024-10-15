@@ -23,7 +23,7 @@ namespace JobFinder.Service
 
         public async Task<ListResponseModel<PositionModel>> GetAllPositionAsync(PositionFilter filter, Order order, Pagination pagination)
         {
-            Pagination returnPagination = validatePagination(pagination);
+            Pagination returnPagination = Pagination.validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
             var entities = await _positionRepository.GetAllAsListModelAsync(filter, order, returnPagination);
             var models = _mapper.Map<List<PositionModel>>(entities.Data);
             return new ListResponseModel<PositionModel>()
@@ -45,25 +45,5 @@ namespace JobFinder.Service
             return _mapper.Map<UpdatePositionReponseModel>(res);
         }
 
-        private Pagination validatePagination(Pagination pagination)
-        {
-            if (pagination == null)
-            {
-                return new Pagination
-                {
-                    Page = DEFAULT_PAGENUMBER,
-                    PageSize = DEFAULT_PAGESIZE
-                };
-            }
-            if (pagination.Page < 1)
-            {
-                pagination.Page = DEFAULT_PAGENUMBER;
-            }
-            if (pagination.PageSize < 1 || pagination.PageSize > MAX_PAGESIZE)
-            {
-                pagination.PageSize = DEFAULT_PAGESIZE;
-            }
-            return pagination;
-        }
     }
 }

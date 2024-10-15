@@ -6,7 +6,7 @@ namespace JobFinder.Service
 {
     public interface IPositionApplicationService
     {
-        Task<List<PositionApplicationModel>> GetAllPositionApplicationsAsync(PositionApplicationFilter fitler, Order order, Pagination pagination);
+        Task<ListResponseModel<PositionApplicationModel>> GetAllPositionApplicationsAsync(PositionApplicationFilter fitler, Order order, Pagination pagination);
         Task<CreatePositionApplicationReponseModel> CreatePositionApplicationAsync(CreatePositionApplicationModel newApplication);
     }
 }
