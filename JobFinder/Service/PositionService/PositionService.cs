@@ -4,7 +4,6 @@ using JobFinder.Core.Repository;
 using JobFinder.Model;
 using JobFinder.Model.Utils.Fetching;
 using JobFinder.Model.Utils.Fetching.Filters;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace JobFinder.Service
 {
