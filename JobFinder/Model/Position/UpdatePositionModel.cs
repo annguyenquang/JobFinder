@@ -1,5 +1,4 @@
-﻿using JobFinder.Core.Entity;
-
+﻿
 namespace JobFinder.Model
 {
     public class UpdatePositionModel
