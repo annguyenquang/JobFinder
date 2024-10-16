@@ -1,4 +1,5 @@
 ﻿using JobFinder.Core.Entity;
+using JobFinder.DataAccess.Seed;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobFinder.DataAccess.Persistent
@@ -13,6 +14,8 @@ namespace JobFinder.DataAccess.Persistent
         public DbSet<User> Users { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<PositionApplication> PositionApplications { get; set; }
+        public DbSet<Metadata> Metadatas { get; set; }
+
         
         public override int SaveChanges()
         {
@@ -46,7 +49,6 @@ namespace JobFinder.DataAccess.Persistent
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<Account>().HasData(new Account
             {
                 Id = Guid.NewGuid(),
@@ -56,6 +58,7 @@ namespace JobFinder.DataAccess.Persistent
                 Phone = "0123456789"
             });
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Metadata>().HasData(DataSeed.GetMetadataSeeds());
         }
     }
 }

@@ -4,6 +4,7 @@ using JobFinder.DataAccess.Persistent;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobFinder.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241016100344_AddMetadataTable")]
+    partial class AddMetadataTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +66,7 @@ namespace JobFinder.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2cf91c58-cfc9-41b9-81d4-ddac43359083"),
+                            Id = new Guid("4f26ea9d-1d0e-4b6d-83e9-c1696ccabb99"),
                             Email = "admin@gmail.com",
                             Password = "Admin",
                             Phone = "0123456789",
@@ -154,159 +157,141 @@ namespace JobFinder.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2a37efe0-29b0-4c3f-b1be-73d2a0cb0b50"),
+                            Id = new Guid("be9fb1e0-c974-43fc-b898-9fa572812967"),
                             Type = 0,
                             Value = "{data: \"Fulltime\"}"
                         },
                         new
                         {
-                            Id = new Guid("05efa04b-16e7-494e-86b8-991520c2e511"),
+                            Id = new Guid("6c2e4155-8e73-4620-9835-92cf0f344f85"),
                             Type = 0,
                             Value = "{data: \"PartTime\"}"
                         },
                         new
                         {
-                            Id = new Guid("03e2f467-5d58-4d0b-8dd4-b9cfd6e2064b"),
+                            Id = new Guid("81180c69-771d-49b7-a7a1-8b8d2f0cb472"),
                             Type = 0,
                             Value = "{data: \"Internship\"}"
                         },
                         new
                         {
-                            Id = new Guid("7aaf7adb-8931-41be-9579-47af16bb03f6"),
+                            Id = new Guid("b1389b27-932c-47e9-92a1-93881602fc39"),
                             Type = 0,
                             Value = "{data: \"Freelance\"}"
                         },
                         new
                         {
-                            Id = new Guid("ff0102b8-fd35-48a7-9991-2c442bf4614e"),
+                            Id = new Guid("9403d904-2de5-430c-816a-2fe46cf356f1"),
                             Type = 0,
                             Value = "{data: \"Contract\"}"
                         },
                         new
                         {
-                            Id = new Guid("048e5b7f-0f56-48df-8f86-94ee53b5fb20"),
+                            Id = new Guid("f265e422-9000-4a62-8aad-6c895c078925"),
                             Type = 0,
                             Value = "{data: \"Daily\"}"
                         },
                         new
                         {
-                            Id = new Guid("ed71618d-81c5-4ac2-a3ef-18f4ab366634"),
+                            Id = new Guid("74c02a06-e302-4a3e-aa20-e63b1ae430cf"),
                             Type = 1,
                             Value = "{data: \"Onsite\"}"
                         },
                         new
                         {
-                            Id = new Guid("b351cb49-3c59-43ab-9449-548e33c27f8c"),
+                            Id = new Guid("31fe64cd-1040-4971-9050-1a8c841df12c"),
                             Type = 1,
                             Value = "{data: \"Remote/WFH\"}"
                         },
                         new
                         {
-                            Id = new Guid("a60f67e5-42c6-4f0b-986e-d9f0e47a992a"),
+                            Id = new Guid("d6c6ec10-bbe0-44d8-9c7e-51e9e87b0d3c"),
                             Type = 1,
                             Value = "{data: \"Hybrid\"}"
                         },
                         new
                         {
-                            Id = new Guid("a275f2e0-9fe9-40f3-8b58-4faf1529bfb0"),
+                            Id = new Guid("ad61a5ff-8075-4c77-9bc3-8eb89568efaa"),
                             Type = 2,
                             Value = "{data: \"FreshGradute\"}"
                         },
                         new
                         {
-                            Id = new Guid("2687ab67-a685-47f1-b583-c20264c31deb"),
+                            Id = new Guid("2838271a-52bb-4577-b0b5-06fab068015c"),
                             Type = 2,
                             Value = "{data: \"LessThanOneYear\"}"
                         },
                         new
                         {
-                            Id = new Guid("dc364068-17f0-492e-b2ed-4708a8caf4dc"),
+                            Id = new Guid("bf68acba-be50-4845-ac43-a0328bfd37bc"),
                             Type = 2,
                             Value = "{data: \"OneToThreeYears\"}"
                         },
                         new
                         {
-                            Id = new Guid("a9e0bbae-eb86-4a61-8f01-ea15ec6fe930"),
+                            Id = new Guid("6d77bfa7-61c3-413b-9291-b2b77ab4b23e"),
                             Type = 2,
                             Value = "{data: \"ThreeToFiveYears\"}"
                         },
                         new
                         {
-                            Id = new Guid("33fbdd36-6d4e-4d0b-9927-fede52a4fb45"),
+                            Id = new Guid("0207dc22-6ff3-4b41-a6da-9c4df7942bfe"),
                             Type = 2,
                             Value = "{data: \"FiveToTenYears\"}"
                         },
                         new
                         {
-                            Id = new Guid("19bf178a-ef2d-4cc5-92bf-235191b791e1"),
+                            Id = new Guid("6a1352ea-7c62-4e27-ad9f-93d63d9b1f7a"),
                             Type = 2,
                             Value = "{data: \"MoreThanTenYears\"}"
                         },
                         new
                         {
-                            Id = new Guid("130cdb4e-2468-4e09-b744-777299ae9c18"),
+                            Id = new Guid("5b9bca28-d2bf-4af0-8c16-ecb9ead0db79"),
                             Type = 3,
                             Value = "{data: \"PrimarySchool\"}"
                         },
                         new
                         {
-                            Id = new Guid("3d7e4c9d-af43-4ba8-9112-92277083cd44"),
+                            Id = new Guid("fcdb96f8-7e44-4109-9190-617813e993d5"),
                             Type = 3,
                             Value = "{data: \"SecondarySchool\"}"
                         },
                         new
                         {
-                            Id = new Guid("7a5c71fa-72e5-45ff-b7ab-0e54aa63cb49"),
+                            Id = new Guid("0c46b326-26a4-42a4-b2c6-f3f098bf336a"),
                             Type = 3,
                             Value = "{data: \"SeniorOrVocationalHighSchool\"}"
                         },
                         new
                         {
-                            Id = new Guid("e7852238-94d1-4317-b773-639d4f482b7a"),
+                            Id = new Guid("65b18c88-f642-4902-8858-9da710a707d8"),
                             Type = 3,
                             Value = "{data: \"Diploma\"}"
                         },
                         new
                         {
-                            Id = new Guid("26c21132-df12-467d-84d1-90de5f750864"),
+                            Id = new Guid("41138ae7-e56b-465a-a8c1-d8a3b14b8864"),
                             Type = 3,
                             Value = "{data: \"CollegeDegree\"}"
                         },
                         new
                         {
-                            Id = new Guid("35d6a8fc-8953-4aec-9d8a-55e4f15f4a58"),
+                            Id = new Guid("bfda60ac-5f66-4bd5-8707-eb914c9fa596"),
                             Type = 3,
                             Value = "{data: \"BachelorDegree\"}"
                         },
                         new
                         {
-                            Id = new Guid("06e79622-3bf8-469a-b831-8085ab0e6a7b"),
+                            Id = new Guid("34bd0080-6600-49fd-8912-4add4a155fa6"),
                             Type = 3,
                             Value = "{data: \"MasterDegree\"}"
                         },
                         new
                         {
-                            Id = new Guid("53096860-dc18-4a6f-867c-bf5aeb438215"),
+                            Id = new Guid("a2d78a08-4ec6-47a7-9aed-a2ca83c32a2b"),
                             Type = 3,
                             Value = "{data: \"Doctorate\"}"
-                        },
-                        new
-                        {
-                            Id = new Guid("2870d315-3761-436c-b3f0-5cc20a9af33b"),
-                            Type = 4,
-                            Value = "{data: \"Male\"}"
-                        },
-                        new
-                        {
-                            Id = new Guid("f0b96c50-543f-4cfb-be0c-f8c629310504"),
-                            Type = 4,
-                            Value = "{data: \"Female\"}"
-                        },
-                        new
-                        {
-                            Id = new Guid("45def8ee-d2fc-42e6-9a24-d43afce728aa"),
-                            Type = 4,
-                            Value = "{data: \"Others\"}"
                         });
                 });
 

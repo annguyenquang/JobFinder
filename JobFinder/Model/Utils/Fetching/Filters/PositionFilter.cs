@@ -8,15 +8,15 @@ namespace JobFinder.Model.Utils.Fetching.Filters
         public double? ToSalary { get; set; }
         public PositionStatus? Status { get; set; }
         public bool? IsNotEnded { get; set; }
-        public WorkArrangement? WorkArrangement { get; set; }
-        public CommitmentType? CommitmentType { get; set; }
+        public Guid? WorkArrangementId { get; set; }
+        public Guid? CommitmentTypeId { get; set; }
         public int? ProvinceId { get; set; }
         public int? DistrictId { get; set; }
         public int? MinAgeRequirement { get; set; }
         public int? MaxAgeRequirement { get; set; }
-        public GenderRequirement? GenderRequirement { get; set; }
-        public EducationLevelRequirement? EducationLevelRequirement { get; set; }
-        public WorkExperienceRequirement? WorkExperienceRequirement { get; set; }
+        public Guid? GenderRequirementId { get; set; }
+        public Guid? EducationLevelRequirementId { get; set; }
+        public Guid? WorkExperienceRequirementId { get; set; }
         public DateOnly? LastUpdate { get; set; }
         public IQueryable<Position> filters(IQueryable<Position> querable)
         {
@@ -36,13 +36,13 @@ namespace JobFinder.Model.Utils.Fetching.Filters
             {
                 querable = querable.Where(x => x.CloseDate >= DateTime.Now);
             }
-            if (WorkArrangement.HasValue)
+            if (WorkArrangementId.HasValue)
             {
-                querable = querable.Where(x => x.WorkArrangement == WorkArrangement);
+                querable = querable.Where(x => x.WorkArrangement != null &&  x.WorkArrangement.Id == WorkArrangementId);
             }
-            if (CommitmentType.HasValue)
+            if (CommitmentTypeId.HasValue)
             {
-                querable = querable.Where(x => x.CommitmentType == CommitmentType);
+                querable = querable.Where(x => x.CommitmentType != null && x.CommitmentType.Id == WorkArrangementId);
             }
             if (ProvinceId.HasValue)
             {
@@ -52,17 +52,21 @@ namespace JobFinder.Model.Utils.Fetching.Filters
                     querable = querable.Where(x => x.DistrictId == DistrictId);
                 }
             }
-            if (WorkExperienceRequirement.HasValue)
+            if (WorkExperienceRequirementId.HasValue)
             {
-                querable = querable.Where(x => x.WorkExperienceRequirement == WorkExperienceRequirement);
+                querable = querable.Where(x => x.WorkExperienceRequirement != null && x.WorkExperienceRequirement.Id == WorkExperienceRequirementId);
             }
-            if (EducationLevelRequirement.HasValue)
+            if (EducationLevelRequirementId.HasValue)
             {
-                querable = querable.Where(x => x.EducationLevelRequirement == EducationLevelRequirement);
+                querable = querable.Where(x => x.EducationLevelRequirement != null && x.EducationLevelRequirement.Id == EducationLevelRequirementId);
             }
             if(LastUpdate.HasValue)
             {
                 querable = querable.Where(x => x.UpdatedAt >= DateTime.Now.AddDays(-LastUpdate.Value.Day) );
+            }
+            if (GenderRequirementId.HasValue)
+            {
+                querable = querable.Where(x => x.GenderRequirement != null && x.GenderRequirement.Id == GenderRequirementId);
             }
             //
             if (MinAgeRequirement.HasValue)
@@ -72,10 +76,6 @@ namespace JobFinder.Model.Utils.Fetching.Filters
             if (MaxAgeRequirement.HasValue)
             {
                 querable = querable.Where(x => x.MaxAgeRequirement <= MaxAgeRequirement);
-            }
-            if (GenderRequirement.HasValue)
-            {
-                querable = querable.Where(x => x.GenderRequirement == GenderRequirement);
             }
             return querable;
         }
