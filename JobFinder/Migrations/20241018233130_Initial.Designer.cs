@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobFinder.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241015160128_MakePositionCloseDateNullable")]
-    partial class MakePositionCloseDateNullable
+    [Migration("20241018233130_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,7 @@ namespace JobFinder.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f2eb1697-1342-43b6-82e0-cce758ec73b6"),
+                            Id = new Guid("cf325fca-4731-4318-a084-070a999e2eae"),
                             Email = "admin@gmail.com",
                             Password = "Admin",
                             Phone = "0123456789",
@@ -137,6 +137,182 @@ namespace JobFinder.Migrations
                     b.ToTable("Companies");
                 });
 
+            modelBuilder.Entity("JobFinder.Core.Entity.Metadata", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Metadatas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a25645d2-6603-4661-89a7-3a0a50c3dde2"),
+                            Type = 0,
+                            Value = "{data: \"Fulltime\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("918d7f92-69c0-4bf3-aa64-11db742da2e4"),
+                            Type = 0,
+                            Value = "{data: \"PartTime\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("c4efb270-f3c0-4f2f-8064-38cfa5822eb7"),
+                            Type = 0,
+                            Value = "{data: \"Internship\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("ce00f064-2f1a-49cd-97dc-244b939d0061"),
+                            Type = 0,
+                            Value = "{data: \"Freelance\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("a896f2c4-101f-4ad3-9182-2de8e7482b2b"),
+                            Type = 0,
+                            Value = "{data: \"Contract\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("ae75f7ae-806b-4c39-9107-9fc34ba0753d"),
+                            Type = 0,
+                            Value = "{data: \"Daily\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("3b461d6f-a810-4e7b-9a39-d590fa0c14c5"),
+                            Type = 1,
+                            Value = "{data: \"Onsite\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("8eaf06a3-9bb1-4f26-9876-2eed0d18362b"),
+                            Type = 1,
+                            Value = "{data: \"Remote/WFH\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("ad081538-b194-4eaa-b165-bbc00b8d3ccc"),
+                            Type = 1,
+                            Value = "{data: \"Hybrid\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("176a4cc6-548b-4676-b6be-7145213ae61f"),
+                            Type = 2,
+                            Value = "{data: \"FreshGradute\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("32616001-1f3f-4158-8596-d4376712ae90"),
+                            Type = 2,
+                            Value = "{data: \"LessThanOneYear\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("93ebd4a3-353b-405e-8f44-706dd6eccefc"),
+                            Type = 2,
+                            Value = "{data: \"OneToThreeYears\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("20ef9a77-0cde-47d3-976c-81bb10cb5048"),
+                            Type = 2,
+                            Value = "{data: \"ThreeToFiveYears\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("d30eb6f0-fd51-412f-aa60-1b1b017e93f6"),
+                            Type = 2,
+                            Value = "{data: \"FiveToTenYears\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("62d8b5b6-49ff-400e-afb8-6f1c07897acc"),
+                            Type = 2,
+                            Value = "{data: \"MoreThanTenYears\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("3316dc61-a893-4abf-b92a-853e03a90240"),
+                            Type = 3,
+                            Value = "{data: \"PrimarySchool\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("a60e6d73-9b12-41c1-bde9-b7b49bd77f78"),
+                            Type = 3,
+                            Value = "{data: \"SecondarySchool\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("f58f0289-52e2-4d96-ae21-e10ab6cbfd8d"),
+                            Type = 3,
+                            Value = "{data: \"SeniorOrVocationalHighSchool\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("de21e631-fc69-42e6-89ff-176b80a3511b"),
+                            Type = 3,
+                            Value = "{data: \"Diploma\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("9c7485f9-53fa-47dc-9365-6b3991395b97"),
+                            Type = 3,
+                            Value = "{data: \"CollegeDegree\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("d235d8cf-d8dd-42d6-b8af-2f2bb1b23cc1"),
+                            Type = 3,
+                            Value = "{data: \"BachelorDegree\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("304b7d54-c3e4-48bb-9822-2a9b40f8681e"),
+                            Type = 3,
+                            Value = "{data: \"MasterDegree\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("36dac619-9ff0-4d23-9367-3911ddf5ef4f"),
+                            Type = 3,
+                            Value = "{data: \"Doctorate\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("5df29c5c-c741-478d-b642-37a0ca26c87a"),
+                            Type = 4,
+                            Value = "{data: \"Male\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("1f02c478-a95b-41e6-a7f0-3a2b94fe8076"),
+                            Type = 4,
+                            Value = "{data: \"Female\"}"
+                        },
+                        new
+                        {
+                            Id = new Guid("3bb22e2e-7cac-4468-886a-c14c2a6d78f6"),
+                            Type = 4,
+                            Value = "{data: \"Others\"}"
+                        });
+                });
+
             modelBuilder.Entity("JobFinder.Core.Entity.Position", b =>
                 {
                     b.Property<Guid>("Id")
@@ -146,8 +322,8 @@ namespace JobFinder.Migrations
                     b.Property<DateTime?>("CloseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CommitmentType")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CommitmentTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uniqueidentifier");
@@ -165,11 +341,11 @@ namespace JobFinder.Migrations
                     b.Property<int?>("DistrictId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EducationLevelRequirement")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("EducationLevelRequirementId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("GenderRequirement")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("GenderRequirementId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("MaxAgeRequirement")
                         .HasColumnType("int");
@@ -196,15 +372,25 @@ namespace JobFinder.Migrations
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("WorkArrangement")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("WorkArrangementId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("WorkExperienceRequirement")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("WorkExperienceRequirementId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CommitmentTypeId");
+
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("EducationLevelRequirementId");
+
+                    b.HasIndex("GenderRequirementId");
+
+                    b.HasIndex("WorkArrangementId");
+
+                    b.HasIndex("WorkExperienceRequirementId");
 
                     b.ToTable("Positions");
                 });
@@ -298,13 +484,43 @@ namespace JobFinder.Migrations
 
             modelBuilder.Entity("JobFinder.Core.Entity.Position", b =>
                 {
+                    b.HasOne("JobFinder.Core.Entity.Metadata", "CommitmentType")
+                        .WithMany("CommitmentTypePositions")
+                        .HasForeignKey("CommitmentTypeId");
+
                     b.HasOne("JobFinder.Core.Entity.Company", "Company")
                         .WithMany("Positions")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("JobFinder.Core.Entity.Metadata", "EducationLevelRequirement")
+                        .WithMany("EducationLevelRequirementPositions")
+                        .HasForeignKey("EducationLevelRequirementId");
+
+                    b.HasOne("JobFinder.Core.Entity.Metadata", "GenderRequirement")
+                        .WithMany("GenderRequirementPositions")
+                        .HasForeignKey("GenderRequirementId");
+
+                    b.HasOne("JobFinder.Core.Entity.Metadata", "WorkArrangement")
+                        .WithMany("WorkArrangementPositions")
+                        .HasForeignKey("WorkArrangementId");
+
+                    b.HasOne("JobFinder.Core.Entity.Metadata", "WorkExperienceRequirement")
+                        .WithMany("WorkExperienceRequirementPositions")
+                        .HasForeignKey("WorkExperienceRequirementId");
+
+                    b.Navigation("CommitmentType");
+
                     b.Navigation("Company");
+
+                    b.Navigation("EducationLevelRequirement");
+
+                    b.Navigation("GenderRequirement");
+
+                    b.Navigation("WorkArrangement");
+
+                    b.Navigation("WorkExperienceRequirement");
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.PositionApplication", b =>
@@ -338,6 +554,19 @@ namespace JobFinder.Migrations
             modelBuilder.Entity("JobFinder.Core.Entity.Company", b =>
                 {
                     b.Navigation("Positions");
+                });
+
+            modelBuilder.Entity("JobFinder.Core.Entity.Metadata", b =>
+                {
+                    b.Navigation("CommitmentTypePositions");
+
+                    b.Navigation("EducationLevelRequirementPositions");
+
+                    b.Navigation("GenderRequirementPositions");
+
+                    b.Navigation("WorkArrangementPositions");
+
+                    b.Navigation("WorkExperienceRequirementPositions");
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.Position", b =>

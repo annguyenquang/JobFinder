@@ -9,17 +9,15 @@ namespace JobFinder.Model
         public double? Salary { get; set; }
         public PositionStatus? Status { get; set; } = PositionStatus.Open;
         public DateTime? CloseDate { get; set; }
-        public WorkArrangement? WorkArrangement { get; set; }
-        public CommitmentType? CommitmentType { get; set; }
-        /// Location 
         public int? ProvinceId { get; set; }
         public int? DistrictId { get; set; }
-        /// Requirements
         public int? MinAgeRequirement { get; set; }
         public int? MaxAgeRequirement { get; set; }
-        public GenderRequirement? GenderRequirement { get; set; }
-        public EducationLevelRequirement? EducationLevelRequirement { get; set; }
-        public WorkExperienceRequirement? WorkExperienceRequirement { get; set; }
+        public Guid? WorkArrangementId { get; set; }
+        public Guid? CommitmentTypeId { get; set; }
+        public Guid? GenderRequirementId { get; set; }
+        public Guid? EducationLevelRequirementId { get; set; }
+        public Guid? WorkExperienceRequirementId { get; set; }
         public Guid CompanyId { get; set; }
     }
     public class CreatePositionReponseModel : BaseResponseModel { }

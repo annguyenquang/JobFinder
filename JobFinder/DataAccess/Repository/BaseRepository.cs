@@ -102,7 +102,7 @@ namespace JobFinder.DataAccess.Repository
             return await queryable.ToListAsync();
         }
 
-        public Task<List<TEntity>> GetAllAsync(IFilter<TEntity> filer, Order order, Pagination pagination)
+        public async Task<List<TEntity>> GetAllAsync(IFilter<TEntity> filer, Order order, Pagination pagination)
         {
             var queryable = DbSet.AsQueryable();
             if (filer != null)
@@ -119,7 +119,7 @@ namespace JobFinder.DataAccess.Repository
                 int take = pagination.PageSize;
                 queryable = queryable.Skip(skip).Take(take);
             }
-            return queryable.ToListAsync();
+            return await queryable.ToListAsync();
         }
 
         public async Task<TEntity> UpdateOnlyChangedProperties(Guid id, TEntity newEntity)
