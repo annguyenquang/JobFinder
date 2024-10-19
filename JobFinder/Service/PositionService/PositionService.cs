@@ -19,7 +19,6 @@ namespace JobFinder.Service
             var entity = await _positionRepository.AddAsync(positionEntity);
             return _mapper.Map<CreatePositionReponseModel>(entity);
         }
-
         public async Task<ListResponseModel<PositionModel>> GetAllPositionAsync(PositionFilter filter, Order order, Pagination pagination)
         {
             Pagination returnPagination = Pagination.validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
