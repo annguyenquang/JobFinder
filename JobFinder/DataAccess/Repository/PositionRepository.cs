@@ -1,6 +1,10 @@
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
+using JobFinder.Model;
+using JobFinder.Model.Utils;
+using JobFinder.Model.Utils.Fetching;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace JobFinder.DataAccess.Repository
@@ -9,6 +13,35 @@ namespace JobFinder.DataAccess.Repository
     {
         public PositionRepository(DatabaseContext _dbContext) : base(_dbContext)
         {
+        }
+        
+        public new async Task<ListModel<Position>> GetAllAsListModelAsync(IFilter<Position> filter, Order order, Pagination pagination)
+        {
+            var queryable = DbSet
+                .Include(x => x.WorkArrangement) 
+                .Include(x => x.CommitmentType) 
+                .Include(x => x.WorkExperienceRequirement) 
+                .Include(x => x.EducationLevelRequirement) 
+                .Include(x => x.GenderRequirement) 
+                .AsQueryable();
+            if (filter != null)
+            {
+                queryable = filter.filters(queryable);
+            }
+            if(order != null)
+            {
+                queryable = Order.ApplyOrdering(queryable, order.By, order.IsDesc);                
+            }
+            int total = queryable.Count();
+            if (pagination != null)
+            {
+                int skip = pagination.PageSize * (pagination.Page - 1);
+                int take = pagination.PageSize;
+                queryable = queryable.Skip(skip).Take(take);
+            }
+            var entityList = await queryable.ToListAsync();
+            return new ListModel<Position>() { Data = entityList, Total = total };
+
         }
 
         public async Task<Position> UpdateAsync(Guid id, Position newPosition)

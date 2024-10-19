@@ -17,7 +17,6 @@ namespace JobFinder.Core.Entity
         /// Requirements
         public int? MinAgeRequirement { get; set; }
         public int? MaxAgeRequirement { get; set; }
-        /// Navigations 
         public Metadata? WorkArrangement { get; set; }
         public Metadata? CommitmentType { get; set; }
         public Metadata? GenderRequirement { get; set; }

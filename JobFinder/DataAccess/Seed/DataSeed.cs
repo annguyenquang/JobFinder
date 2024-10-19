@@ -1,4 +1,5 @@
 ﻿using JobFinder.Core.Entity;
+using JobFinder.Model;
 
 namespace JobFinder.DataAccess.Seed
 {
@@ -8,41 +9,41 @@ namespace JobFinder.DataAccess.Seed
         {
 
             IEnumerable<Metadata> initialJobTypeMetadatas = [
-                new Metadata{ Id= Guid.NewGuid(), Type=0, Value="{data: \"Fulltime\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=0, Value="{data: \"PartTime\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=0, Value="{data: \"Internship\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=0, Value="{data: \"Freelance\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=0, Value="{data: \"Contract\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=0, Value="{data: \"Daily\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.CommitmentType, Value="{data: \"Fulltime\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.CommitmentType, Value="{data: \"PartTime\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.CommitmentType, Value="{data: \"Internship\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.CommitmentType, Value="{data: \"Freelance\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.CommitmentType, Value="{data: \"Contract\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.CommitmentType, Value="{data: \"Daily\"}"},
                 ];
             IEnumerable<Metadata> initialWorkArrangementMetadatas = [
-                new Metadata{ Id= Guid.NewGuid(), Type=1, Value="{data: \"Onsite\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=1, Value="{data: \"Remote/WFH\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=1, Value="{data: \"Hybrid\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.WorkArrangement, Value="{data: \"Onsite\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.WorkArrangement, Value="{data: \"Remote/WFH\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.WorkArrangement, Value="{data: \"Hybrid\"}"},
                 ];
             IEnumerable<Metadata> initialExperienceMetadatas = [
-                new Metadata{ Id= Guid.NewGuid(), Type=2, Value="{data: \"FreshGradute\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=2, Value="{data: \"LessThanOneYear\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=2, Value="{data: \"OneToThreeYears\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=2, Value="{data: \"ThreeToFiveYears\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=2, Value="{data: \"FiveToTenYears\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=2, Value="{data: \"MoreThanTenYears\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Experience, Value="{data: \"FreshGradute\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Experience, Value="{data: \"LessThanOneYear\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Experience, Value="{data: \"OneToThreeYears\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Experience, Value="{data: \"ThreeToFiveYears\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Experience, Value="{data: \"FiveToTenYears\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Experience, Value="{data: \"MoreThanTenYears\"}"},
                 ];
             
             IEnumerable<Metadata> initialEducationLevelMetadatas = [
-                new Metadata{ Id= Guid.NewGuid(), Type=3, Value="{data: \"PrimarySchool\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=3, Value="{data: \"SecondarySchool\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=3, Value="{data: \"SeniorOrVocationalHighSchool\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=3, Value="{data: \"Diploma\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=3, Value="{data: \"CollegeDegree\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=3, Value="{data: \"BachelorDegree\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=3, Value="{data: \"MasterDegree\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=3, Value="{data: \"Doctorate\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Education, Value="{data: \"PrimarySchool\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Education, Value="{data: \"SecondarySchool\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Education, Value="{data: \"SeniorOrVocationalHighSchool\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Education, Value="{data: \"Diploma\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Education, Value="{data: \"CollegeDegree\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Education, Value="{data: \"BachelorDegree\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Education, Value="{data: \"MasterDegree\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Education, Value="{data: \"Doctorate\"}"},
                 ];
             IEnumerable<Metadata> initialGenderMetadatas = [
-                new Metadata{ Id= Guid.NewGuid(), Type=4, Value="{data: \"Male\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=4, Value="{data: \"Female\"}"},
-                new Metadata{ Id= Guid.NewGuid(), Type=4, Value="{data: \"Others\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Gender, Value="{data: \"Male\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Gender, Value="{data: \"Female\"}"},
+                new Metadata{ Id= Guid.NewGuid(), Type=MetadataType.Gender, Value="{data: \"Others\"}"},
                 ];
             return [
                 ..initialJobTypeMetadatas, 

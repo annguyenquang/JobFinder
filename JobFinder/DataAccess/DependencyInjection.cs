@@ -32,6 +32,7 @@ namespace JobFinder.DataAccess
             services.AddScoped<IPositionRepository, PositionRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IPositionApplicationRepository, PositionApplicationRepository>();
+            services.AddScoped<IMetadataRepository, MetadataRepository>();
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using JobFinder.Model;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobFinder.Core.Entity
 {
     public class Metadata : BaseEntity
     {
         public string Value { get; set; } = string.Empty;
-        public int Type { get; set; }
+        public MetadataType Type { get; set; }
         [InverseProperty("WorkArrangement")]
         public List<Position> WorkArrangementPositions { get; set; } = new List<Position>();   
         [InverseProperty("CommitmentType")]
