@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobFinder.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241021100442_AddSeedingData")]
+    [Migration("20241021102236_AddSeedingData")]
     partial class AddSeedingData
     {
         /// <inheritdoc />
@@ -66,7 +66,7 @@ namespace JobFinder.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("297dec55-ed24-47c6-8b86-705fbb165558"),
+                            Id = new Guid("156013c8-2152-4c23-bb85-31c88f31be2d"),
                             Email = "",
                             Password = "admin",
                             Phone = "113",
@@ -74,7 +74,7 @@ namespace JobFinder.Migrations
                         },
                         new
                         {
-                            Id = new Guid("30ce66ac-e95f-4f1b-aa69-70e02e0857c8"),
+                            Id = new Guid("69258856-6fc1-44d2-843c-f826659d5393"),
                             Email = "",
                             Password = "account0",
                             Phone = "0123456789",
@@ -82,7 +82,7 @@ namespace JobFinder.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bae4fafd-cf6b-425e-9672-55b481e92bed"),
+                            Id = new Guid("0867b588-51f2-4c25-bffe-5e1d8e9646de"),
                             Email = "",
                             Password = "account1",
                             Phone = "0823456789",
@@ -90,7 +90,7 @@ namespace JobFinder.Migrations
                         },
                         new
                         {
-                            Id = new Guid("13f848e1-32f6-4c54-8b88-037689640c6f"),
+                            Id = new Guid("82a3fb5b-641e-4c7c-bd09-dfb00747f150"),
                             Email = "",
                             Password = "account2",
                             Phone = "0183456789",
@@ -98,7 +98,7 @@ namespace JobFinder.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cb4229b9-8644-46f4-a072-47d17f769e0d"),
+                            Id = new Guid("b218139a-7b7a-4394-bc57-e41be3520353"),
                             Email = "",
                             Password = "account3",
                             Phone = "0128456789",
@@ -106,7 +106,7 @@ namespace JobFinder.Migrations
                         },
                         new
                         {
-                            Id = new Guid("30b577ed-7dbc-4030-9a8b-a8fcae96121e"),
+                            Id = new Guid("b9ba5465-fb70-4f23-86d6-df702778a320"),
                             Email = "",
                             Password = "account4",
                             Phone = "0123856789",
@@ -179,8 +179,8 @@ namespace JobFinder.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ba515074-84d0-4db5-a2be-72b8cc200fa5"),
-                            AccountId = new Guid("297dec55-ed24-47c6-8b86-705fbb165558"),
+                            Id = new Guid("1bf76ac0-5244-4992-b810-120c59b57e4d"),
+                            AccountId = new Guid("156013c8-2152-4c23-bb85-31c88f31be2d"),
                             Address = "123 Tech Lane",
                             EmailContact = "info@techcorp.com",
                             EmployeeCount = 500,
@@ -193,8 +193,8 @@ namespace JobFinder.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2e3fee08-3e49-4b5e-94b7-94104a790361"),
-                            AccountId = new Guid("30ce66ac-e95f-4f1b-aa69-70e02e0857c8"),
+                            Id = new Guid("23e740e8-38f0-4bfa-a8a5-7739b999059d"),
+                            AccountId = new Guid("69258856-6fc1-44d2-843c-f826659d5393"),
                             Address = "456 Health Blvd",
                             EmailContact = "info@healthinc.com",
                             EmployeeCount = 300,
@@ -207,8 +207,8 @@ namespace JobFinder.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c083c613-0a3b-4b93-9a6b-eca88a648e7d"),
-                            AccountId = new Guid("bae4fafd-cf6b-425e-9672-55b481e92bed"),
+                            Id = new Guid("93392940-7c80-4366-8f0b-48ed2b0445bf"),
+                            AccountId = new Guid("0867b588-51f2-4c25-bffe-5e1d8e9646de"),
                             Address = "45688 London",
                             EmailContact = "info@AnRe.com",
                             EmployeeCount = 300,
@@ -481,11 +481,11 @@ namespace JobFinder.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8665ec02-69c2-4d8c-aaba-52c5361ba928"),
-                            CloseDate = new DateTime(2025, 1, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2699),
+                            Id = new Guid("a6a9de87-336a-4c77-b75c-a7a90aa99583"),
+                            CloseDate = new DateTime(2025, 1, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3290),
                             CommitmentTypeId = new Guid("540f318e-b42f-4485-9e60-8faa5bf80962"),
-                            CompanyId = new Guid("ba515074-84d0-4db5-a2be-72b8cc200fa5"),
-                            CreatedAt = new DateTime(2024, 10, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2724),
+                            CompanyId = new Guid("1bf76ac0-5244-4992-b810-120c59b57e4d"),
+                            CreatedAt = new DateTime(2024, 10, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3327),
                             Description = "Develop and maintain web applications.",
                             DistrictId = 10,
                             EducationLevelRequirementId = new Guid("bc4ecf1e-8841-47f2-86ec-b0c523f03da1"),
@@ -496,17 +496,17 @@ namespace JobFinder.Migrations
                             Salary = 80000.0,
                             Status = 1,
                             Title = "Software Engineer",
-                            UpdatedAt = new DateTime(2024, 10, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2725),
+                            UpdatedAt = new DateTime(2024, 10, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3329),
                             WorkArrangementId = new Guid("04a9de34-0869-41b2-87a8-63c20c4ba22a"),
                             WorkExperienceRequirementId = new Guid("67db1aef-c1b1-4424-8313-774a5dccdb9d")
                         },
                         new
                         {
-                            Id = new Guid("08542b94-2921-41e1-8dd6-298a16f0b238"),
-                            CloseDate = new DateTime(2024, 12, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2730),
+                            Id = new Guid("91e8cc97-9f36-4ab2-a925-2abf60004462"),
+                            CloseDate = new DateTime(2024, 12, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3333),
                             CommitmentTypeId = new Guid("5d06c3b1-2bd1-4c68-96b4-f4cd8c899dff"),
-                            CompanyId = new Guid("2e3fee08-3e49-4b5e-94b7-94104a790361"),
-                            CreatedAt = new DateTime(2024, 10, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2735),
+                            CompanyId = new Guid("23e740e8-38f0-4bfa-a8a5-7739b999059d"),
+                            CreatedAt = new DateTime(2024, 10, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3339),
                             Description = "Analyze large datasets to generate business insights.",
                             DistrictId = 15,
                             EducationLevelRequirementId = new Guid("bc44b9a9-5cd6-4195-a7bd-92b4bef6d8fb"),
@@ -517,17 +517,17 @@ namespace JobFinder.Migrations
                             Salary = 60000.0,
                             Status = 1,
                             Title = "Data Analyst",
-                            UpdatedAt = new DateTime(2024, 10, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2735),
+                            UpdatedAt = new DateTime(2024, 10, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3339),
                             WorkArrangementId = new Guid("376764fa-28ec-4a08-80e3-a6ab407e8601"),
                             WorkExperienceRequirementId = new Guid("bf38a1b9-dee3-455a-87c1-4e034fe806f7")
                         },
                         new
                         {
-                            Id = new Guid("579c16a6-d21d-4768-837f-8bac7e9f84ab"),
-                            CloseDate = new DateTime(2025, 2, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2748),
+                            Id = new Guid("6c89316c-508f-42be-bced-ef25963eca96"),
+                            CloseDate = new DateTime(2025, 2, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3342),
                             CommitmentTypeId = new Guid("540f318e-b42f-4485-9e60-8faa5bf80962"),
-                            CompanyId = new Guid("c083c613-0a3b-4b93-9a6b-eca88a648e7d"),
-                            CreatedAt = new DateTime(2024, 10, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2752),
+                            CompanyId = new Guid("93392940-7c80-4366-8f0b-48ed2b0445bf"),
+                            CreatedAt = new DateTime(2024, 10, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3349),
                             Description = "Oversee product development lifecycle.",
                             DistrictId = 20,
                             EducationLevelRequirementId = new Guid("a3fb036a-04fc-4590-b87d-6ed32e2ec692"),
@@ -538,17 +538,17 @@ namespace JobFinder.Migrations
                             Salary = 95000.0,
                             Status = 1,
                             Title = "Product Manager",
-                            UpdatedAt = new DateTime(2024, 10, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2752),
+                            UpdatedAt = new DateTime(2024, 10, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3350),
                             WorkArrangementId = new Guid("c199da74-c2fb-4381-b093-cf2f1e3e8f06"),
                             WorkExperienceRequirementId = new Guid("646ccd9f-aa2f-413e-8d3e-eb8ab0b14c96")
                         },
                         new
                         {
-                            Id = new Guid("54674294-2976-41f8-8b74-3156dc10a3e8"),
-                            CloseDate = new DateTime(2025, 1, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2755),
+                            Id = new Guid("83e368d9-09cd-4deb-a70f-99dccc6d9588"),
+                            CloseDate = new DateTime(2025, 1, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3352),
                             CommitmentTypeId = new Guid("44b668b2-09ee-499e-af95-73598f9153a2"),
-                            CompanyId = new Guid("ba515074-84d0-4db5-a2be-72b8cc200fa5"),
-                            CreatedAt = new DateTime(2024, 10, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2759),
+                            CompanyId = new Guid("1bf76ac0-5244-4992-b810-120c59b57e4d"),
+                            CreatedAt = new DateTime(2024, 10, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3356),
                             Description = "Design intuitive user interfaces.",
                             DistrictId = 25,
                             EducationLevelRequirementId = new Guid("bc4ecf1e-8841-47f2-86ec-b0c523f03da1"),
@@ -559,7 +559,7 @@ namespace JobFinder.Migrations
                             Salary = 70000.0,
                             Status = 1,
                             Title = "UX Designer",
-                            UpdatedAt = new DateTime(2024, 10, 21, 17, 4, 42, 532, DateTimeKind.Local).AddTicks(2760),
+                            UpdatedAt = new DateTime(2024, 10, 21, 17, 22, 36, 271, DateTimeKind.Local).AddTicks(3357),
                             WorkArrangementId = new Guid("04a9de34-0869-41b2-87a8-63c20c4ba22a"),
                             WorkExperienceRequirementId = new Guid("cc4121b2-72c2-4226-ad12-24e722b50cc2")
                         });

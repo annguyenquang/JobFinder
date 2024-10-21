@@ -9,34 +9,34 @@ namespace JobFinder.DataAccess.Seed
         {
             Account adminAccount = new Account()
             {
-                Id = Guid.Parse("297dec55-ed24-47c6-8b86-705fbb165558"),
+                Id = Guid.NewGuid(),
                 Username = "admin",
                 Password = "admin",
                 Phone = "113"
             };
             IEnumerable<Account> accounts = [
                 new Account(){
-                    Id=Guid.Parse("30ce66ac-e95f-4f1b-aa69-70e02e0857c8"),
+                    Id=Guid.NewGuid(),
                     Username="account0",
                     Password="account0",
                     Phone="0123456789" },
                 new Account() {
-                    Id=Guid.Parse("bae4fafd-cf6b-425e-9672-55b481e92bed"),
+                    Id=Guid. NewGuid(),
                     Username="account1",
                     Password="account1",
                     Phone="0823456789" },
                 new Account() {
-                    Id=Guid.Parse("13f848e1-32f6-4c54-8b88-037689640c6f"),
+                    Id=Guid.NewGuid(),
                     Username="account2",
                     Password="account2",
                     Phone="0183456789" },
                 new Account() {
-                    Id=Guid.Parse("cb4229b9-8644-46f4-a072-47d17f769e0d"),
+                    Id=Guid.NewGuid(),
                     Username="account3",
                     Password="account3",
                     Phone="0128456789" },
                 new Account() {
-                    Id=Guid.Parse("30b577ed-7dbc-4030-9a8b-a8fcae96121e"),
+                    Id=Guid.NewGuid(),
                     Username="account4",
                     Password="account4",
                     Phone="0123856789" },
@@ -46,9 +46,6 @@ namespace JobFinder.DataAccess.Seed
         }
         public static IEnumerable<Company> GetCompanySeeds(IEnumerable<Account> accounts)
         {
-            Console.WriteLine(accounts.First());
-            Console.WriteLine(accounts.Skip(1).First().Id);
-            Console.WriteLine(accounts.Skip(2).First().Id);
             return new[]
             {
                 new Company
