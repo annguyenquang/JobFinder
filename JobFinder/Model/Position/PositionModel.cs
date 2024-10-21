@@ -16,7 +16,7 @@ public class PositionModel : BaseResponseModel
     public MetadataModel? WorkExperienceRequirement { get; set; }
     public MetadataModel? WorkArrangement { get; set; }
     public MetadataModel? CommitmentType { get; set; }
-    public Guid CompanyId { get; set; }
+    public CompanyModel Company { get; set; } = null!;
     public DateTime? CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public Guid? CreatedBy { get; set; }
