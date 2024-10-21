@@ -5,6 +5,96 @@ namespace JobFinder.DataAccess.Seed
 {
     public class DataSeed
     {
+        public static IEnumerable<Account> GetAccountSeeds()
+        {
+            Account adminAccount = new Account()
+            {
+                Id = Guid.Parse("297dec55-ed24-47c6-8b86-705fbb165558"),
+                Username = "admin",
+                Password = "admin",
+                Phone = "113"
+            };
+            IEnumerable<Account> accounts = [
+                new Account(){
+                    Id=Guid.Parse("30ce66ac-e95f-4f1b-aa69-70e02e0857c8"),
+                    Username="account0",
+                    Password="account0",
+                    Phone="0123456789" },
+                new Account() {
+                    Id=Guid.Parse("bae4fafd-cf6b-425e-9672-55b481e92bed"),
+                    Username="account1",
+                    Password="account1",
+                    Phone="0823456789" },
+                new Account() {
+                    Id=Guid.Parse("13f848e1-32f6-4c54-8b88-037689640c6f"),
+                    Username="account2",
+                    Password="account2",
+                    Phone="0183456789" },
+                new Account() {
+                    Id=Guid.Parse("cb4229b9-8644-46f4-a072-47d17f769e0d"),
+                    Username="account3",
+                    Password="account3",
+                    Phone="0128456789" },
+                new Account() {
+                    Id=Guid.Parse("30b577ed-7dbc-4030-9a8b-a8fcae96121e"),
+                    Username="account4",
+                    Password="account4",
+                    Phone="0123856789" },
+
+                ];
+            return [adminAccount, .. accounts];
+        }
+        public static IEnumerable<Company> GetCompanySeeds(IEnumerable<Account> accounts)
+        {
+            Console.WriteLine(accounts.First());
+            Console.WriteLine(accounts.Skip(1).First().Id);
+            Console.WriteLine(accounts.Skip(2).First().Id);
+            return new[]
+            {
+                new Company
+                {
+                    Id = Guid.NewGuid(),
+                    AccountId = accounts.First().Id,
+                    Name = "Tech Corp",
+                    EmailContact = "info@techcorp.com",
+                    PhoneContact = "123456789",
+                    EmployeeCount = 500,
+                    Slug = "tech-corp",
+                    Address = "123 Tech Lane",
+                    Website = "www.techcorp.com",
+                    Industry = "Technology",
+                    Nation = "USA"
+                },
+                new Company
+                {
+                    Id = Guid.NewGuid(),
+                    AccountId = accounts.Skip(1).First().Id,
+                    Name = "Health Inc.",
+                    EmailContact = "info@healthinc.com",
+                    PhoneContact = "987654321",
+                    EmployeeCount = 300,
+                    Slug = "health-inc",
+                    Address = "456 Health Blvd",
+                    Website = "www.healthinc.com",
+                    Industry = "Healthcare",
+                    Nation = "USA"
+                },
+                new Company
+                {
+                    Id = Guid.NewGuid(),
+                    AccountId = accounts.Skip(2).First().Id,
+                    Name = "An Inc.",
+                    EmailContact = "info@AnRe.com",
+                    PhoneContact = "98765432112",
+                    EmployeeCount = 300,
+                    Slug = "an-pro-ga",
+                    Address = "45688 London",
+                    Website = "www.Anrp.com",
+                    Industry = "IT",
+                    Nation = "VN"
+                },
+            };
+        }
         public static IEnumerable<Metadata> GetMetadataSeeds()
         {
 
@@ -29,7 +119,7 @@ namespace JobFinder.DataAccess.Seed
                 new Metadata{ Id= Guid.Parse("bf38a1b9-dee3-455a-87c1-4e034fe806f7"), Type=MetadataType.Experience, Value="{data: \"FiveToTenYears\"}"},
                 new Metadata{ Id= Guid.Parse("646ccd9f-aa2f-413e-8d3e-eb8ab0b14c96"), Type=MetadataType.Experience, Value="{data: \"MoreThanTenYears\"}"},
                 ];
-            
+
             IEnumerable<Metadata> initialEducationLevelMetadatas = [
                 new Metadata{ Id= Guid.Parse("ceb115a0-3ffe-455c-b24e-9eff074e1ec1"), Type=MetadataType.Education, Value="{data: \"PrimarySchool\"}"},
                 new Metadata{ Id= Guid.Parse("c9d2f457-06bf-40ad-9a4a-d6e201888129"), Type=MetadataType.Education, Value="{data: \"SecondarySchool\"}"},
@@ -46,12 +136,117 @@ namespace JobFinder.DataAccess.Seed
                 new Metadata{ Id= Guid.Parse("12497687-64b8-4d8e-814a-b7d1d33d3aab"), Type=MetadataType.Gender, Value="{data: \"Others\"}"},
                 ];
             return [
-                ..initialJobTypeMetadatas, 
-                ..initialWorkArrangementMetadatas, 
+                ..initialJobTypeMetadatas,
+                ..initialWorkArrangementMetadatas,
                 ..initialExperienceMetadatas,
                 ..initialEducationLevelMetadatas,
                 ..initialGenderMetadatas
             ];
         }
+        public static IEnumerable<Position> GetPositionSeeds(IEnumerable<Company> companies, IEnumerable<Metadata> metadatas)
+        {
+            var workArrangements = metadatas.Where(m => m.Type == MetadataType.WorkArrangement).ToList();
+            var commitmentTypes = metadatas.Where(m => m.Type == MetadataType.CommitmentType).ToList();
+            var genderRequirements = metadatas.Where(m => m.Type == MetadataType.Gender).ToList();
+            var educationLevels = metadatas.Where(m => m.Type == MetadataType.Education).ToList();
+            var workExperienceLevels = metadatas.Where(m => m.Type == MetadataType.Experience).ToList();
+
+            var company1 = companies.ElementAt(0);
+            var company2 = companies.ElementAt(1);
+            var company3 = companies.ElementAt(2);
+
+            // Manually create 20 job instances with varied metadata
+            return new List<Position>
+    {
+        new Position
+        {
+            Id = Guid.NewGuid(),
+            Title = "Software Engineer",
+            Description = "Develop and maintain web applications.",
+            Salary = 80000,
+            Status = PositionStatus.Open,
+            CloseDate = DateTime.Now.AddMonths(3),
+            MinAgeRequirement = 21,
+            MaxAgeRequirement = 35,
+            ProvinceId = 1,
+            DistrictId = 10,
+            WorkArrangementId = workArrangements[0].Id, // Onsite
+            CommitmentTypeId = commitmentTypes[0].Id, // Fulltime
+            GenderRequirementId = genderRequirements[0].Id, // Male
+            EducationLevelRequirementId = educationLevels[5].Id, // BachelorDegree
+            WorkExperienceRequirementId = workExperienceLevels[3].Id, // ThreeToFiveYears
+            CompanyId = company1.Id,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now
+        },
+        new Position
+        {
+            Id = Guid.NewGuid(),
+            Title = "Data Analyst",
+            Description = "Analyze large datasets to generate business insights.",
+            Salary = 60000,
+            Status = PositionStatus.Open,
+            CloseDate = DateTime.Now.AddMonths(2),
+            MinAgeRequirement = 23,
+            MaxAgeRequirement = 40,
+            ProvinceId = 2,
+            DistrictId = 15,
+            WorkArrangementId = workArrangements[1].Id, // Remote/WFH
+            CommitmentTypeId = commitmentTypes[1].Id, // PartTime
+            GenderRequirementId = genderRequirements[1].Id, // Female
+            EducationLevelRequirementId = educationLevels[6].Id, // MasterDegree
+            WorkExperienceRequirementId = workExperienceLevels[4].Id, // FiveToTenYears
+            CompanyId = company2.Id,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now
+        },
+        new Position
+        {
+            Id = Guid.NewGuid(),
+            Title = "Product Manager",
+            Description = "Oversee product development lifecycle.",
+            Salary = 95000,
+            Status = PositionStatus.Open,
+            CloseDate = DateTime.Now.AddMonths(4),
+            MinAgeRequirement = 28,
+            MaxAgeRequirement = 45,
+            ProvinceId = 3,
+            DistrictId = 20,
+            WorkArrangementId = workArrangements[2].Id, // Hybrid
+            CommitmentTypeId = commitmentTypes[0].Id, // Fulltime
+            GenderRequirementId = genderRequirements[2].Id, // Others
+            EducationLevelRequirementId = educationLevels[4].Id, // CollegeDegree
+            WorkExperienceRequirementId = workExperienceLevels[5].Id, // MoreThanTenYears
+            CompanyId = company3.Id,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now
+        },
+        // Add the remaining positions similarly, ensuring to use foreign keys
+        // For example:
+        new Position
+        {
+            Id = Guid.NewGuid(),
+            Title = "UX Designer",
+            Description = "Design intuitive user interfaces.",
+            Salary = 70000,
+            Status = PositionStatus.Open,
+            CloseDate = DateTime.Now.AddMonths(3),
+            MinAgeRequirement = 24,
+            MaxAgeRequirement = 38,
+            ProvinceId = 4,
+            DistrictId = 25,
+            WorkArrangementId = workArrangements[0].Id, // Onsite
+            CommitmentTypeId = commitmentTypes[4].Id, // Contract
+            GenderRequirementId = genderRequirements[0].Id, // Male
+            EducationLevelRequirementId = educationLevels[5].Id, // BachelorDegree
+            WorkExperienceRequirementId = workExperienceLevels[2].Id, // OneToThreeYears
+            CompanyId = company1.Id,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now
+        },
+        // ... continue for all positions
+    };
+        }
+
     }
 }

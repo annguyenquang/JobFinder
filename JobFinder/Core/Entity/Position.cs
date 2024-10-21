@@ -17,10 +17,15 @@ namespace JobFinder.Core.Entity
         /// Requirements
         public int? MinAgeRequirement { get; set; }
         public int? MaxAgeRequirement { get; set; }
+        public Guid? WorkArrangementId { get; set; }
         public Metadata? WorkArrangement { get; set; }
+        public Guid? CommitmentTypeId { get; set; }
         public Metadata? CommitmentType { get; set; }
+        public Guid? GenderRequirementId { get; set; }
         public Metadata? GenderRequirement { get; set; }
+        public Guid? EducationLevelRequirementId { get; set; }
         public Metadata? EducationLevelRequirement { get; set; }
+        public Guid? WorkExperienceRequirementId { get; set; }
         public Metadata? WorkExperienceRequirement { get; set; }
         public Guid CompanyId { get; set; }
         public Company Company { get; set; } = null!;
