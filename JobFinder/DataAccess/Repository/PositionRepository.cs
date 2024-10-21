@@ -18,6 +18,7 @@ namespace JobFinder.DataAccess.Repository
         public new async Task<ListModel<Position>> GetAllAsListModelAsync(IFilter<Position> filter, Order order, Pagination pagination)
         {
             var queryable = DbSet
+                .Include(x => x.Company)
                 .Include(x => x.WorkArrangement) 
                 .Include(x => x.CommitmentType) 
                 .Include(x => x.WorkExperienceRequirement) 
