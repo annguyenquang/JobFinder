@@ -49,16 +49,15 @@ namespace JobFinder.DataAccess.Persistent
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Account>().HasData(new Account
-            {
-                Id = Guid.NewGuid(),
-                Username = "Admin",
-                Password = "Admin",
-                Email = "admin@gmail.com",
-                Phone = "0123456789"
-            });
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Metadata>().HasData(DataSeed.GetMetadataSeeds());
+            var accounts = DataSeed.GetAccountSeeds();
+            var metadatas = DataSeed.GetMetadataSeeds();
+            var companies = DataSeed.GetCompanySeeds(accounts);
+            var position = DataSeed.GetPositionSeeds(companies, metadatas);
+            modelBuilder.Entity<Account>().HasData(accounts);
+            modelBuilder.Entity<Metadata>().HasData(metadatas);
+            modelBuilder.Entity<Company>().HasData(companies);
+            modelBuilder.Entity<Position>().HasData(position);
         }
     }
 }
