@@ -14,6 +14,18 @@ namespace JobFinder.DataAccess.Repository
         public CompanyRepository(DatabaseContext _dbContext) : base(_dbContext)
         {
         }
+
+        public async Task<Company> GetCompanyBySlug(string slug)
+        {
+            var company = await DbSet.FirstOrDefaultAsync(x => x.Slug == slug);
+            if(company == null)
+            {
+                throw new BadHttpRequestException ("Company not found");
+            }
+            return company;
+
+        }
+
         public async Task<ListModel<Position>> GetCompanyPositions(Guid companyId, PositionFilter filter, Order order, Pagination pagination)
         {
             IQueryable<Company> queryableCompany = DbSet
