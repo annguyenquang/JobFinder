@@ -7,7 +7,7 @@
         public string LastName { get; set; } = string.Empty;
         public DateOnly DateOfBirth { get; set; }
         public Account Account { get; set; } = null!;
-        public IEnumerable<PositionApplication> PositionApplications { get; set; } = new List<PositionApplication>();
+        public IEnumerable<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public Guid? CreatedBy { get; set; }

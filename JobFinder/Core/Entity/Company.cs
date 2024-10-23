@@ -16,7 +16,7 @@ namespace JobFinder.Core.Entity
         public string? Industry { get; set; } = string.Empty;
         public string Nation { get; set; } = string.Empty;
         public Account Account { get; set; } = null!;
-        public IEnumerable<Position> Positions { get; set; } = new List<Position>();
+        public IEnumerable<Job> Jobs { get; set; } = new List<Job>();
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public Guid? CreatedBy { get; set; }

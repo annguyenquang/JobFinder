@@ -8,14 +8,14 @@ namespace JobFinder.Core.Entity
         public string Value { get; set; } = string.Empty;
         public MetadataType Type { get; set; }
         [InverseProperty("WorkArrangement")]
-        public List<Position> WorkArrangementPositions { get; set; } = new List<Position>();   
+        public List<Job> WorkArrangementJobs { get; set; } = new List<Job>();   
         [InverseProperty("CommitmentType")]
-        public List<Position> CommitmentTypePositions { get; set; } = new List<Position>();   
+        public List<Job> CommitmentTypeJobs { get; set; } = new List<Job>();   
         [InverseProperty("GenderRequirement")]
-        public List<Position> GenderRequirementPositions { get; set; } = new List<Position>();   
+        public List<Job> GenderRequirementJobs { get; set; } = new List<Job>();   
         [InverseProperty("EducationLevelRequirement")]
-        public List<Position> EducationLevelRequirementPositions { get; set; } = new List<Position>();   
+        public List<Job> EducationLevelRequirementJobs { get; set; } = new List<Job>();   
         [InverseProperty("WorkExperienceRequirement")]
-        public List<Position> WorkExperienceRequirementPositions { get; set; } = new List<Position>();   
+        public List<Job> WorkExperienceRequirementJobs { get; set; } = new List<Job>();   
     }
 }

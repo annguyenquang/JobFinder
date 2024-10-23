@@ -26,11 +26,11 @@ namespace JobFinder.Controllers
             var company = await _companyService.GetCompanyBySlugAsync(slug);
             return ApiResult<CompanyModel>.Success(company);
         }
-        [HttpGet("{id}/positions")]
-        public async Task<ApiResult<ListResponseModel<PositionModel>>> GetCompanyPositions(Guid id, [FromQuery] GetCompanyPositionsParams param)
+        [HttpGet("{id}/jobs")]
+        public async Task<ApiResult<ListResponseModel<JobModel>>> GetCompanyJobs(Guid id, [FromQuery] GetCompanyJobsParams param)
         {
-            var positions = await _companyService.GetCompanyPositions(id, param.Filter, param.Order, param.Pagination);
-            return ApiResult<ListResponseModel<PositionModel>>.Success(positions);
+            var jobs = await _companyService.GetCompanyJobs(id, param.Filter, param.Order, param.Pagination);
+            return ApiResult<ListResponseModel<JobModel>>.Success(jobs);
         } 
         [HttpPost]
         public async Task<ApiResult<CreateCompanyResponseModel>> CreateCompany(CreateCompanyModel Company)

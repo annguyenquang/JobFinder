@@ -140,7 +140,7 @@ namespace JobFinder.DataAccess.Seed
                 ..initialGenderMetadatas
             ];
         }
-        public static IEnumerable<Position> GetPositionSeeds(IEnumerable<Company> companies, IEnumerable<Metadata> metadatas)
+        public static IEnumerable<Job> GetJobSeeds(IEnumerable<Company> companies, IEnumerable<Metadata> metadatas)
         {
             var workArrangements = metadatas.Where(m => m.Type == MetadataType.WorkArrangement).ToList();
             var commitmentTypes = metadatas.Where(m => m.Type == MetadataType.CommitmentType).ToList();
@@ -153,15 +153,15 @@ namespace JobFinder.DataAccess.Seed
             var company3 = companies.ElementAt(2);
 
             // Manually create 20 job instances with varied metadata
-            return new List<Position>
+            return new List<Job>
     {
-        new Position
+        new Job
         {
             Id = Guid.NewGuid(),
             Title = "Software Engineer",
             Description = "Develop and maintain web applications.",
             Salary = 80000,
-            Status = PositionStatus.Open,
+            Status = JobStatus.Open,
             CloseDate = DateTime.Now.AddMonths(3),
             MinAgeRequirement = 21,
             MaxAgeRequirement = 35,
@@ -176,13 +176,13 @@ namespace JobFinder.DataAccess.Seed
             CreatedAt = DateTime.Now,
             UpdatedAt = DateTime.Now
         },
-        new Position
+        new Job
         {
             Id = Guid.NewGuid(),
             Title = "Data Analyst",
             Description = "Analyze large datasets to generate business insights.",
             Salary = 60000,
-            Status = PositionStatus.Open,
+            Status = JobStatus.Open,
             CloseDate = DateTime.Now.AddMonths(2),
             MinAgeRequirement = 23,
             MaxAgeRequirement = 40,
@@ -197,13 +197,13 @@ namespace JobFinder.DataAccess.Seed
             CreatedAt = DateTime.Now,
             UpdatedAt = DateTime.Now
         },
-        new Position
+        new Job
         {
             Id = Guid.NewGuid(),
             Title = "Product Manager",
             Description = "Oversee product development lifecycle.",
             Salary = 95000,
-            Status = PositionStatus.Open,
+            Status = JobStatus.Open,
             CloseDate = DateTime.Now.AddMonths(4),
             MinAgeRequirement = 28,
             MaxAgeRequirement = 45,
@@ -218,15 +218,15 @@ namespace JobFinder.DataAccess.Seed
             CreatedAt = DateTime.Now,
             UpdatedAt = DateTime.Now
         },
-        // Add the remaining positions similarly, ensuring to use foreign keys
+        // Add the remaining jobs similarly, ensuring to use foreign keys
         // For example:
-        new Position
+        new Job
         {
             Id = Guid.NewGuid(),
             Title = "UX Designer",
             Description = "Design intuitive user interfaces.",
             Salary = 70000,
-            Status = PositionStatus.Open,
+            Status = JobStatus.Open,
             CloseDate = DateTime.Now.AddMonths(3),
             MinAgeRequirement = 24,
             MaxAgeRequirement = 38,
@@ -241,7 +241,7 @@ namespace JobFinder.DataAccess.Seed
             CreatedAt = DateTime.Now,
             UpdatedAt = DateTime.Now
         },
-        // ... continue for all positions
+        // ... continue for all jobs
     };
         }
 
