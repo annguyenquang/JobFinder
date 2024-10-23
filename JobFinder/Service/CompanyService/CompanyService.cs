@@ -66,13 +66,13 @@ namespace JobFinder.Service
             var res = await _companyRepository.UpdateAsync(currentCompany);
             return _mapper.Map<UpdateCompanyReponseModel>(res);
         }
-        public async Task<ListResponseModel<PositionModel>> GetCompanyPositions(Guid id, PositionFilter filter, Order order, Pagination pagination)
+        public async Task<ListResponseModel<JobModel>> GetCompanyJobs(Guid id, JobFilter filter, Order order, Pagination pagination)
         {
-            var positions = await _companyRepository.GetCompanyPositions(id, filter, order, pagination);
-            var result = new ListResponseModel<PositionModel>
+            var jobs = await _companyRepository.GetCompanyJobs(id, filter, order, pagination);
+            var result = new ListResponseModel<JobModel>
             {
-                Data = _mapper.Map<List<PositionModel>>(positions.Data),
-                Total = positions.Total,
+                Data = _mapper.Map<List<JobModel>>(jobs.Data),
+                Total = jobs.Total,
                 Pagination = pagination
             };
             return result;

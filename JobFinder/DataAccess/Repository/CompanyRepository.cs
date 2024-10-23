@@ -26,34 +26,34 @@ namespace JobFinder.DataAccess.Repository
 
         }
 
-        public async Task<ListModel<Position>> GetCompanyPositions(Guid companyId, PositionFilter filter, Order order, Pagination pagination)
+        public async Task<ListModel<Job>> GetCompanyJobs(Guid companyId, JobFilter filter, Order order, Pagination pagination)
         {
             IQueryable<Company> queryableCompany = DbSet
-                .Include(x => x.Positions)
+                .Include(x => x.Jobs)
                 .AsQueryable();
             queryableCompany = queryableCompany.Where(x => x.Id == companyId);
 
-            var queryablePosition = queryableCompany.SelectMany(x => x.Positions);
+            var queryableJob = queryableCompany.SelectMany(x => x.Jobs);
             
             if (filter != null)
             {
-                queryablePosition = filter.filters(queryablePosition);
+                queryableJob = filter.filters(queryableJob);
             }
             if (order != null)
             {
-                queryablePosition = Order.ApplyOrdering(queryablePosition, order.By, order.IsDesc);
+                queryableJob = Order.ApplyOrdering(queryableJob, order.By, order.IsDesc);
             }
-            int total = await queryablePosition.CountAsync();
+            int total = await queryableJob.CountAsync();
             if (pagination != null)
             {
                 int skip = pagination.PageSize * (pagination.Page - 1);
                 int take = pagination.PageSize;
-                queryablePosition = queryablePosition.Skip(skip).Take(take);
+                queryableJob = queryableJob.Skip(skip).Take(take);
             }
 
-            var result = new ListModel<Position>
+            var result = new ListModel<Job>
             {
-                Data = await queryablePosition.ToListAsync(),
+                Data = await queryableJob.ToListAsync(),
                 Total = total,
             };
 

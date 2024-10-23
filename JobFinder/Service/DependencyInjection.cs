@@ -7,10 +7,10 @@ namespace JobFinder.Service
         public static void AddService(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<IPositionService, PositionService>();
+            services.AddScoped<IJobService, JobService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IStorageService, AzureStorageService>();
-            services.AddScoped<IPositionApplicationService, PositionApplicationService>();
+            services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<IMetadataService, MetadataService>();
         }
     }

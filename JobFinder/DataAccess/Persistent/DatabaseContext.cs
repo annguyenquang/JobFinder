@@ -12,8 +12,8 @@ namespace JobFinder.DataAccess.Persistent
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Position> Positions { get; set; }
-        public DbSet<PositionApplication> PositionApplications { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<Metadata> Metadatas { get; set; }
 
         
@@ -53,11 +53,11 @@ namespace JobFinder.DataAccess.Persistent
             var accounts = DataSeed.GetAccountSeeds();
             var metadatas = DataSeed.GetMetadataSeeds();
             var companies = DataSeed.GetCompanySeeds(accounts);
-            var position = DataSeed.GetPositionSeeds(companies, metadatas);
+            var position = DataSeed.GetJobSeeds(companies, metadatas);
             modelBuilder.Entity<Account>().HasData(accounts);
             modelBuilder.Entity<Metadata>().HasData(metadatas);
             modelBuilder.Entity<Company>().HasData(companies);
-            modelBuilder.Entity<Position>().HasData(position);
+            modelBuilder.Entity<Job>().HasData(position);
         }
     }
 }
