@@ -7,7 +7,8 @@ namespace JobFinder.Core.Repository
 {
     public interface IJobRepository : IBaseRepository<Job>
     {
-        public new Task<ListModel<Job>> GetAllAsListModelAsync(IFilter<Job> filter, Order order, Pagination pagination);
+        new Task<ListModel<Job>> GetAllAsListModelAsync(IFilter<Job> filter, Order order, Pagination pagination);
+        new Task<Job> GetAsync(Guid id);
         Task<Job> UpdateAsync(Guid id, Job newJob);
     }
 }
