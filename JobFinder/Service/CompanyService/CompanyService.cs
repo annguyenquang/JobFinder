@@ -78,5 +78,10 @@ namespace JobFinder.Service
             return result;
         }
 
+        public async Task<CompanyModel> GetCompanyBySlugAsync(string slug)
+        {
+            var companyModel = _mapper.Map<CompanyModel>(await _companyRepository.GetCompanyBySlug(slug));
+            return companyModel;
+        }
     }
 }

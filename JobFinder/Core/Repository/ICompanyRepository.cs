@@ -8,5 +8,6 @@ namespace JobFinder.Core.Repository
     public interface ICompanyRepository : IBaseRepository<Company>
     {
         Task<ListModel<Position>> GetCompanyPositions(Guid companyId, PositionFilter filter, Order order, Pagination pagination);
+        Task<Company> GetCompanyBySlug(string slug);
     }
 }

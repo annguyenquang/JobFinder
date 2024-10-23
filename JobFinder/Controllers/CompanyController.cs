@@ -19,7 +19,13 @@ namespace JobFinder.Controllers
         {
             var companies = await _companyService.GetAllCompanyAsync(param.Filter, param.Order, param.Pagination);
             return ApiResult<ListResponseModel<CompanyModel>>.Success(companies);
-        } 
+        }
+        [HttpGet("{slug}")]
+        public async Task<ApiResult<CompanyModel>> GetCompanyBySlug(string slug)
+        {
+            var company = await _companyService.GetCompanyBySlugAsync(slug);
+            return ApiResult<CompanyModel>.Success(company);
+        }
         [HttpGet("{id}/positions")]
         public async Task<ApiResult<ListResponseModel<PositionModel>>> GetCompanyPositions(Guid id, [FromQuery] GetCompanyPositionsParams param)
         {
