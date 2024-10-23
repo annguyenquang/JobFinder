@@ -32,8 +32,8 @@ namespace JobFinder.DataAccess.Persistent
 
         private void AddTimestamps()
         {
-            var entities = ChangeTracker.Entries<ICredentialEntity>()
-                .Where(x => x.Entity is ICredentialEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+            var entities = ChangeTracker.Entries<IAuditableEntity>()
+                .Where(x => x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
             foreach (var entity in entities)
             {

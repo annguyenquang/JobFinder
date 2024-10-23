@@ -1,6 +1,6 @@
 ﻿namespace JobFinder.Core.Entity
 {
-    public class PositionApplication : BaseEntity, ICredentialEntity
+    public class PositionApplication : BaseEntity, IAuditableEntity
         {
         public Guid PositionId { get; set; }
         public Guid? UserId { get; set; }

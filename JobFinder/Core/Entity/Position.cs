@@ -4,7 +4,7 @@ namespace JobFinder.Core.Entity
 {
 
 
-    public class Position : BaseEntity, ICredentialEntity
+    public class Position : BaseEntity, IAuditableEntity
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
