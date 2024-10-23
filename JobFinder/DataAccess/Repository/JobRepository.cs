@@ -2,6 +2,7 @@ using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
 using JobFinder.Model;
+using JobFinder.Model.Exceptions;
 using JobFinder.Model.Utils;
 using JobFinder.Model.Utils.Fetching;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,20 @@ namespace JobFinder.DataAccess.Repository
     {
         public JobRepository(DatabaseContext _dbContext) : base(_dbContext)
         {
+        }
+        public new async Task<Job> GetAsync(Guid id)
+        {
+            var result = await DbSet
+                .Include(x => x.Company)
+                .Include(x => x.WorkArrangement) 
+                .Include(x => x.CommitmentType) 
+                .Include(x => x.WorkExperienceRequirement) 
+                .Include(x => x.EducationLevelRequirement) 
+                .Include(x => x.GenderRequirement) 
+                .SingleAsync(x => x.Id == id);
+            if (result == null) throw new NotFoundException($"Resouce of type {typeof(Job)} is not founded");
+            return result;
+
         }
         
         public new async Task<ListModel<Job>> GetAllAsListModelAsync(IFilter<Job> filter, Order order, Pagination pagination)
