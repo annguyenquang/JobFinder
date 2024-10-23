@@ -3,7 +3,7 @@
 namespace JobFinder.Core.Entity
 {
     [Index(nameof(Slug), IsUnique = true)] 
-    public class Company : BaseEntity, ICredentialEntity
+    public class Company : BaseEntity, IAuditableEntity
     {
         public Guid AccountId { get; set; }
         public string Name { get; set; } = string.Empty;

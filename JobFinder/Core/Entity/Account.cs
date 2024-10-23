@@ -1,7 +1,7 @@
 ﻿
 namespace JobFinder.Core.Entity
 {
-    public class Account: BaseEntity, ICredentialEntity
+    public class Account: BaseEntity, IAuditableEntity
     {
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
