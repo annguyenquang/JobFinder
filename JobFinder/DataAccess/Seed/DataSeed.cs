@@ -1,5 +1,6 @@
 ﻿using JobFinder.Core.Entity;
 using JobFinder.Model;
+using BC = BCrypt.Net.BCrypt;
 
 namespace JobFinder.DataAccess.Seed
 {
@@ -11,34 +12,34 @@ namespace JobFinder.DataAccess.Seed
             {
                 Id = Guid.NewGuid(),
                 Username = "admin",
-                Password = "admin",
+                Password = BC.HashPassword("admin"),
                 Phone = "113"
             };
             IEnumerable<Account> accounts = [
                 new Account(){
                     Id=Guid.NewGuid(),
                     Username="account0",
-                    Password="account0",
+                    Password= BC.HashPassword("account0"),
                     Phone="0123456789" },
                 new Account() {
                     Id=Guid. NewGuid(),
                     Username="account1",
-                    Password="account1",
+                    Password= BC.HashPassword("account1"),
                     Phone="0823456789" },
                 new Account() {
                     Id=Guid.NewGuid(),
                     Username="account2",
-                    Password="account2",
+                    Password= BC.HashPassword("account2"),
                     Phone="0183456789" },
                 new Account() {
                     Id=Guid.NewGuid(),
                     Username="account3",
-                    Password="account3",
+                    Password= BC.HashPassword("account3"),
                     Phone="0128456789" },
                 new Account() {
                     Id=Guid.NewGuid(),
                     Username="account4",
-                    Password="account4",
+                    Password= BC.HashPassword("account4"),
                     Phone="0123856789" },
 
                 ];
