@@ -4,6 +4,7 @@
     {
         public const string AppSetting = "AppSettings";
         public string AZURE_STORAGE_CONNECTION_STRING { get; set; } = string.Empty;
+        public string JwtSecretKey { get; set; } = string.Empty;
     }
 }
 
