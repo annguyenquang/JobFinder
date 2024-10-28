@@ -65,7 +65,25 @@ builder.Services
             ValidateAudience = false
         };
     });
-
+//CORS
+string AllowAllCorsPolicy = "AllowAllCorsPolicy";
+string AllowOnlyClientCorsPolicy = "AllowOnlyClientCorsPolicy";
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(AllowAllCorsPolicy,
+        builder => builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(AllowOnlyClientCorsPolicy,
+        builder => builder
+            .WithOrigins(appSettings?.Value.ClientUrl)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials());
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -78,7 +96,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors(AllowOnlyClientCorsPolicy);
 app.MapControllers();
 
 //middlewares
