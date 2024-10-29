@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using JobFinder.Core.Entity;
 using BC = BCrypt.Net.BCrypt;
 
 namespace JobFinder.Service
@@ -38,6 +39,13 @@ namespace JobFinder.Service
                 }
             }
             throw new Exception("Invalid Username");
+        }
+
+        public async Task<CreateAccountModelResponse> CreateAccount(CreateAccountModel accountModel)
+        {   
+           Account account = _mapper.Map<Account>(accountModel);
+           var res =  await _accountRepository.AddAsync(account);
+           return _mapper.Map<CreateAccountModelResponse>(res);
         }
 
         public string GenerateToken(string userName)

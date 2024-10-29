@@ -9,6 +9,8 @@ namespace JobFinder.Service.AutoMapper
        public AccountProfile()
         {
             CreateMap<Account, AccountModel>();
+            CreateMap<CreateAccountModel, Account>();
+            CreateMap<Account, CreateAccountModelResponse>();
         } 
     }
 }

@@ -23,5 +23,13 @@ namespace JobFinder.Controllers
             var res = await _accountService.Login(account);
             return ApiResult<AccountModel>.Success(res);
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ApiResult<CreateAccountModelResponse>> CreateAccount([FromBody] CreateAccountModel accountModel)
+        {
+            var res = await _accountService.CreateAccount(accountModel);
+            return ApiResult<CreateAccountModelResponse>.Success(res);
+        }
     }
 }
