@@ -42,8 +42,9 @@ namespace JobFinder.Service
         }
 
         public async Task<CreateAccountModelResponse> CreateAccount(CreateAccountModel accountModel)
-        {   
+        {
            Account account = _mapper.Map<Account>(accountModel);
+           account.Password = BC.HashPassword(accountModel.Password);
            var res =  await _accountRepository.AddAsync(account);
            return _mapper.Map<CreateAccountModelResponse>(res);
         }
