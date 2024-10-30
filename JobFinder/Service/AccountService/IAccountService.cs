@@ -6,5 +6,6 @@ namespace JobFinder.Service
     {
         Task<AccountModel> GetAccount(Guid id);
         Task<AccountModel> Login(AuthAccountModel account);
+        Task<CreateAccountModelResponse> CreateAccount(CreateAccountModel accountModel);
     }
 }

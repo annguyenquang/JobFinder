@@ -2,12 +2,12 @@
 using JobFinder.Core.Repository;
 using JobFinder.Model;
 using JobFinder.Model.Utils;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using JobFinder.Core.Entity;
 using BC = BCrypt.Net.BCrypt;
 
 namespace JobFinder.Service
@@ -22,7 +22,6 @@ namespace JobFinder.Service
         public async Task<AccountModel> Login(AuthAccountModel account)
         {
             var accountEntity = await _accountRepository.GetAccountByUsername(account.Username);
-            Console.WriteLine(BC.HashPassword(accountEntity.Password));
             if (accountEntity != null)
             {
                 bool isValidPassword = BC.Verify(account.Password, accountEntity.Password);
@@ -38,6 +37,19 @@ namespace JobFinder.Service
                 }
             }
             throw new Exception("Invalid Username");
+        }
+
+        public async Task<CreateAccountModelResponse> CreateAccount(CreateAccountModel accountModel)
+        {
+            bool isExistAccount = await _accountRepository.GetAccountByUsername(accountModel.Username) != null;
+            if (isExistAccount)
+            {
+                throw new BadRequestException("Username already exist");
+            }
+           Account account = _mapper.Map<Account>(accountModel);
+           account.Password = BC.HashPassword(accountModel.Password);
+           var res =  await _accountRepository.AddAsync(account);
+           return _mapper.Map<CreateAccountModelResponse>(res);
         }
 
         public string GenerateToken(string userName)

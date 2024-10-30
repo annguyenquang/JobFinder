@@ -15,10 +15,6 @@ namespace JobFinder.DataAccess.Repository
         public async Task<Account> GetAccountByUsername(string username)
         {
             var account = await DbSet.SingleOrDefaultAsync(x => x.Username == username);
-            if(account == null)
-            {
-                throw new Exception("Account not found");
-            }
             return account;
         }
     }
