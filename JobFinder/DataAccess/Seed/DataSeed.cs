@@ -61,7 +61,8 @@ namespace JobFinder.DataAccess.Seed
                     Address = "123 Tech Lane",
                     Website = "www.techcorp.com",
                     Industry = "Technology",
-                    Nation = "USA"
+                    Description = "Tech Corp is a tech corp company.",
+                    Logo = "https://images-platform.99static.com/7v8-fjWpezqDYFTxbYGvEE3gnw8=/191x0:1338x1147/500x500/top/smart/99designs-contests-attachments/60/60612/attachment_60612660"
                 },
                 new Company
                 {
@@ -75,7 +76,8 @@ namespace JobFinder.DataAccess.Seed
                     Address = "456 Health Blvd",
                     Website = "www.healthinc.com",
                     Industry = "Healthcare",
-                    Nation = "USA"
+                    Description = "Health Inc. is a health corp company.",
+                    Logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyD1QcAiMJyNvRptFkjJXovZouhRkTEMlazQ&s"
                 },
                 new Company
                 {
@@ -89,7 +91,8 @@ namespace JobFinder.DataAccess.Seed
                     Address = "45688 London",
                     Website = "www.Anrp.com",
                     Industry = "IT",
-                    Nation = "VN"
+                    Description = "An Inc. is a an incident company.",
+                    Logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsowdkWEAhFe0idqRamO_CAvGutpD1CHKpcA&s"
                 },
             };
         }
