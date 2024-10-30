@@ -1,6 +1,5 @@
 ﻿using JobFinder.Core.Entity;
 using JobFinder.Model;
-using BC = BCrypt.Net.BCrypt;
 
 namespace JobFinder.DataAccess.Seed
 {
@@ -10,36 +9,36 @@ namespace JobFinder.DataAccess.Seed
         {
             Account adminAccount = new Account()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("5ecd2d42-4b0e-43a1-9406-961552ca3e87"),
                 Username = "admin",
-                Password = BC.HashPassword("admin"),
+                Password = "$2a$11$hikE.93/ueqzkLgEmg/ZqecSBLDdjFFoAOst74hFbVusInqaD0Zsu",
                 Phone = "113"
             };
             IEnumerable<Account> accounts = [
                 new Account(){
-                    Id=Guid.NewGuid(),
+                    Id=Guid.Parse("509c3115-d035-4911-8e1c-a2b46c7a0e6b"),
                     Username="account0",
-                    Password= BC.HashPassword("account0"),
+                    Password= "$2a$11$w/2YhULUMNYfi.BlWIuFTOSv6ngt19dS7EeYkyCSmk5rV3cM9uCYS",
                     Phone="0123456789" },
                 new Account() {
-                    Id=Guid. NewGuid(),
+                    Id=Guid.Parse("4b28785a-e6d8-4bde-bc61-4fcd3c7edcb9"),
                     Username="account1",
-                    Password= BC.HashPassword("account1"),
+                    Password= "$2a$11$IZZ6xdXFo09DOlqjYY.bUOcyYxuEk54S6gpROHmYnE3V9OYN43Eae",
                     Phone="0823456789" },
                 new Account() {
-                    Id=Guid.NewGuid(),
+                    Id=Guid.Parse("ab9af358-61ce-453e-96eb-23eff22e0c3b"),
                     Username="account2",
-                    Password= BC.HashPassword("account2"),
+                    Password = "$2a$11$IR24pQlXvPNndxyST6tbTumFqbv2hB65pyyJiJKEHOIID4G13neLa",
                     Phone="0183456789" },
                 new Account() {
-                    Id=Guid.NewGuid(),
+                    Id=Guid.Parse("af42a5ad-c0a8-4e72-9f30-88df3c1fa9d4"),
                     Username="account3",
-                    Password= BC.HashPassword("account3"),
+                    Password= "$2a$11$xoYhWtwccyzdujgeI/bUXearKO.hApx7A5sSVAdcKxs.LN1f54VIe",
                     Phone="0128456789" },
                 new Account() {
-                    Id=Guid.NewGuid(),
+                    Id=Guid.Parse("c3d3aa6b-ac70-4aa9-a8c2-88b3e0581d87"),
                     Username="account4",
-                    Password= BC.HashPassword("account4"),
+                    Password= "$2a$11$C1d.rvknxJMAETBUHl.PK.DsvY5hiTUzPSR43mcBG4sJW0YM17udq",
                     Phone="0123856789" },
 
                 ];
@@ -51,7 +50,7 @@ namespace JobFinder.DataAccess.Seed
             {
                 new Company
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("4b28785a-e6d8-4bde-bc61-4fcd3c7edcb9"),
                     AccountId = accounts.First().Id,
                     Name = "Tech Corp",
                     EmailContact = "info@techcorp.com",
@@ -66,7 +65,7 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Company
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("ec7d72b6-e9f4-4c85-bc12-c2db31d5efa7"),
                     AccountId = accounts.Skip(1).First().Id,
                     Name = "Health Inc.",
                     EmailContact = "info@healthinc.com",
@@ -81,7 +80,7 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Company
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("ab9af358-61ce-453e-96eb-23eff22e0c3b"),
                     AccountId = accounts.Skip(2).First().Id,
                     Name = "An Inc.",
                     EmailContact = "info@AnRe.com",
@@ -100,41 +99,41 @@ namespace JobFinder.DataAccess.Seed
         {
 
             IEnumerable<Metadata> initialJobTypeMetadatas = [
-                new Metadata{ Id= Guid.Parse("540f318e-b42f-4485-9e60-8faa5bf80962"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Fulltime\"}"},
-                new Metadata{ Id= Guid.Parse("5d06c3b1-2bd1-4c68-96b4-f4cd8c899dff"), Type=MetadataType.CommitmentType, Value="{\"data\": \"PartTime\"}"},
-                new Metadata{ Id= Guid.Parse("3fbef738-ed16-4778-8463-8390444841de"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Internship\"}"},
-                new Metadata{ Id= Guid.Parse("26a49bd7-ad8c-40be-8e7c-dd903f7a653e"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Freelance\"}"},
-                new Metadata{ Id= Guid.Parse("44b668b2-09ee-499e-af95-73598f9153a2"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Contract\"}"},
-                new Metadata{ Id= Guid.Parse("96279c48-1bfe-441d-992e-db86cb3bf315"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Daily\"}"},
+                new() { Id= Guid.Parse("540f318e-b42f-4485-9e60-8faa5bf80962"), Type=MetadataType.CommitmentType, Value="{\"data\": \"FullTime\"}"},
+                new() { Id= Guid.Parse("5d06c3b1-2bd1-4c68-96b4-f4cd8c899dff"), Type=MetadataType.CommitmentType, Value="{\"data\": \"PartTime\"}"},
+                new() { Id= Guid.Parse("3fbef738-ed16-4778-8463-8390444841de"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Internship\"}"},
+                new() { Id= Guid.Parse("26a49bd7-ad8c-40be-8e7c-dd903f7a653e"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Freelance\"}"},
+                new() { Id= Guid.Parse("44b668b2-09ee-499e-af95-73598f9153a2"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Contract\"}"},
+                new() { Id= Guid.Parse("96279c48-1bfe-441d-992e-db86cb3bf315"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Daily\"}"},
                 ];
             IEnumerable<Metadata> initialWorkArrangementMetadatas = [
-                new Metadata{ Id= Guid.Parse("04a9de34-0869-41b2-87a8-63c20c4ba22a"), Type=MetadataType.WorkArrangement, Value="{\"data\": \"Onsite\"}"},
-                new Metadata{ Id= Guid.Parse("376764fa-28ec-4a08-80e3-a6ab407e8601"), Type=MetadataType.WorkArrangement, Value="{\"data\": \"Remote/WFH\"}"},
-                new Metadata{ Id= Guid.Parse("c199da74-c2fb-4381-b093-cf2f1e3e8f06"), Type=MetadataType.WorkArrangement, Value="{\"data\": \"Hybrid\"}"},
+                new() { Id= Guid.Parse("04a9de34-0869-41b2-87a8-63c20c4ba22a"), Type=MetadataType.WorkArrangement, Value="{\"data\": \"Onsite\"}"},
+                new() { Id= Guid.Parse("376764fa-28ec-4a08-80e3-a6ab407e8601"), Type=MetadataType.WorkArrangement, Value="{\"data\": \"Remote/WFH\"}"},
+                new() { Id= Guid.Parse("c199da74-c2fb-4381-b093-cf2f1e3e8f06"), Type=MetadataType.WorkArrangement, Value="{\"data\": \"Hybrid\"}"},
                 ];
             IEnumerable<Metadata> initialExperienceMetadatas = [
-                new Metadata{ Id= Guid.Parse("fbce1042-bce0-47a3-92cc-54e3b86eb570"), Type=MetadataType.Experience, Value="{\"data\": \"FreshGradute\"}"},
-                new Metadata{ Id= Guid.Parse("4a3e2365-47f4-45d9-b1d4-326d9f2f3203"), Type=MetadataType.Experience, Value="{\"data\": \"LessThanOneYear\"}"},
-                new Metadata{ Id= Guid.Parse("cc4121b2-72c2-4226-ad12-24e722b50cc2"), Type=MetadataType.Experience, Value="{\"data\": \"OneToThreeYears\"}"},
-                new Metadata{ Id= Guid.Parse("67db1aef-c1b1-4424-8313-774a5dccdb9d"), Type=MetadataType.Experience, Value="{\"data\": \"ThreeToFiveYears\"}"},
-                new Metadata{ Id= Guid.Parse("bf38a1b9-dee3-455a-87c1-4e034fe806f7"), Type=MetadataType.Experience, Value="{\"data\": \"FiveToTenYears\"}"},
-                new Metadata{ Id= Guid.Parse("646ccd9f-aa2f-413e-8d3e-eb8ab0b14c96"), Type=MetadataType.Experience, Value="{\"data\": \"MoreThanTenYears\"}"},
+                new() { Id= Guid.Parse("fbce1042-bce0-47a3-92cc-54e3b86eb570"), Type=MetadataType.Experience, Value="{\"data\": \"FreshGraduate\"}"},
+                new() { Id= Guid.Parse("4a3e2365-47f4-45d9-b1d4-326d9f2f3203"), Type=MetadataType.Experience, Value="{\"data\": \"LessThanOneYear\"}"},
+                new() { Id= Guid.Parse("cc4121b2-72c2-4226-ad12-24e722b50cc2"), Type=MetadataType.Experience, Value="{\"data\": \"OneToThreeYears\"}"},
+                new() { Id= Guid.Parse("67db1aef-c1b1-4424-8313-774a5dccdb9d"), Type=MetadataType.Experience, Value="{\"data\": \"ThreeToFiveYears\"}"},
+                new() { Id= Guid.Parse("bf38a1b9-dee3-455a-87c1-4e034fe806f7"), Type=MetadataType.Experience, Value="{\"data\": \"FiveToTenYears\"}"},
+                new() { Id= Guid.Parse("646ccd9f-aa2f-413e-8d3e-eb8ab0b14c96"), Type=MetadataType.Experience, Value="{\"data\": \"MoreThanTenYears\"}"},
                 ];
 
             IEnumerable<Metadata> initialEducationLevelMetadatas = [
-                new Metadata{ Id= Guid.Parse("ceb115a0-3ffe-455c-b24e-9eff074e1ec1"), Type=MetadataType.Education, Value="{\"data\": \"PrimarySchool\"}"},
-                new Metadata{ Id= Guid.Parse("c9d2f457-06bf-40ad-9a4a-d6e201888129"), Type=MetadataType.Education, Value="{\"data\": \"SecondarySchool\"}"},
-                new Metadata{ Id= Guid.Parse("52e22ea6-7f97-4816-b64a-bfd4aa21cd74"), Type=MetadataType.Education, Value="{\"data\": \"SeniorOrVocationalHighSchool\"}"},
-                new Metadata{ Id= Guid.Parse("ebb6a034-ce37-41a4-b1f6-c70f1698c4f2"), Type=MetadataType.Education, Value="{\"data\": \"Diploma\"}"},
-                new Metadata{ Id= Guid.Parse("a3fb036a-04fc-4590-b87d-6ed32e2ec692"), Type=MetadataType.Education, Value="{\"data\": \"CollegeDegree\"}"},
-                new Metadata{ Id= Guid.Parse("bc4ecf1e-8841-47f2-86ec-b0c523f03da1"), Type=MetadataType.Education, Value="{\"data\": \"BachelorDegree\"}"},
-                new Metadata{ Id= Guid.Parse("bc44b9a9-5cd6-4195-a7bd-92b4bef6d8fb"), Type=MetadataType.Education, Value="{\"data\": \"MasterDegree\"}"},
-                new Metadata{ Id= Guid.Parse("853384de-154c-4187-bf5d-aa684b85736d"), Type=MetadataType.Education, Value="{\"data\": \"Doctorate\"}"},
+                new() { Id= Guid.Parse("ceb115a0-3ffe-455c-b24e-9eff074e1ec1"), Type=MetadataType.Education, Value="{\"data\": \"PrimarySchool\"}"},
+                new() { Id= Guid.Parse("c9d2f457-06bf-40ad-9a4a-d6e201888129"), Type=MetadataType.Education, Value="{\"data\": \"SecondarySchool\"}"},
+                new() { Id= Guid.Parse("52e22ea6-7f97-4816-b64a-bfd4aa21cd74"), Type=MetadataType.Education, Value="{\"data\": \"SeniorOrVocationalHighSchool\"}"},
+                new() { Id= Guid.Parse("ebb6a034-ce37-41a4-b1f6-c70f1698c4f2"), Type=MetadataType.Education, Value="{\"data\": \"Diploma\"}"},
+                new() { Id= Guid.Parse("a3fb036a-04fc-4590-b87d-6ed32e2ec692"), Type=MetadataType.Education, Value="{\"data\": \"CollegeDegree\"}"},
+                new() { Id= Guid.Parse("bc4ecf1e-8841-47f2-86ec-b0c523f03da1"), Type=MetadataType.Education, Value="{\"data\": \"BachelorDegree\"}"},
+                new() { Id= Guid.Parse("bc44b9a9-5cd6-4195-a7bd-92b4bef6d8fb"), Type=MetadataType.Education, Value="{\"data\": \"MasterDegree\"}"},
+                new() { Id= Guid.Parse("853384de-154c-4187-bf5d-aa684b85736d"), Type=MetadataType.Education, Value="{\"data\": \"Doctorate\"}"},
                 ];
             IEnumerable<Metadata> initialGenderMetadatas = [
-                new Metadata{ Id= Guid.Parse("79685cdb-be26-49cc-b7f9-1fb51686f5ba"), Type=MetadataType.Gender, Value="{\"data\": \"Male\"}"},
-                new Metadata{ Id= Guid.Parse("7b5f69cb-5996-4a57-b9c6-9fee2a791bf6"), Type=MetadataType.Gender, Value="{\"data\": \"Female\"}"},
-                new Metadata{ Id= Guid.Parse("12497687-64b8-4d8e-814a-b7d1d33d3aab"), Type=MetadataType.Gender, Value="{\"data\": \"Others\"}"},
+                new() { Id= Guid.Parse("79685cdb-be26-49cc-b7f9-1fb51686f5ba"), Type=MetadataType.Gender, Value="{\"data\": \"Male\"}"},
+                new() { Id= Guid.Parse("7b5f69cb-5996-4a57-b9c6-9fee2a791bf6"), Type=MetadataType.Gender, Value="{\"data\": \"Female\"}"},
+                new() { Id= Guid.Parse("12497687-64b8-4d8e-814a-b7d1d33d3aab"), Type=MetadataType.Gender, Value="{\"data\": \"Others\"}"},
                 ];
             return [
                 ..initialJobTypeMetadatas,
@@ -161,7 +160,7 @@ namespace JobFinder.DataAccess.Seed
     {
         new Job
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("c3d3aa6b-ac70-4aa9-a8c2-88b3e0581d87"),
             Title = "Software Engineer",
             Description = "Develop and maintain web applications.",
             Salary = 80000,
@@ -182,7 +181,7 @@ namespace JobFinder.DataAccess.Seed
         },
         new Job
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("9127e8f9-a91c-4dca-8008-3cb7a8dcfb22"),
             Title = "Data Analyst",
             Description = "Analyze large datasets to generate business insights.",
             Salary = 60000,
@@ -203,7 +202,7 @@ namespace JobFinder.DataAccess.Seed
         },
         new Job
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("def969c3-e7ad-4f71-9907-2c0d594d3ecb"),
             Title = "Product Manager",
             Description = "Oversee product development lifecycle.",
             Salary = 95000,
@@ -226,7 +225,7 @@ namespace JobFinder.DataAccess.Seed
         // For example:
         new Job
         {
-            Id = Guid.NewGuid(),
+            Id = Guid.Parse("ca01ec6a-8d39-4e00-ab98-6c3f9a2e0b1e"),
             Title = "UX Designer",
             Description = "Design intuitive user interfaces.",
             Salary = 70000,
