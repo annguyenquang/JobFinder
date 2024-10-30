@@ -24,7 +24,6 @@ public class Company : BaseEntity, IAuditableEntity
     public string? Website { get; set; } = string.Empty;
     public string? Logo { get; set; } = string.Empty;
     public string? Industry { get; set; } = string.Empty;
-    public string Nation { get; set; } = string.Empty;
     public Account Account { get; set; } = null!;
     public IEnumerable<Job> Jobs { get; set; } = new List<Job>();
     public DateTime? CreatedAt { get; set; }
