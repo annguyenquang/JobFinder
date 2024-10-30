@@ -19,6 +19,5 @@ namespace JobFinder.Model
         public string? Address { get; set; } = string.Empty;
         public string? Website { get; set; } = string.Empty;
         public string? Industry { get; set; } = string.Empty;
-        public string Nation { get; set; } = string.Empty;
     }
 }
