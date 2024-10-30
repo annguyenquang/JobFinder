@@ -18,31 +18,43 @@ namespace JobFinder.DataAccess.Repository
         public async Task<Company> GetCompanyBySlug(string slug)
         {
             var company = await DbSet.FirstOrDefaultAsync(x => x.Slug == slug);
-            if(company == null)
+            if (company == null)
             {
-                throw new BadHttpRequestException ("Company not found");
+                throw new BadHttpRequestException("Company not found");
             }
-            return company;
 
+            return company;
         }
 
-        public async Task<ListModel<Job>> GetCompanyJobs(Guid companyId, JobFilter filter, Order order, Pagination pagination)
+        public async Task<ListModel<Job>> GetCompanyJobs(Guid companyId, JobFilter filter, Order order,
+            Pagination pagination)
         {
             IQueryable<Company> queryableCompany = DbSet
                 .Include(x => x.Jobs)
+                    .ThenInclude(x => x.WorkArrangement)
+                .Include(x => x.Jobs)
+                    .ThenInclude(x => x.CommitmentType)
+                .Include(x => x.Jobs)
+                    .ThenInclude(x => x.GenderRequirement)
+                .Include(x => x.Jobs)   
+                    .ThenInclude(x => x.EducationLevelRequirement)
+                .Include(x => x.Jobs)   
+                    .ThenInclude(x => x.WorkExperienceRequirement)
                 .AsQueryable();
             queryableCompany = queryableCompany.Where(x => x.Id == companyId);
 
             var queryableJob = queryableCompany.SelectMany(x => x.Jobs);
-            
+
             if (filter != null)
             {
                 queryableJob = filter.filters(queryableJob);
             }
+
             if (order != null)
             {
                 queryableJob = Order.ApplyOrdering(queryableJob, order.By, order.IsDesc);
             }
+
             int total = await queryableJob.CountAsync();
             if (pagination != null)
             {
