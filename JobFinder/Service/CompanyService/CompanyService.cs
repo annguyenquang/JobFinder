@@ -5,6 +5,7 @@ using JobFinder.Model;
 using JobFinder.Model.Utils;
 using JobFinder.Model.Utils.Fetching;
 using JobFinder.Model.Utils.Fetching.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobFinder.Service
 {
@@ -16,8 +17,30 @@ namespace JobFinder.Service
         public async Task<CreateCompanyResponseModel> CreateCompanyAsync(CreateCompanyModel company)
         {
             var companyEntity = _mapper.Map<Company>(company);
-            var entity = await _companyRepository.AddAsync(companyEntity);
-            return _mapper.Map<CreateCompanyResponseModel>(entity);
+            Company res;
+            if (string.IsNullOrEmpty(company.Slug))
+            {
+                string slug = GenerateSlugByCompanyName(company.Name);
+                bool slugIsUsedByOtherCompany = await GetCompanyBySlugAsync(slug) != null;
+                if (slugIsUsedByOtherCompany)
+                {
+                    companyEntity.Slug = null;
+                    var entity = await _companyRepository.AddAsync(companyEntity);
+                    slug = GenerateSlugByCompanyNameAndId(entity.Name, entity.Id);
+                    entity.Slug = slug;
+                    res = await _companyRepository.UpdateAsync(entity);
+                }
+                else
+                {  
+                    companyEntity.Slug = slug;
+                    res = await _companyRepository.AddAsync(companyEntity);  
+                }
+            }
+            else
+            {
+                res = await _companyRepository.AddAsync(companyEntity);  
+            }
+            return _mapper.Map<CreateCompanyResponseModel>(res);
         }
         public async Task<ListResponseModel<CompanyModel>> GetAllCompanyAsync(CompanyFilter filter, Order order, Pagination pagination)
         {
@@ -77,11 +100,20 @@ namespace JobFinder.Service
             };
             return result;
         }
-
         public async Task<CompanyModel> GetCompanyBySlugAsync(string slug)
         {
             var companyModel = _mapper.Map<CompanyModel>(await _companyRepository.GetCompanyBySlug(slug));
             return companyModel;
+        }
+
+        private string GenerateSlugByCompanyName(string name)
+        {
+            return name.Replace(" ", "-").ToLower();     
+        }
+
+        private string GenerateSlugByCompanyNameAndId(string name, Guid id)
+        {
+            return $"{GenerateSlugByCompanyName(name)}-{id.ToString()}";
         }
     }
 }

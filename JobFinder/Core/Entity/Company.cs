@@ -12,7 +12,7 @@ public class Company : BaseEntity, IAuditableEntity
     public string PhoneContact { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty; 
     public int? EmployeeCount { get; set; }
-    public string Slug { get; set; } = string.Empty;
+    public string? Slug { get; set; } = string.Empty;
 
     [Range(0, 100, ErrorMessage = "The field {0} must be a number between 0 and 96.")]
     public int ProvinceId { get; set; }
