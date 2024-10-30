@@ -18,11 +18,6 @@ namespace JobFinder.DataAccess.Repository
         public async Task<Company> GetCompanyBySlug(string slug)
         {
             var company = await DbSet.FirstOrDefaultAsync(x => x.Slug == slug);
-            if (company == null)
-            {
-                throw new BadHttpRequestException("Company not found");
-            }
-
             return company;
         }
 
