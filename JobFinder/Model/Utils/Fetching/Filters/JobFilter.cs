@@ -4,6 +4,7 @@ namespace JobFinder.Model.Utils.Fetching.Filters;
 
 public class JobFilter : IFilter<Job>
 {
+    public string Keyword { get; set; } = string.Empty;
     public double? FromSalary { get; set; }
     public double? ToSalary { get; set; }
     public JobStatus? Status { get; set; }
@@ -76,6 +77,11 @@ public class JobFilter : IFilter<Job>
         if (MaxAgeRequirement.HasValue)
         {
             querable = querable.Where(x => x.MaxAgeRequirement <= MaxAgeRequirement);
+        }
+
+        if (!string.IsNullOrEmpty(Keyword))
+        {
+            querable = querable.Where(x => x.Title.Contains(Keyword));
         }
         return querable;
     }
