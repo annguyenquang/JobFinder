@@ -87,8 +87,8 @@ builder.Services.AddCors(opt =>
     opt.AddPolicy(AllowAllCorsPolicy,
         builder => builder.AllowAnyOrigin()
             .AllowAnyMethod()
-            .AllowAnyHeader())
-        ;
+            .AllowAnyHeader()
+            .AllowCredentials());
 });
 builder.Services.AddCors(opt =>
 {
