@@ -1,4 +1,5 @@
 ﻿using JobFinder.Model;
+using JobFinder.Model.Utils.Constants;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace JobFinder.Controllers
         public async Task<ApiResult<AccountModel>> Login(AuthAccountModel account)
         {
             var res = await _accountService.Login(account);
+            AddJwtHttpOnlyCookie(res.AccessToken);
             return ApiResult<AccountModel>.Success(res);
         }
 
@@ -31,5 +33,16 @@ namespace JobFinder.Controllers
             var res = await _accountService.CreateAccount(accountModel);
             return ApiResult<CreateAccountModelResponse>.Success(res);
         }
+
+        private void AddJwtHttpOnlyCookie(string accessToken)
+        {
+            
+            var cookieOptions = new CookieOptions()
+            {
+                HttpOnly = true,
+                Expires = DateTime.Now.AddDays(1),
+            };
+            Response.Cookies.Append(Authentication.JwtCookieKey, accessToken, cookieOptions);
+        } 
     }
 }

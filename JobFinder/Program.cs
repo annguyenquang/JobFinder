@@ -6,6 +6,7 @@ using JobFinder.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using JobFinder.Model.Utils.Constants;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
@@ -62,7 +63,20 @@ builder.Services
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings?.Value.JwtSecretKey)),
             ValidateIssuer = false,
-            ValidateAudience = false
+            ValidateAudience = false,
+        };
+        opt.Events = new JwtBearerEvents()
+        {
+            OnMessageReceived = context =>
+            {
+                var contextToken = context.Request.Cookies[Authentication.JwtCookieKey];
+                if (!string.IsNullOrEmpty(contextToken))
+                {
+                    context.Token = contextToken;
+                }
+
+                return Task.CompletedTask;
+            }
         };
     });
 //CORS
@@ -73,7 +87,8 @@ builder.Services.AddCors(opt =>
     opt.AddPolicy(AllowAllCorsPolicy,
         builder => builder.AllowAnyOrigin()
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            .AllowCredentials());
 });
 builder.Services.AddCors(opt =>
 {
@@ -94,14 +109,17 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(AllowOnlyClientCorsPolicy);
+
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors(AllowOnlyClientCorsPolicy);
-app.MapControllers();
 
 //middlewares
 app.UseMiddleware<TransactionMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+
+app.MapControllers();
 
 app.Run();
