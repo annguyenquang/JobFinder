@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace JobFinder.DataAccess.Repository
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity
     {
         protected readonly DatabaseContext Context;
         protected readonly DbSet<TEntity> DbSet;

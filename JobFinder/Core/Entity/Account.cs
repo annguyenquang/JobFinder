@@ -1,7 +1,7 @@
 ﻿
 namespace JobFinder.Core.Entity
 {
-    public class Account: BaseEntity, IAuditableEntity
+    public class Account: IBaseEntity, IAuditableEntity
     {
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
@@ -11,5 +11,6 @@ namespace JobFinder.Core.Entity
         public DateTime? UpdatedAt { get; set; }
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
+        public Guid Id { get; set; }
     }
 }

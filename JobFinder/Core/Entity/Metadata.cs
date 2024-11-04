@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobFinder.Core.Entity
 {
-    public class Metadata : BaseEntity
+    public class Metadata : IBaseEntity
     {
         public string Value { get; set; } = string.Empty;
         public MetadataType Type { get; set; }
@@ -16,6 +16,8 @@ namespace JobFinder.Core.Entity
         [InverseProperty("EducationLevelRequirement")]
         public List<Job> EducationLevelRequirementJobs { get; set; } = new List<Job>();   
         [InverseProperty("WorkExperienceRequirement")]
-        public List<Job> WorkExperienceRequirementJobs { get; set; } = new List<Job>();   
+        public List<Job> WorkExperienceRequirementJobs { get; set; } = new List<Job>();
+
+        public Guid Id { get; set; }
     }
 }

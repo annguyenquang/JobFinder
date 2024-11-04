@@ -4,9 +4,8 @@ using Microsoft.EntityFrameworkCore;
 namespace JobFinder.Core.Entity;
 
 [Index(nameof(Slug), IsUnique = true)]
-public class Company : BaseEntity, IAuditableEntity
+public class Company : Account, IAuditableEntity
 {
-    public Guid AccountId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string EmailContact { get; set; } = string.Empty;
     public string PhoneContact { get; set; } = string.Empty;
@@ -24,7 +23,6 @@ public class Company : BaseEntity, IAuditableEntity
     public string? Website { get; set; } = string.Empty;
     public string? Logo { get; set; } = string.Empty;
     public string? Industry { get; set; } = string.Empty;
-    public Account Account { get; set; } = null!;
     public IEnumerable<Job> Jobs { get; set; } = new List<Job>();
     public DateTime? CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }

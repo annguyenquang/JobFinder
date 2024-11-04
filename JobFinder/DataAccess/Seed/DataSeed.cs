@@ -62,7 +62,8 @@ namespace JobFinder.DataAccess.Seed
                 new Company
                 {
                     Id = Guid.Parse("7f9b407b-80e0-4f0c-a301-5a8bbf813b05"),
-                    AccountId = accounts.First().Id,
+                    Username = accounts.First().Username,
+                    Password = accounts.First().Password,
                     Name = "Tech Corp",
                     EmailContact = "info@techcorp.com",
                     PhoneContact = "123456789",
@@ -78,7 +79,8 @@ namespace JobFinder.DataAccess.Seed
                 new Company
                 {
                     Id = Guid.Parse("ec7d72b6-e9f4-4c85-bc12-c2db31d5efa7"),
-                    AccountId = accounts.Skip(1).First().Id,
+                    Username = accounts.Skip(1).First().Username,
+                    Password = accounts.Skip(1).First().Password,
                     Name = "Health Inc.",
                     EmailContact = "info@healthinc.com",
                     PhoneContact = "987654321",
@@ -93,8 +95,9 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Company
                 {
-                    Id = Guid.Parse("ab9af358-61ce-453e-96eb-23eff22e0c3b"),
-                    AccountId = accounts.Skip(2).First().Id,
+                    Id = Guid.Parse("ec6aba4a-1b55-412a-a2e7-9ec8b9f16662"),
+                    Username = accounts.Skip(2).First().Username,
+                    Password = accounts.Skip(2).First().Password,
                     Name = "An Inc.",
                     EmailContact = "info@AnRe.com",
                     PhoneContact = "98765432112",
@@ -408,7 +411,7 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Job
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("22aadfc7-6022-4f15-ac49-13fa33f8afbe"),
                     Title = "Network Engineer",
                     Description = "Manage and maintain network infrastructure.",
                     Salary = 85000,
@@ -429,7 +432,7 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Job
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("8845c741-6b0f-4f95-b179-3d007ba28a41"),
                     Title = "Sales Executive",
                     Description = "Build and maintain client relationships.",
                     Salary = 55000,
@@ -450,7 +453,7 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Job
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("8f31d3d0-dc53-45d6-bccd-fd2d15dacb77"),
                     Title = "Customer Support Specialist",
                     Description = "Provide technical support to clients.",
                     Salary = 45000,

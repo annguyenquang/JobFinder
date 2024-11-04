@@ -4,7 +4,7 @@ namespace JobFinder.Core.Entity
 {
 
 
-    public class Job : BaseEntity, IAuditableEntity
+    public class Job : IBaseEntity, IAuditableEntity
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
@@ -35,5 +35,6 @@ namespace JobFinder.Core.Entity
         public DateTime? UpdatedAt { get; set; }
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
+        public Guid Id { get; set; }
     }
 }
