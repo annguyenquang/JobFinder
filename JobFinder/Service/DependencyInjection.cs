@@ -1,4 +1,5 @@
-﻿using JobFinder.Service.StorageService;
+﻿using JobFinder.Model.AuthenticationService;
+using JobFinder.Service.StorageService;
 
 namespace JobFinder.Service
 {
@@ -12,6 +13,7 @@ namespace JobFinder.Service
             services.AddScoped<IStorageService, AzureStorageService>();
             services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<IMetadataService, MetadataService>();
+            services.AddScoped<IJwtService, JwtService>();
         }
     }
 }
