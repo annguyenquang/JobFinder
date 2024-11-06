@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace JobFinder.Model;
+
 [JsonDerivedType(typeof(CompanyLoginResponseModel))]
 [JsonDerivedType(typeof(UserLoginReponseModel))]
 public abstract class AccountModel: IBaseResponseModel

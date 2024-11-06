@@ -1,5 +1,4 @@
-﻿using JobFinder.Model.AuthenticationService;
-using JobFinder.Service.StorageService;
+﻿using JobFinder.Service.StorageService;
 
 namespace JobFinder.Service
 {
