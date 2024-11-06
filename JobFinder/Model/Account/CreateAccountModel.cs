@@ -8,4 +8,7 @@ public class CreateAccountModel
         public string Email { get; set; } = string.Empty;
 }
 
-public class CreateAccountModelResponse: BaseResponseModel;
+public class CreateAccountModelResponse: IBaseResponseModel
+{
+        public Guid Id { get; set; }
+}

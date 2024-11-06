@@ -1,11 +1,12 @@
 ﻿namespace JobFinder.Model
 {
     public class JobApplicationModel
-        : BaseResponseModel
+        : IBaseResponseModel
     {
         public JobModel Jobs { get; set; }
         public UserModel User { get; set; }
         public string CVLink { get; set; } = string.Empty;
 
+        public Guid Id { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 namespace JobFinder.Model;
 
-public class JobModel : BaseResponseModel
+public class JobModel : IBaseResponseModel
 {
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
@@ -21,4 +21,5 @@ public class JobModel : BaseResponseModel
     public DateTime? UpdatedAt { get; set; }
     public Guid? CreatedBy { get; set; }
     public Guid? UpdatedBy { get; set; }
+    public Guid Id { get; set; }
 }

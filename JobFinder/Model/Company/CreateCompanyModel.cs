@@ -22,4 +22,7 @@ public class CreateCompanyModel
     public int? EmployeeCount { get; set; }
 }
 
-public class CreateCompanyResponseModel : BaseResponseModel;
+public class CreateCompanyResponseModel : IBaseResponseModel
+{
+    public Guid Id { get; set; }
+}

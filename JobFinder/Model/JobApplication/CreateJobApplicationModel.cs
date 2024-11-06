@@ -6,5 +6,8 @@
         public Guid JobId { get; set; }
         public IFormFile CVFile { get; set; } = null!;
     }
-    public class CreateJobApplicationReponseModel : BaseResponseModel { }
+    public class CreateJobApplicationReponseModel : IBaseResponseModel
+    {
+        public Guid Id { get; set; }
+    }
 }
