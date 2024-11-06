@@ -23,6 +23,7 @@ namespace JobFinder.Controllers
         {
             var res = await _accountService.Login(account);
             AddJwtHttpOnlyCookie(res.AccessToken);
+            res.AccessToken = null;
             return ApiResult<AccountModel>.Success(res);
         }
 
