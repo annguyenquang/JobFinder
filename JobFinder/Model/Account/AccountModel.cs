@@ -1,6 +1,9 @@
-﻿namespace JobFinder.Model;
+﻿using System.Text.Json.Serialization;
 
-public class AccountModel
+namespace JobFinder.Model;
+[JsonDerivedType(typeof(CompanyLoginResponseModel))]
+[JsonDerivedType(typeof(UserLoginReponseModel))]
+public abstract class AccountModel
 {
     public string Username { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
