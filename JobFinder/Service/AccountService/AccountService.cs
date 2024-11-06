@@ -1,18 +1,13 @@
 ﻿using AutoMapper;
 using JobFinder.Core.Repository;
 using JobFinder.Model;
-using JobFinder.Model.Utils;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using JobFinder.Core.Entity;
+using JobFinder.Model.AuthenticationService;
 using BC = BCrypt.Net.BCrypt;
 
 namespace JobFinder.Service
 {
-    public class AccountService(IAccountRepository _accountRepository, IMapper _mapper, IOptions<AppSettings> appSettings) : IAccountService
+    public class AccountService(IAccountRepository _accountRepository, IMapper _mapper, IJwtService _jwtService) : IAccountService
     {
         public async Task<AccountModel> GetAccount(Guid id)
         {
@@ -28,7 +23,7 @@ namespace JobFinder.Service
                 if (isValidPassword)
                 {
                     var res = _mapper.Map<AccountModel>(accountEntity);
-                    res.AccessToken = GenerateToken(res.Username);
+                    res.AccessToken = _jwtService.GenerateTokenWithUsername(accountEntity.Username);
                     return res;
                 }
                 else
@@ -52,22 +47,5 @@ namespace JobFinder.Service
            return _mapper.Map<CreateAccountModelResponse>(res);
         }
 
-        public string GenerateToken(string userName)
-        {
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.NameIdentifier, userName)
-            };
-            var jwtToken = new JwtSecurityToken(
-                claims: claims,
-                notBefore: DateTime.UtcNow,
-            expires: DateTime.UtcNow.AddDays(1),
-            signingCredentials: new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.Value.JwtSecretKey)),
-                    SecurityAlgorithms.HmacSha256Signature
-                )
-                );
-            return new JwtSecurityTokenHandler().WriteToken(jwtToken);
-        }
     }
 }
