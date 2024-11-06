@@ -1,4 +1,7 @@
-﻿using JobFinder.Model;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using JobFinder.Core.Entity;
+using JobFinder.Model;
 using JobFinder.Model.Utils.Constants;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +14,20 @@ namespace JobFinder.Controllers
     [Authorize]
     public class AccountController (IAccountService _accountService) : ControllerBase
     {
+        [HttpGet]
+        [Authorize]
+        public async Task<ApiResult<AccountModel>> GetAccountByJwt()
+        {
+            var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            if (string.IsNullOrEmpty(id))
+            {
+               throw new UnauthorizedAccessException("Missing JWT Token");
+            }
+            
+            var account = await _accountService.GetAccountByUsername(id);
+            return ApiResult<AccountModel>.Success(account);
+        }
+        
         [HttpGet]
         public async Task<ApiResult<AccountModel>> GetAccount(Guid id)
         {

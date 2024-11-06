@@ -2,7 +2,6 @@
 using JobFinder.Core.Repository;
 using JobFinder.Model;
 using JobFinder.Core.Entity;
-using JobFinder.Model.AuthenticationService;
 using BC = BCrypt.Net.BCrypt;
 
 namespace JobFinder.Service
@@ -14,6 +13,13 @@ namespace JobFinder.Service
             var entity = await _accountRepository.GetAsync(id);
             return _mapper.Map<AccountModel>(entity);
         }
+
+        public async Task<AccountModel> GetAccountByUsername(string username)
+        {
+            var entity = await _accountRepository.GetAccountByUsername(username);
+            return _mapper.Map<AccountModel>(entity);
+        }
+
         public async Task<AccountModel> Login(AuthAccountModel account)
         {
             var accountEntity = await _accountRepository.GetAccountByUsername(account.Username);
