@@ -5,6 +5,22 @@ namespace JobFinder.DataAccess.Seed
 {
     public class DataSeed
     {
+        public static IEnumerable<User> GetUserSeeds()
+        {
+            return new[]
+            {
+                new User()
+                {
+                    Id = Guid.Parse("0cc554c2-c577-4a89-8cc1-90724bcbb9fb"),
+                    FirstName = "An",
+                    LastName = "Nguyen",
+                    Email = "an.nguyen@gmail.com",
+                    Username = "user1",
+                    Password = "$2a$11$FwT.00cm86tbj3/ROPWnLOFAblHj19tmtNy9S2CAc1TFqgM/YPfUO",
+                    DateOfBirth = DateOnly.Parse("2003-10-12"),
+                }
+            };
+        }
         public static IEnumerable<Company> GetCompanySeeds()
         {
             return new[]
