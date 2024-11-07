@@ -9,5 +9,8 @@ namespace JobFinder.Model
         public string? Address { get; set; }
         public string? Website { get; set; }
     }
-    public class UpdateCompanyReponseModel : BaseResponseModel { }
+    public class UpdateCompanyReponseModel : IBaseResponseModel
+    {
+        public Guid Id { get; set; }
+    }
 }

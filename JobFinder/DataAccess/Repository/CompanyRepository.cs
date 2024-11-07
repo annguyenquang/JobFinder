@@ -14,7 +14,6 @@ namespace JobFinder.DataAccess.Repository
         public CompanyRepository(DatabaseContext _dbContext) : base(_dbContext)
         {
         }
-
         public async Task<Company> GetCompanyBySlug(string slug)
         {
             var company = await DbSet.FirstOrDefaultAsync(x => x.Slug == slug);

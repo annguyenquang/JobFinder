@@ -1,6 +1,6 @@
 ﻿namespace JobFinder.Core.Entity
 {
-    public class JobApplication : BaseEntity, IAuditableEntity
+    public class JobApplication : IBaseEntity, IAuditableEntity
         {
         public Guid JobId { get; set; }
         public Guid? UserId { get; set; }
@@ -11,5 +11,6 @@
         public DateTime? UpdatedAt { get; set; }
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
-    }
+        public Guid Id { get; set; }
+        }
 }

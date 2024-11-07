@@ -5,64 +5,31 @@ namespace JobFinder.DataAccess.Seed
 {
     public class DataSeed
     {
-        public static IEnumerable<Account> GetAccountSeeds()
+        public static IEnumerable<User> GetUserSeeds()
         {
-            Account adminAccount = new Account()
+            return new[]
             {
-                Id = Guid.Parse("5ecd2d42-4b0e-43a1-9406-961552ca3e87"),
-                Username = "admin",
-                Password = "$2a$11$hikE.93/ueqzkLgEmg/ZqecSBLDdjFFoAOst74hFbVusInqaD0Zsu",
-                Phone = "113"
+                new User()
+                {
+                    Id = Guid.Parse("0cc554c2-c577-4a89-8cc1-90724bcbb9fb"),
+                    FirstName = "An",
+                    LastName = "Nguyen",
+                    Email = "an.nguyen@gmail.com",
+                    Username = "user1",
+                    Password = "$2a$11$FwT.00cm86tbj3/ROPWnLOFAblHj19tmtNy9S2CAc1TFqgM/YPfUO",
+                    DateOfBirth = DateOnly.Parse("2003-10-12"),
+                }
             };
-            IEnumerable<Account> accounts =
-            [
-                new Account()
-                {
-                    Id = Guid.Parse("509c3115-d035-4911-8e1c-a2b46c7a0e6b"),
-                    Username = "account0",
-                    Password = "$2a$11$w/2YhULUMNYfi.BlWIuFTOSv6ngt19dS7EeYkyCSmk5rV3cM9uCYS",
-                    Phone = "0123456789"
-                },
-                new Account()
-                {
-                    Id = Guid.Parse("4b28785a-e6d8-4bde-bc61-4fcd3c7edcb9"),
-                    Username = "account1",
-                    Password = "$2a$11$IZZ6xdXFo09DOlqjYY.bUOcyYxuEk54S6gpROHmYnE3V9OYN43Eae",
-                    Phone = "0823456789"
-                },
-                new Account()
-                {
-                    Id = Guid.Parse("ab9af358-61ce-453e-96eb-23eff22e0c3b"),
-                    Username = "account2",
-                    Password = "$2a$11$IR24pQlXvPNndxyST6tbTumFqbv2hB65pyyJiJKEHOIID4G13neLa",
-                    Phone = "0183456789"
-                },
-                new Account()
-                {
-                    Id = Guid.Parse("af42a5ad-c0a8-4e72-9f30-88df3c1fa9d4"),
-                    Username = "account3",
-                    Password = "$2a$11$xoYhWtwccyzdujgeI/bUXearKO.hApx7A5sSVAdcKxs.LN1f54VIe",
-                    Phone = "0128456789"
-                },
-                new Account()
-                {
-                    Id = Guid.Parse("c3d3aa6b-ac70-4aa9-a8c2-88b3e0581d87"),
-                    Username = "account4",
-                    Password = "$2a$11$C1d.rvknxJMAETBUHl.PK.DsvY5hiTUzPSR43mcBG4sJW0YM17udq",
-                    Phone = "0123856789"
-                },
-            ];
-            return [adminAccount, .. accounts];
         }
-
-        public static IEnumerable<Company> GetCompanySeeds(IEnumerable<Account> accounts)
+        public static IEnumerable<Company> GetCompanySeeds()
         {
             return new[]
             {
                 new Company
                 {
                     Id = Guid.Parse("7f9b407b-80e0-4f0c-a301-5a8bbf813b05"),
-                    AccountId = accounts.First().Id,
+                    Username = "admin",
+                    Password = "$2a$11$hikE.93/ueqzkLgEmg/ZqecSBLDdjFFoAOst74hFbVusInqaD0Zsu",
                     Name = "Tech Corp",
                     EmailContact = "info@techcorp.com",
                     PhoneContact = "123456789",
@@ -78,7 +45,8 @@ namespace JobFinder.DataAccess.Seed
                 new Company
                 {
                     Id = Guid.Parse("ec7d72b6-e9f4-4c85-bc12-c2db31d5efa7"),
-                    AccountId = accounts.Skip(1).First().Id,
+                    Username = "account1",
+                    Password = "$2a$11$IZZ6xdXFo09DOlqjYY.bUOcyYxuEk54S6gpROHmYnE3V9OYN43Eae",
                     Name = "Health Inc.",
                     EmailContact = "info@healthinc.com",
                     PhoneContact = "987654321",
@@ -93,8 +61,9 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Company
                 {
-                    Id = Guid.Parse("ab9af358-61ce-453e-96eb-23eff22e0c3b"),
-                    AccountId = accounts.Skip(2).First().Id,
+                    Id = Guid.Parse("ec6aba4a-1b55-412a-a2e7-9ec8b9f16662"),
+                    Username = "account2",
+                    Password = "$2a$11$IR24pQlXvPNndxyST6tbTumFqbv2hB65pyyJiJKEHOIID4G13neLa",
                     Name = "An Inc.",
                     EmailContact = "info@AnRe.com",
                     PhoneContact = "98765432112",
@@ -114,12 +83,36 @@ namespace JobFinder.DataAccess.Seed
         {
             IEnumerable<Metadata> initialCommitmentTypeMetadatas =
             [
-                new() { Id= Guid.Parse("540f318e-b42f-4485-9e60-8faa5bf80962"), Type=MetadataType.CommitmentType, Value="{\"data\": \"FullTime\"}"},
-                new() { Id= Guid.Parse("5d06c3b1-2bd1-4c68-96b4-f4cd8c899dff"), Type=MetadataType.CommitmentType, Value="{\"data\": \"PartTime\"}"},
-                new() { Id= Guid.Parse("3fbef738-ed16-4778-8463-8390444841de"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Internship\"}"},
-                new() { Id= Guid.Parse("26a49bd7-ad8c-40be-8e7c-dd903f7a653e"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Freelance\"}"},
-                new() { Id= Guid.Parse("44b668b2-09ee-499e-af95-73598f9153a2"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Contract\"}"},
-                new() { Id= Guid.Parse("96279c48-1bfe-441d-992e-db86cb3bf315"), Type=MetadataType.CommitmentType, Value="{\"data\": \"Daily\"}"},
+                new()
+                {
+                    Id = Guid.Parse("540f318e-b42f-4485-9e60-8faa5bf80962"), Type = MetadataType.CommitmentType,
+                    Value = "{\"data\": \"FullTime\"}"
+                },
+                new()
+                {
+                    Id = Guid.Parse("5d06c3b1-2bd1-4c68-96b4-f4cd8c899dff"), Type = MetadataType.CommitmentType,
+                    Value = "{\"data\": \"PartTime\"}"
+                },
+                new()
+                {
+                    Id = Guid.Parse("3fbef738-ed16-4778-8463-8390444841de"), Type = MetadataType.CommitmentType,
+                    Value = "{\"data\": \"Internship\"}"
+                },
+                new()
+                {
+                    Id = Guid.Parse("26a49bd7-ad8c-40be-8e7c-dd903f7a653e"), Type = MetadataType.CommitmentType,
+                    Value = "{\"data\": \"Freelance\"}"
+                },
+                new()
+                {
+                    Id = Guid.Parse("44b668b2-09ee-499e-af95-73598f9153a2"), Type = MetadataType.CommitmentType,
+                    Value = "{\"data\": \"Contract\"}"
+                },
+                new()
+                {
+                    Id = Guid.Parse("96279c48-1bfe-441d-992e-db86cb3bf315"), Type = MetadataType.CommitmentType,
+                    Value = "{\"data\": \"Daily\"}"
+                },
             ];
             IEnumerable<Metadata> initialWorkArrangementMetadatas =
             [
@@ -408,7 +401,7 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Job
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("22aadfc7-6022-4f15-ac49-13fa33f8afbe"),
                     Title = "Network Engineer",
                     Description = "Manage and maintain network infrastructure.",
                     Salary = 85000,
@@ -429,7 +422,7 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Job
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("8845c741-6b0f-4f95-b179-3d007ba28a41"),
                     Title = "Sales Executive",
                     Description = "Build and maintain client relationships.",
                     Salary = 55000,
@@ -450,7 +443,7 @@ namespace JobFinder.DataAccess.Seed
                 },
                 new Job
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("8f31d3d0-dc53-45d6-bccd-fd2d15dacb77"),
                     Title = "Customer Support Specialist",
                     Description = "Provide technical support to clients.",
                     Salary = 45000,

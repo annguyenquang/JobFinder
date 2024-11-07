@@ -22,7 +22,7 @@ namespace JobFinder.DataAccess
                 options.UseSqlServer(connectionString: config.GetConnectionString("DefaultConnection"), opt =>
                 {
                     opt.MigrationsAssembly(System.Reflection.Assembly.GetExecutingAssembly().FullName);
-                });
+                }).EnableSensitiveDataLogging();
             });
         }
 

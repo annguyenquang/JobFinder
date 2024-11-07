@@ -1,4 +1,7 @@
-﻿using JobFinder.Model;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using JobFinder.Core.Entity;
+using JobFinder.Model;
 using JobFinder.Model.Utils.Constants;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Authorization;
@@ -8,9 +11,21 @@ namespace JobFinder.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
     public class AccountController (IAccountService _accountService) : ControllerBase
     {
+        [HttpGet]
+        public async Task<ApiResult<AccountModel>> GetAccountByJwt()
+        {
+            var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(id))
+            {
+               throw new UnauthorizedAccessException("Missing JWT Token");
+            }
+            
+            var account = await _accountService.GetAccountByUsername(id);
+            return ApiResult<AccountModel>.Success(account);
+        }
+        
         [HttpGet]
         public async Task<ApiResult<AccountModel>> GetAccount(Guid id)
         {
@@ -23,6 +38,7 @@ namespace JobFinder.Controllers
         {
             var res = await _accountService.Login(account);
             AddJwtHttpOnlyCookie(res.AccessToken);
+            res.AccessToken = null;
             return ApiResult<AccountModel>.Success(res);
         }
 
@@ -41,6 +57,8 @@ namespace JobFinder.Controllers
             {
                 HttpOnly = true,
                 Expires = DateTime.Now.AddDays(1),
+                SameSite = SameSiteMode.None,
+                Secure = true
             };
             Response.Cookies.Append(Authentication.JwtCookieKey, accessToken, cookieOptions);
         } 

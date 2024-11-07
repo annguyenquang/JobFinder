@@ -50,11 +50,12 @@ namespace JobFinder.DataAccess.Persistent
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            var accounts = DataSeed.GetAccountSeeds();
             var metadatas = DataSeed.GetMetadataSeeds();
-            var companies = DataSeed.GetCompanySeeds(accounts);
+            var companies = DataSeed.GetCompanySeeds();
+            var users = DataSeed.GetUserSeeds();
             var position = DataSeed.GetJobSeeds(companies, metadatas);
-            modelBuilder.Entity<Account>().HasData(accounts);
+            modelBuilder.Entity<Account>().UseTpcMappingStrategy();
+            modelBuilder.Entity<User>().HasData(users);
             modelBuilder.Entity<Metadata>().HasData(metadatas);
             modelBuilder.Entity<Company>().HasData(companies);
             modelBuilder.Entity<Job>().HasData(position);

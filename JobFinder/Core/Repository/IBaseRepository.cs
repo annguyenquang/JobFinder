@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace JobFinder.Core.Repository
 {
-    public interface IBaseRepository<TEntity> where TEntity : BaseEntity
+    public interface IBaseRepository<TEntity> where TEntity : IBaseEntity
     {
         Task<TEntity> GetAsync(Guid id);
 

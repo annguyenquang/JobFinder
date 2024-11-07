@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JobFinder.Model
 {
-    public class CompanyModel : BaseResponseModel
+    public class CompanyModel : IBaseResponseModel
     {
         public string Name { get; set; } = string.Empty;
         public string EmailContact { get; set; } = string.Empty;
@@ -19,5 +19,6 @@ namespace JobFinder.Model
         public string? Address { get; set; } = string.Empty;
         public string? Website { get; set; } = string.Empty;
         public string? Industry { get; set; } = string.Empty;
+        public Guid Id { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace JobFinder.DataAccess.Repository
 
         public async Task<Account> GetAccountByUsername(string username)
         {
-            var account = await DbSet.SingleOrDefaultAsync(x => x.Username == username);
+            var account = await DbSet.FirstOrDefaultAsync(x => x.Username == username);
             return account;
         }
     }

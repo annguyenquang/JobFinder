@@ -18,5 +18,8 @@ namespace JobFinder.Model
         public Guid? EducationLevelRequirementId { get; set; }
         public Guid? WorkExperienceRequirementId { get; set; }
     }
-    public class UpdateJobReponseModel : BaseResponseModel { }
+    public class UpdateJobReponseModel : IBaseResponseModel
+    {
+        public Guid Id { get; set; }
+    }
 }

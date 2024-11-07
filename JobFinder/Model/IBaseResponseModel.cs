@@ -1,6 +1,6 @@
 namespace JobFinder.Model
 {
-    public class BaseResponseModel
+    public interface IBaseResponseModel
     {
         public Guid Id { get; set; }
     }
