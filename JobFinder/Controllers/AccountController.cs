@@ -11,14 +11,12 @@ namespace JobFinder.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
     public class AccountController (IAccountService _accountService) : ControllerBase
     {
         [HttpGet]
-        [Authorize]
         public async Task<ApiResult<AccountModel>> GetAccountByJwt()
         {
-            var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(id))
             {
                throw new UnauthorizedAccessException("Missing JWT Token");
@@ -59,6 +57,8 @@ namespace JobFinder.Controllers
             {
                 HttpOnly = true,
                 Expires = DateTime.Now.AddDays(1),
+                SameSite = SameSiteMode.None,
+                Secure = true
             };
             Response.Cookies.Append(Authentication.JwtCookieKey, accessToken, cookieOptions);
         } 
