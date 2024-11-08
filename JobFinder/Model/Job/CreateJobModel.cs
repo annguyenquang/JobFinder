@@ -18,6 +18,7 @@ namespace JobFinder.Model
         public Guid? GenderRequirementId { get; set; }
         public Guid? EducationLevelRequirementId { get; set; }
         public Guid? WorkExperienceRequirementId { get; set; }
+        public IEnumerable<string>? Skills { get; set; }
         public Guid CompanyId { get; set; }
     }
     public class CreateJobReponseModel : IBaseResponseModel
