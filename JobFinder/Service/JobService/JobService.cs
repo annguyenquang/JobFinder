@@ -36,11 +36,11 @@ namespace JobFinder.Service
             var entity = await _jobRepository.GetAsync(id);
             return _mapper.Map<JobModel>(entity);
         }
-        public async Task<UpdateJobReponseModel> UpdateJobAsync(Guid id, UpdateJobModel newJobModel)
+        public async Task<UpdateJobResponseModel> UpdateJobAsync(Guid id, UpdateJobModel newJobModel)
         {
             Job newJob = _mapper.Map<Job>(newJobModel);
             var res = await _jobRepository.UpdateAsync(id, newJob);
-            return _mapper.Map<UpdateJobReponseModel>(res);
+            return _mapper.Map<UpdateJobResponseModel>(res);
         }
         private async Task<Job> ConvertCreateJobModelToJobEntityAsync(CreateJobModel model) 
         {

@@ -17,6 +17,7 @@ public class JobModel : IBaseResponseModel
     public MetadataModel? WorkArrangement { get; set; }
     public MetadataModel? CommitmentType { get; set; }
     public CompanyModel Company { get; set; } = null!;
+    public IEnumerable<string>? Skills { get; set; }
     public DateTime? CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public Guid? CreatedBy { get; set; }

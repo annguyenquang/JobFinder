@@ -1,5 +1,6 @@
 ﻿using JobFinder.Core.Entity;
 using JobFinder.Model;
+using Newtonsoft.Json;
 
 namespace JobFinder.DataAccess.Seed
 {
@@ -249,6 +250,9 @@ namespace JobFinder.DataAccess.Seed
             var company2 = companies.ElementAt(1);
             var company3 = companies.ElementAt(2);
 
+            var skillsArray = new[] { "C#", ".NET", "Machine Learning", "Network", "Hardware", "Marketing" };
+            var skills = JsonConvert.SerializeObject(skillsArray);             
+ 
             // Manually create 20 job instances with varied metadata
             return new List<Job>
             {
@@ -269,6 +273,7 @@ namespace JobFinder.DataAccess.Seed
                     GenderRequirementId = genderRequirements[0].Id, // Male
                     EducationLevelRequirementId = educationLevels[5].Id, // BachelorDegree
                     WorkExperienceRequirementId = workExperienceLevels[3].Id, // ThreeToFiveYears
+                    Skills = skills,
                     CompanyId = company1.Id,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
@@ -290,6 +295,7 @@ namespace JobFinder.DataAccess.Seed
                     GenderRequirementId = genderRequirements[1].Id, // Female
                     EducationLevelRequirementId = educationLevels[6].Id, // MasterDegree
                     WorkExperienceRequirementId = workExperienceLevels[4].Id, // FiveToTenYears
+                    Skills = skills,
                     CompanyId = company2.Id,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now

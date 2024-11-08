@@ -28,10 +28,10 @@ namespace JobFinder.Controllers
             return ApiResult<CreateJobReponseModel>.Success(response);
         }
         [HttpPatch("{id}")]
-        public async Task<ApiResult<UpdateJobReponseModel>> UpdateJob(Guid id, [FromBody] UpdateJobModel newJobModel)
+        public async Task<ApiResult<UpdateJobResponseModel>> UpdateJob(Guid id, [FromBody] UpdateJobModel newJobModel)
         {
             var response = await _jobService.UpdateJobAsync(id, newJobModel);
-            return ApiResult<UpdateJobReponseModel>.Success(response);
+            return ApiResult<UpdateJobResponseModel>.Success(response);
         }
 
     }

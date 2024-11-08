@@ -9,6 +9,6 @@ namespace JobFinder.Service
         Task<JobModel> GetJobAsync(Guid id);
         Task<ListResponseModel<JobModel>> GetAllJobAsync(JobFilter filer, Order order, Pagination pagination);
         Task<CreateJobReponseModel> CreateJobAsync(CreateJobModel job);
-        Task<UpdateJobReponseModel> UpdateJobAsync(Guid id, UpdateJobModel jobModel);
+        Task<UpdateJobResponseModel> UpdateJobAsync(Guid id, UpdateJobModel jobModel);
     }
 }
