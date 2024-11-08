@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JobFinder.Core.Entity;
 using JobFinder.Model;
+using Newtonsoft.Json;
 
 namespace JobFinder.Service.AutoMapper
 {
@@ -8,7 +9,8 @@ namespace JobFinder.Service.AutoMapper
     {
         public JobProfile()
         {
-            CreateMap<Job, JobModel>();
+            CreateMap<Job, JobModel>()
+                .ForMember(des => des.Skills, opt => opt.MapFrom(src => JsonConvert.DeserializeObject<string[]>(src.Skills)));
             CreateMap<CreateJobModel, Job>()
                 .ForPath(des => des.CommitmentType.Id, opt => opt.MapFrom(x => x.CommitmentTypeId))
                 .ForPath(des => des.WorkArrangement.Id, opt => opt.MapFrom(x => x.WorkArrangementId))

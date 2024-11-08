@@ -27,6 +27,7 @@ namespace JobFinder.Core.Entity
         public Metadata? EducationLevelRequirement { get; set; }
         public Guid? WorkExperienceRequirementId { get; set; }
         public Metadata? WorkExperienceRequirement { get; set; }
+        public string? Skills { get; set; } 
         public Guid CompanyId { get; set; }
         public Company Company { get; set; } = null!;
         public IEnumerable<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
