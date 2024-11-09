@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using JobFinder.Model.Utils;
+using JobFinder.Model.Utils.Constants;
 using Microsoft.Extensions.Options;
 
 namespace JobFinder.Service.StorageService
@@ -22,18 +23,22 @@ namespace JobFinder.Service.StorageService
             {
                 throw new Exception("BlobServiceClient is null");
             }
-            string client = Path.GetExtension(file.FileName.ToLower()) switch
-            {
-                ".jpg" => "images",
-                ".jpeg" => "images",
-                ".png" => "images",
-                ".pdf" => "documents",
-                _ => throw new Exception("Invalid file type")
-            };
-            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(client);
-            BlobClient blobClient = containerClient.GetBlobClient(file.FileName);
+
+            var container = ChoseContainerByFileName(file.FileName);
+            var containerClient = _blobServiceClient.GetBlobContainerClient(container);
+            var blobClient = containerClient.GetBlobClient(file.FileName);
             await blobClient.UploadAsync(file.OpenReadStream(), true);
             return blobClient.Uri.AbsoluteUri;
+        }
+
+        private static string ChoseContainerByFileName(string fileName)
+        {
+           var extension = Path.GetExtension(fileName);
+           if(FileExtension.ImageExtensions.Contains(extension))
+               return AzureContainer.ImagesContainer;
+           if (FileExtension.PdfExtension.Equals(extension))
+               return AzureContainer.DocumentsContainer;
+           throw new Exception("Invalid file type");
         }
         public async Task<string> UploadFile(IFormFile file, string container, string fileName)
         {
@@ -41,8 +46,8 @@ namespace JobFinder.Service.StorageService
             {
                 throw new Exception("BlobServiceClient is null");
             }
-            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(container);
-            BlobClient blobClient = containerClient.GetBlobClient(fileName);
+            var containerClient = _blobServiceClient.GetBlobContainerClient(container);
+            var blobClient = containerClient.GetBlobClient(fileName);
             await blobClient.UploadAsync(file.OpenReadStream(), true);
             return blobClient.Uri.AbsoluteUri;
         }

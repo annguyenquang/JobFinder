@@ -22,7 +22,7 @@ namespace JobFinder.Service
                 throw new BadRequestException("The slug is used by other companies, try new one");
             {
                 var extension = Path.GetExtension(company.LogoFile.FileName.ToLower());
-                if(FileExtension.ImageExtensions.Contains(extension))
+                if(!FileExtension.ImageExtensions.Contains(extension))
                     throw new BadRequestException("File type is not allowed");
             }
             
