@@ -3,25 +3,35 @@ using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.Model;
 using JobFinder.Model.Utils;
+using JobFinder.Model.Utils.Constants;
 using JobFinder.Model.Utils.Fetching;
 using JobFinder.Model.Utils.Fetching.Filters;
+using JobFinder.Service.StorageService;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobFinder.Service
 {
-    public class CompanyService(ICompanyRepository _companyRepository, IMapper _mapper) : ICompanyService
+    public class CompanyService(ICompanyRepository _companyRepository, IStorageService _storageService, IMapper _mapper) : ICompanyService
     {
         private const int DEFAULT_PAGENUMBER = 1;
         private const int DEFAULT_PAGESIZE = 10;
         private const int MAX_PAGESIZE = 30;
         public async Task<CreateCompanyResponseModel> CreateCompanyAsync(CreateCompanyModel company)
         {
+            if (await GetCompanyBySlugAsync(company.Slug) != null)
+                throw new BadRequestException("The slug is used by other companies, try new one");
+            {
+                var extension = Path.GetExtension(company.LogoFile.FileName.ToLower());
+                if(FileExtension.ImageExtensions.Contains(extension))
+                    throw new BadRequestException("File type is not allowed");
+            }
+            
             var companyEntity = _mapper.Map<Company>(company);
             Company res;
             if (string.IsNullOrEmpty(company.Slug))
             {
-                string slug = GenerateSlugByCompanyName(company.Name);
-                bool slugIsUsedByOtherCompany = await GetCompanyBySlugAsync(slug) != null;
+                var slug = GenerateSlugByCompanyName(company.Name);
+                var slugIsUsedByOtherCompany = await GetCompanyBySlugAsync(slug) != null;
                 if (slugIsUsedByOtherCompany)
                 {
                     companyEntity.Slug = null;
@@ -40,7 +50,12 @@ namespace JobFinder.Service
             {
                 res = await _companyRepository.AddAsync(companyEntity);  
             }
-            return _mapper.Map<CreateCompanyResponseModel>(res);
+            
+            if (res == null) throw new Exception("An error occur while saving the data");
+            var fileLink = await _storageService.UploadFile(company.LogoFile);
+            res.Logo = fileLink;
+            var updated = await _companyRepository.UpdateAsync(res);
+            return _mapper.Map<CreateCompanyResponseModel>(updated);
         }
         public async Task<ListResponseModel<CompanyModel>> GetAllCompanyAsync(CompanyFilter filter, Order order, Pagination pagination)
         {
