@@ -35,5 +35,16 @@ namespace JobFinder.Service.StorageService
             await blobClient.UploadAsync(file.OpenReadStream(), true);
             return blobClient.Uri.AbsoluteUri;
         }
+        public async Task<string> UploadFile(IFormFile file, string container, string fileName)
+        {
+            if (_blobServiceClient == null)
+            {
+                throw new Exception("BlobServiceClient is null");
+            }
+            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(container);
+            BlobClient blobClient = containerClient.GetBlobClient(fileName);
+            await blobClient.UploadAsync(file.OpenReadStream(), true);
+            return blobClient.Uri.AbsoluteUri;
+        }
     }
 }
