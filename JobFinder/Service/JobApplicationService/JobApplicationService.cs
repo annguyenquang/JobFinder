@@ -4,6 +4,7 @@ using JobFinder.Core.Repository;
 using JobFinder.Model;
 using JobFinder.Model.Utils.Fetching;
 using JobFinder.Model.Utils;
+using JobFinder.Model.Utils.Constants;
 using JobFinder.Service.StorageService;
 using JobFinder.Model.Utils.Fetching.Filters;
 
@@ -29,13 +30,18 @@ namespace JobFinder.Service
                 throw new Exception("An error occur while saving the data");
             }
 
-            string fileLink = await _storageService.UploadFile(newApplication.CVFile);
+            var fileLink = await _storageService.UploadFile(newApplication.CVFile, 
+                AzureContainer.DocumentsContainer, 
+                GenerateFileName(saveResult.User.FirstName, saveResult.User.LastName));
             newApplicationEntity.CVLink = fileLink;
             await _jobApplicationRepo.UpdateAsync(newApplicationEntity);
             
             return _mapper.Map<CreateJobApplicationReponseModel>(saveResult);
         }
-
+        private string GenerateFileName(string firstName, string lastName)
+        {
+            return $"{firstName}{lastName}_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}";
+        }
         public async Task<ListResponseModel<JobApplicationModel>> GetAllJobApplicationsAsync(JobApplicationFilter filter, Order order, Pagination pagination)
         {
             var resultPagination = Pagination.validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
