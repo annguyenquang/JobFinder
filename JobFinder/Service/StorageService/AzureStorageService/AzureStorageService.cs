@@ -57,7 +57,7 @@ public class AzureStorageService : IStorageService
         }
 
         var containerClient = _blobServiceClient.GetBlobContainerClient(container);
-        var blobClient = containerClient.GetBlobClient(fileName + Path.GetExtension(fileName));
+        var blobClient = containerClient.GetBlobClient(fileName + Path.GetExtension(file.FileName));
         await blobClient.UploadAsync(file.OpenReadStream(), true);
         return blobClient.Uri.AbsoluteUri;
     }
