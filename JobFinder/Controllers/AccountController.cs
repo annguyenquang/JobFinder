@@ -14,6 +14,7 @@ namespace JobFinder.Controllers
     public class AccountController (IAccountService _accountService) : ControllerBase
     {
         [HttpGet]
+        [Authorize] 
         public async Task<ApiResult<AccountModel>> GetAccountByJwt()
         {
             var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -33,7 +34,6 @@ namespace JobFinder.Controllers
             return ApiResult<AccountModel>.Success(account);
         }
         [HttpPost]
-        [AllowAnonymous]
         public async Task<ApiResult<AccountModel>> Login(AuthAccountModel account)
         {
             var res = await _accountService.Login(account);
@@ -43,7 +43,6 @@ namespace JobFinder.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<ApiResult<CreateAccountModelResponse>> CreateAccount([FromBody] CreateAccountModel accountModel)
         {
             var res = await _accountService.CreateAccount(accountModel);
