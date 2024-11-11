@@ -33,7 +33,7 @@ namespace JobFinder.Controllers
             return ApiResult<ListResponseModel<JobModel>>.Success(jobs);
         } 
         [HttpPost]
-        public async Task<ApiResult<CreateCompanyResponseModel>> CreateCompany(CreateCompanyModel Company)
+        public async Task<ApiResult<CreateCompanyResponseModel>> CreateCompany([FromForm] CreateCompanyModel Company)
         {
             var response = await _companyService.CreateCompanyAsync(Company);
             return ApiResult<CreateCompanyResponseModel>.Success(response);
