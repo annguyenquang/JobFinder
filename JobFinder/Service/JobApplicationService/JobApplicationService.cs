@@ -16,7 +16,7 @@ namespace JobFinder.Service
         private const int DEFAULT_PAGENUMBER = 1;
         private const int DEFAULT_PAGESIZE = 10;
         private const int MAX_PAGESIZE = 30;
-        public async Task<CreateJobApplicationReponseModel> CreateJobApplicationAsync(CreateJobApplicationModel newApplication)
+        public async Task<CreateJobApplicationResponseModel> CreateJobApplicationAsync(CreateJobApplicationModel newApplication)
         {
             if(Path.GetExtension(newApplication.CVFile.FileName.ToLower()) != ".pdf")
             {
@@ -36,7 +36,7 @@ namespace JobFinder.Service
             newApplicationEntity.CVLink = fileLink;
             await _jobApplicationRepo.UpdateAsync(newApplicationEntity);
             
-            return _mapper.Map<CreateJobApplicationReponseModel>(saveResult);
+            return _mapper.Map<CreateJobApplicationResponseModel>(saveResult);
         }
         private string GenerateFileName(string firstName, string lastName)
         {
