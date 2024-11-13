@@ -8,7 +8,7 @@ public class JobApplication : IBaseEntity, IAuditableEntity
     public User User { get; set; }
     public string CVLink { get; set; } = string.Empty;
     public string CoverLetter { get; set; } = string.Empty;
-    public string Phonenumber { get; set; } = string.Empty;
+    public string PhoneNumber { get; set; } = string.Empty;
     public DateTime? CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public Guid? CreatedBy { get; set; }
