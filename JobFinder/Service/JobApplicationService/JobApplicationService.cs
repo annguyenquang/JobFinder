@@ -29,7 +29,6 @@ namespace JobFinder.Service
             {
                 throw new Exception("An error occur while saving the data");
             }
-
             var fileLink = await _storageService.UploadFile(newApplication.CVFile, 
                 AzureContainer.DocumentsContainer, 
                 GenerateFileName(saveResult.User.FirstName, saveResult.User.LastName));
