@@ -3,7 +3,7 @@
     public class JobApplicationModel
         : IBaseResponseModel
     {
-        public JobModel Jobs { get; set; }
+        public JobModel Job { get; set; }
         public UserModel User { get; set; }
         public string CVLink { get; set; } = string.Empty;
 

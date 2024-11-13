@@ -15,10 +15,10 @@ namespace JobFinder.Controllers
             return ApiResult<ListResponseModel<JobApplicationModel>>.Success(applications);
         }
         [HttpPost]
-        public async Task<ApiResult<CreateJobApplicationReponseModel>> CreateJobApplication([FromForm] CreateJobApplicationModel newApplication)
+        public async Task<ApiResult<CreateJobApplicationResponseModel>> CreateJobApplication([FromForm] CreateJobApplicationModel newApplication)
         {
             var response = await _jobApplicationService.CreateJobApplicationAsync(newApplication);
-            return ApiResult<CreateJobApplicationReponseModel>.Success(response);
+            return ApiResult<CreateJobApplicationResponseModel>.Success(response);
         }
     }
 }

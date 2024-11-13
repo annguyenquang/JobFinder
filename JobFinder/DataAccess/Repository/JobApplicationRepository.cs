@@ -1,6 +1,7 @@
 ﻿using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
+using JobFinder.Model;
 using JobFinder.Model.Utils;
 using JobFinder.Model.Utils.Fetching;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace JobFinder.DataAccess.Repository
         public JobApplicationRepository(DatabaseContext context) : base(context)
         {
         }
-        public new Task<List<JobApplication>> GetAllAsync(IFilter<JobApplication> filter, Order order, Pagination pagination)
+        public new async Task<ListModel<JobApplication>> GetAllAsListModelAsync(IFilter<JobApplication> filter, Order order, Pagination pagination)
         {
             var queryable = DbSet
                     .Include(x => x.User)
@@ -26,11 +27,13 @@ namespace JobFinder.DataAccess.Repository
             {
                 queryable = Order.ApplyOrdering(queryable, order.By, order.IsDesc);
             }
+            int total = queryable.Count();
             if(pagination != null)
             {
                 queryable = queryable.Skip(pagination.PageSize * (pagination.Page - 1)).Take(pagination.PageSize);
             }
-            return queryable.ToListAsync();
+            var entityList = await queryable.ToListAsync();
+            return new ListModel<JobApplication>() { Data = entityList, Total = total };
         }
     }
 }

@@ -7,6 +7,6 @@ namespace JobFinder.Service
     public interface IJobApplicationService
     {
         Task<ListResponseModel<JobApplicationModel>> GetAllJobApplicationsAsync(JobApplicationFilter fitler, Order order, Pagination pagination);
-        Task<CreateJobApplicationReponseModel> CreateJobApplicationAsync(CreateJobApplicationModel newApplication);
+        Task<CreateJobApplicationResponseModel> CreateJobApplicationAsync(CreateJobApplicationModel newApplication);
     }
 }

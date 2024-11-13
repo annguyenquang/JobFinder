@@ -9,6 +9,7 @@ namespace JobFinder.Service
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IJobService, JobService>();
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStorageService, AzureStorageService>();
             services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<IMetadataService, MetadataService>();
