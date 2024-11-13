@@ -10,7 +10,7 @@ using JobFinder.Model.Utils.Fetching.Filters;
 
 namespace JobFinder.Service
 {
-    public class JobApplicationService(IJobApplicationRepository _jobApplicationRepo, IStorageService _storageService, IMapper _mapper) : IJobApplicationService
+    public class JobApplicationService(IJobApplicationRepository _jobApplicationRepo, IStorageService _storageService, IUserService _userService, IMapper _mapper) : IJobApplicationService
     {
 
         private const int DEFAULT_PAGENUMBER = 1;
@@ -29,9 +29,11 @@ namespace JobFinder.Service
             {
                 throw new Exception("An error occur while saving the data");
             }
+
+            var submitter = await _userService.GetUserById(saveResult.UserId.Value);
             var fileLink = await _storageService.UploadFile(newApplication.CVFile, 
                 AzureContainer.DocumentsContainer, 
-                GenerateFileName(saveResult.User.FirstName, saveResult.User.LastName));
+                GenerateFileName(submitter.FirstName, submitter.LastName));
             newApplicationEntity.CVLink = fileLink;
             await _jobApplicationRepo.UpdateAsync(newApplicationEntity);
             
