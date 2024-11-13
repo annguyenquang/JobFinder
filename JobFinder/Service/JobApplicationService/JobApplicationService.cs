@@ -38,7 +38,7 @@ namespace JobFinder.Service
             
             return _mapper.Map<CreateJobApplicationResponseModel>(saveResult);
         }
-        private string GenerateFileName(string firstName, string lastName)
+        private static string GenerateFileName(string firstName, string lastName)
         {
             return $"{firstName}{lastName}_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}";
         }
