@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using JobFinder.Model.Utils.Constants;
+using JobFinder.Service.GeminiService;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
@@ -19,6 +20,7 @@ builder.Services.AddControllers();
 //Injection Dependency
 builder.Services.AddDatabaseAccess();
 builder.Services.AddService();
+builder.Services.AddGemini(builder.Configuration);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
