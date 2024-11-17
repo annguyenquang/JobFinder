@@ -70,7 +70,7 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
        var listJob = await _jobService.GetAllJobAsync(filer: param.JobFilter, order: param.Order, pagination: param.Pagination);
        return await GetJobSuggestionByUserAndJobListAsync(user, listJob.Data);
     }
-    async Task<JobSuggestionList> GetJobSuggestionByUserAndJobListAsync(SuggestibleUserModel userProfile,
+    private async Task<JobSuggestionList> GetJobSuggestionByUserAndJobListAsync(SuggestibleUserModel userProfile,
         IEnumerable<JobModel> jobList)
     {
         var tokenCancellingToken = CancellationToken.None;
