@@ -9,15 +9,16 @@ public static class GeminiDependencyInjection
     {
         services.Configure<GeminiOptions>(configuration.GetSection(GeminiOptions.GeminiOption));
 
-        services.AddScoped<GeminiDelegatingHandler>();
+        services.AddTransient<GeminiDelegatingHandler>();
 
         services.AddHttpClient<IGeminiClient, GeminiClient>(
-                (serviceProvider, httpClient) =>
-                {
-                    var geminiOptions = serviceProvider.GetRequiredService<IOptions<GeminiOptions>>().Value;
-
-                    httpClient.BaseAddress = new Uri(geminiOptions.Url);
-                })
-            .AddHttpMessageHandler<GeminiDelegatingHandler>();
+            (serviceProvider, httpClient) =>
+            {
+                var geminiOptions = serviceProvider.GetRequiredService<IOptions<GeminiOptions>>().Value;
+                var url = geminiOptions.Url + $"?key={geminiOptions.ApiKey}";
+                httpClient.BaseAddress = new Uri(url);
+                
+            });
+        // .AddHttpMessageHandler<GeminiDelegatingHandler>();
     }
 }
