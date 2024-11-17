@@ -15,10 +15,8 @@ public static class GeminiDependencyInjection
             (serviceProvider, httpClient) =>
             {
                 var geminiOptions = serviceProvider.GetRequiredService<IOptions<GeminiOptions>>().Value;
-                var url = geminiOptions.Url + $"?key={geminiOptions.ApiKey}";
+                var url = geminiOptions.Url;
                 httpClient.BaseAddress = new Uri(url);
-                
-            });
-        // .AddHttpMessageHandler<GeminiDelegatingHandler>();
+            }).AddHttpMessageHandler<GeminiDelegatingHandler>();
     }
 }

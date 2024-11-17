@@ -19,14 +19,8 @@ namespace JobFinder.Controllers
         public async Task<ApiResult<ListResponseModel<JobModel>>> GetJobsByPagination([FromQuery] GetJobsByPaginationParams param)
         {
             var positions = await _jobService.GetAllJobAsync(param.JobFilter, param.Order, param.Pagination);
-            var res = await _jobSuggestionService.GetJobSuggestionWithExplanation(new SuggestibleUserModel()
-            {
-                FirstName = "An",
-                LastName = "Nguyen",
-                LatestSearchKeyword = ["Seller", "Marketing"]
-            }, positions.Data.Take(2));
             return ApiResult<ListResponseModel<JobModel>>.Success(positions);
-        } 
+        }
         [HttpPost]
         public async Task<ApiResult<CreateJobReponseModel>> CreateJob(CreateJobModel position)
         {
@@ -40,5 +34,12 @@ namespace JobFinder.Controllers
             return ApiResult<UpdateJobResponseModel>.Success(response);
         }
 
+        [HttpGet]
+        public async Task<ApiResult<JobSuggestionList>> GetSuggestionByLatestSearchKeyword([FromQuery] SuggestibleUserModel user,
+            [FromQuery] GetJobsByPaginationParams param)
+        {
+            var response = await _jobSuggestionService.GenerateJobSuggestionListAsync(user, param);
+            return ApiResult<JobSuggestionList>.Success(response);            
+        }
     }
 }

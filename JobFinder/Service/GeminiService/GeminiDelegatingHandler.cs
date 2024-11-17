@@ -10,7 +10,7 @@ internal sealed class GeminiDelegatingHandler(IOptions<GeminiOptions> geminiOpti
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        request.Headers.Add("x-google-api-key", $"{_geminiOptions.ApiKey}");
+        request.Headers.Add("x-goog-api-key", $"{_geminiOptions.ApiKey}");
         return base.SendAsync(request, cancellationToken);
     }
 }

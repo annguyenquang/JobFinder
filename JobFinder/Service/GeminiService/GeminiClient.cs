@@ -36,15 +36,22 @@ internal sealed class GeminiClient : IGeminiClient
     public async Task<string> GenerateContentAsync(string prompt,  CancellationToken cancellationToken, GeminiContent systemInstruction = null)
     {
         var requestBody = GeminiRequestFactory.CreateRequest(prompt, systemInstruction);
-        var content = new StringContent(JsonConvert.SerializeObject(requestBody, Formatting.None, _serializerSettings), Encoding.UTF8, "application/json");
+        var jsonString = JsonConvert.SerializeObject(requestBody, Formatting.None, _serializerSettings);
+        var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(string.Empty, content, cancellationToken);
         response.EnsureSuccessStatusCode();
 
         var responseBody = await response.Content.ReadAsStringAsync();
         var geminiResponse = JsonConvert.DeserializeObject<GeminiResponse>(responseBody);
 
-        var geminiResponseText = geminiResponse?.Candidates[0].Content.Parts[0].Text;
-
+        var geminiResponseText = geminiResponse?.Candidates.FirstOrDefault()?.Content.Parts.FirstOrDefault()?.Text;
+        if(geminiResponseText == null)
+            throw new Exception("Gemini response is null");
+        if (geminiResponseText.StartsWith("```json") && geminiResponseText.EndsWith("```"))
+        {
+            geminiResponseText = geminiResponseText.Remove(0, "```json".Length);
+            geminiResponseText = geminiResponseText.Remove(geminiResponseText.Length - "```".Length);
+        }
         return geminiResponseText;
     }
 }
