@@ -2,55 +2,33 @@ namespace JobFinder.Model;
 
 internal sealed class GeminiRequestFactory
 {
-    public static GeminiRequest CreateRequest(string prompt, GeminiContent[] systemInstruction = null)
+    public static GeminiRequest CreateRequest(string prompt, GeminiContent systemInstruction = null)
     {
         return new GeminiRequest
         {
-            Contents = new GeminiContent[]
-            {
+            Contents =
+            [
                 new GeminiContent
                 {
                     Role = "user",
-                    Parts = new GeminiPart[]
-                    {
+                    Parts =
+                    [
                         new GeminiPart
                         {
                             Text = prompt
                         }
-                    }
+                    ]
                 }
-            },
+            ],
+            SafetySettings = null,
             SystemInstruction = systemInstruction,
             GenerationConfig = new GenerationConfig
             {
-                Temperature = 0,
-                TopK = 1,
-                TopP = 1,
-                MaxOutputTokens = 2048,
-                StopSequences = new List<object>()
-            },
-            SafetySettings = new SafetySettings[]
-            {
-                new SafetySettings
-                {
-                    Category = "HARM_CATEGORY_HARASSMENT",
-                    Threshold = "BLOCK_ONLY_HIGH"
-                },
-                new SafetySettings
-                {
-                    Category = "HARM_CATEGORY_HATE_SPEECH",
-                    Threshold = "BLOCK_ONLY_HIGH"
-                },
-                new SafetySettings
-                {
-                    Category = "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-                    Threshold = "BLOCK_ONLY_HIGH"
-                },
-                new SafetySettings
-                {
-                    Category = "HARM_CATEGORY_DANGEROUS_CONTENT",
-                    Threshold = "BLOCK_ONLY_HIGH"
-                }
+                Temperature = 1,
+                TopK = 40,
+                TopP = 0.95F,
+                MaxOutputTokens = 8192,
+                StopSequences = null
             }
         };
     }
