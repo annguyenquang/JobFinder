@@ -1,6 +1,9 @@
 ﻿using JobFinder.Core.Entity;
 using JobFinder.DataAccess.Seed;
+using JobFinder.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Newtonsoft.Json;
 
 namespace JobFinder.DataAccess.Persistent
 {
@@ -9,6 +12,7 @@ namespace JobFinder.DataAccess.Persistent
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
+
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<User> Users { get; set; }
@@ -16,7 +20,7 @@ namespace JobFinder.DataAccess.Persistent
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<Metadata> Metadatas { get; set; }
 
-        
+
         public override int SaveChanges()
         {
             base.SaveChangesAsync();
@@ -33,7 +37,8 @@ namespace JobFinder.DataAccess.Persistent
         private void AddTimestamps()
         {
             var entities = ChangeTracker.Entries<IAuditableEntity>()
-                .Where(x => x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+                .Where(x => x.Entity is IAuditableEntity &&
+                            (x.State == EntityState.Added || x.State == EntityState.Modified));
 
             foreach (var entity in entities)
             {
@@ -43,6 +48,7 @@ namespace JobFinder.DataAccess.Persistent
                 {
                     (entity.Entity).CreatedAt = now;
                 }
+
                 (entity.Entity).UpdatedAt = now;
             }
         }
@@ -56,7 +62,17 @@ namespace JobFinder.DataAccess.Persistent
             var position = DataSeed.GetJobSeeds(companies, metadatas);
             modelBuilder.Entity<Account>().UseTpcMappingStrategy();
             modelBuilder.Entity<User>().HasData(users);
-            modelBuilder.Entity<User>().Property(u=>u.Skills).HasConversion<string>();
+            modelBuilder.Entity<User>().Property(u => u.Skills).HasConversion<string>();
+            modelBuilder.Entity<User>().Property(u => u.Certifications).HasConversion<string>(
+                    c => JsonConvert.SerializeObject(c, Formatting.Indented,
+                        new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
+                    c => JsonConvert.DeserializeObject<IEnumerable<Certification>>(c,
+                        new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }))
+                .Metadata
+                .SetValueComparer(new ValueComparer<IEnumerable<Certification>>(
+                    (c1, c2) => c1.SequenceEqual(c2), 
+                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), // Hash code computation
+                    c => c.ToList())); 
             modelBuilder.Entity<Metadata>().HasData(metadatas);
             modelBuilder.Entity<Company>().HasData(companies);
             modelBuilder.Entity<Job>().HasData(position);
