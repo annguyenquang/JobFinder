@@ -14,12 +14,22 @@ namespace JobFinder.DataAccess.Seed
                 {
                     Id = Guid.Parse("0cc554c2-c577-4a89-8cc1-90724bcbb9fb"),
                     FirstName = "An",
-                    LastName = "Nguyen",
-                    Email = "an.nguyen@gmail.com",
-                    Username = "user1",
-                    Password = "$2a$11$FwT.00cm86tbj3/ROPWnLOFAblHj19tmtNy9S2CAc1TFqgM/YPfUO",
+                    LastName = "Nguyen", Email = "an.nguyen@gmail.com", Username = "user1", Password = "$2a$11$FwT.00cm86tbj3/ROPWnLOFAblHj19tmtNy9S2CAc1TFqgM/YPfUO",
                     DateOfBirth = DateOnly.Parse("2003-10-12"),
-                    Skills = [".NET", "Java", "Architecture"]
+                    Skills = [".NET", "Java", "Architecture"],
+                    Certifications =
+                    [
+                        new Certification
+                        {
+                            Name = "TOEIC R&L 855", IssuingOrganization = "IIG Vietnam",
+                            IssueDate = new DateOnly(2024, 6, 19), ExpirationDate = new DateOnly(2026, 6, 19)
+                        },
+                        new Certification
+                        {
+                            Name = "IELTS 6.5", IssuingOrganization = "IIG Vietnam"
+                        },
+                        
+                    ]
                 },
                 new User
                 {
@@ -30,10 +40,19 @@ namespace JobFinder.DataAccess.Seed
                     Username = "user2",
                     Password = "$2y$10$uRRTkqzKKlF5u0Zpq8cjDujsFWyMjmx65oYZc8kO10GiTXpp3Gaxe",
                     DateOfBirth = DateOnly.Parse("2003-10-12"),
-                    Skills = ["Marketing", "Digital Marketing", "Communication", "SEO", "AI Technologies"]
+                    Skills = ["Marketing", "Digital Marketing", "Communication", "SEO", "AI Technologies"],
+                    Certifications =
+                    [
+                        new Certification
+                        {
+                            Name = "Google SEO 2024", IssuingOrganization = "Google",
+                            IssueDate = new DateOnly(2024, 6, 19), ExpirationDate = new DateOnly(2026, 6, 19)
+                        },
+                    ]
                 }
             ];
         }
+
         public static IEnumerable<Company> GetCompanySeeds()
         {
             return
@@ -263,8 +282,8 @@ namespace JobFinder.DataAccess.Seed
             var company3 = companies.ElementAt(2);
 
             var skillsArray = new[] { "C#", ".NET", "Machine Learning", "Network", "Hardware", "Marketing" };
-            var skills = JsonConvert.SerializeObject(skillsArray);             
- 
+            var skills = JsonConvert.SerializeObject(skillsArray);
+
             // Manually create 20 job instances with varied metadata
             return new List<Job>
             {
