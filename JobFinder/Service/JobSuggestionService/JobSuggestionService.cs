@@ -6,11 +6,11 @@ namespace JobFinder.Service;
 
 public interface IJobSuggestionService
 {
-    Task<JobSuggestionList> GenerateJobSuggestionListAsync(SuggestibleUserModel user,
+    Task<JobSuggestionList> GenerateJobSuggestionListAsync(SuggestibleUserModel suggestibleUser,
         GetJobsByPaginationParams param);
 }
 
-public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobService _jobService) : IJobSuggestionService
+public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobService _jobService, IUserService _userService) : IJobSuggestionService
 {
     private GeminiContent DEFAULTSYSTEMSUGGESTION =
         new()
@@ -65,12 +65,25 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
             ]
         };
 
-    public async Task<JobSuggestionList> GenerateJobSuggestionListAsync(SuggestibleUserModel user, GetJobsByPaginationParams param)
+    public async Task<JobSuggestionList> GenerateJobSuggestionListAsync(SuggestibleUserModel suggestibleUser, GetJobsByPaginationParams param)
     {
        var listJob = await _jobService.GetAllJobAsync(filer: param.JobFilter, order: param.Order, pagination: param.Pagination);
-       return await GetJobSuggestionByUserAndJobListAsync(user, listJob.Data);
+       var user = await _userService.GetUserById(suggestibleUser.UserId);
+       if (user == null)
+       {
+           throw new BadRequestException("User not found");
+       }
+
+       UserInfo userInfo = new()
+       {
+           Skills = user.Skills, 
+           SelfDescription = user.SelfDescription, 
+           Certifications = user.Certifications,
+           LatestSearchKeywords = suggestibleUser.LatestSearchKeywords
+       };
+       return await GetJobSuggestionByUserAndJobListAsync(userInfo, listJob.Data);
     }
-    private async Task<JobSuggestionList> GetJobSuggestionByUserAndJobListAsync(SuggestibleUserModel userProfile,
+    private async Task<JobSuggestionList> GetJobSuggestionByUserAndJobListAsync(UserInfo userProfile,
         IEnumerable<JobModel> jobList)
     {
         var tokenCancellingToken = CancellationToken.None;
@@ -83,7 +96,12 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
             throw new Exception("Can't deserialize raw response to JobSuggestionList");
         return jobSuggestionList;
     }
+
+    private class UserInfo
+    {
+        public IEnumerable<string> Skills { get; set; } = new List<string>();
+        public string SelfDescription { get; set; } = string.Empty;
+        public IEnumerable<Certification> Certifications { get; set; } = [];
+        public IEnumerable<string> LatestSearchKeywords { get; set; } = [];
+    }
 }
-
-
-
