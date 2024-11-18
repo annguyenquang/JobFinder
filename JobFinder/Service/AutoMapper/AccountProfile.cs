@@ -10,11 +10,11 @@ namespace JobFinder.Service.AutoMapper
         {
             CreateMap<Account, AccountModel>()
                 .Include<Company, CompanyLoginResponseModel>()
-                .Include<User, UserLoginReponseModel>();
+                .Include<User, UserLoginResponseModel>();
             CreateMap<CreateAccountModel, Account>();
             CreateMap<Account, CreateAccountModelResponse>();
             CreateMap<Company, CompanyLoginResponseModel>();
-            CreateMap<User, UserLoginReponseModel>();
+            CreateMap<User, UserLoginResponseModel>();
         } 
     }
 }
