@@ -5,6 +5,8 @@
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public DateOnly DateOfBirth { get; set; }
+        public IEnumerable<string> Skills { get; set; } = new List<string>();
+        public string SelfDescription { get; set; } = string.Empty;
         public IEnumerable<JobApplication> JobApplications { get; set; } = new List<JobApplication>();
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
