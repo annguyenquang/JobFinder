@@ -14,6 +14,8 @@ namespace JobFinder.Service
             services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<IMetadataService, MetadataService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IJobSuggestionService, JobSuggestionService>();
         }
+        
     }
 }

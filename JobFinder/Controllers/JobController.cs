@@ -7,7 +7,7 @@ namespace JobFinder.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class JobController(IJobService _jobService) : ControllerBase
+    public class JobController(IJobService _jobService, IJobSuggestionService _jobSuggestionService) : ControllerBase
     {
         [HttpGet]
         public async Task<ApiResult<JobModel>> GetJob(Guid id)
@@ -20,7 +20,7 @@ namespace JobFinder.Controllers
         {
             var positions = await _jobService.GetAllJobAsync(param.JobFilter, param.Order, param.Pagination);
             return ApiResult<ListResponseModel<JobModel>>.Success(positions);
-        } 
+        }
         [HttpPost]
         public async Task<ApiResult<CreateJobReponseModel>> CreateJob(CreateJobModel position)
         {
@@ -34,5 +34,12 @@ namespace JobFinder.Controllers
             return ApiResult<UpdateJobResponseModel>.Success(response);
         }
 
+        [HttpGet]
+        public async Task<ApiResult<JobSuggestionList>> GetSuggestionByLatestSearchKeyword([FromQuery] SuggestibleUserModel user,
+            [FromQuery] GetJobsByPaginationParams param)
+        {
+            var response = await _jobSuggestionService.GenerateJobSuggestionListAsync(user, param);
+            return ApiResult<JobSuggestionList>.Success(response);            
+        }
     }
 }
