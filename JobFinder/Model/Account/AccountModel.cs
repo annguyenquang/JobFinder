@@ -3,7 +3,7 @@
 namespace JobFinder.Model;
 
 [JsonDerivedType(typeof(CompanyLoginResponseModel))]
-[JsonDerivedType(typeof(UserLoginReponseModel))]
+[JsonDerivedType(typeof(UserLoginResponseModel))]
 public abstract class AccountModel: IBaseResponseModel
 {
     public string Username { get; set; } = string.Empty;

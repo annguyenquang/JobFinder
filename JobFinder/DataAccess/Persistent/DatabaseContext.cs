@@ -56,6 +56,7 @@ namespace JobFinder.DataAccess.Persistent
             var position = DataSeed.GetJobSeeds(companies, metadatas);
             modelBuilder.Entity<Account>().UseTpcMappingStrategy();
             modelBuilder.Entity<User>().HasData(users);
+            modelBuilder.Entity<User>().Property(u=>u.Skills).HasConversion<string>();
             modelBuilder.Entity<Metadata>().HasData(metadatas);
             modelBuilder.Entity<Company>().HasData(companies);
             modelBuilder.Entity<Job>().HasData(position);

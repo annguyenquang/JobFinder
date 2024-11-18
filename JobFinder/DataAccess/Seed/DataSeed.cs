@@ -8,9 +8,9 @@ namespace JobFinder.DataAccess.Seed
     {
         public static IEnumerable<User> GetUserSeeds()
         {
-            return new[]
-            {
-                new User()
+            return
+            [
+                new User
                 {
                     Id = Guid.Parse("0cc554c2-c577-4a89-8cc1-90724bcbb9fb"),
                     FirstName = "An",
@@ -19,13 +19,25 @@ namespace JobFinder.DataAccess.Seed
                     Username = "user1",
                     Password = "$2a$11$FwT.00cm86tbj3/ROPWnLOFAblHj19tmtNy9S2CAc1TFqgM/YPfUO",
                     DateOfBirth = DateOnly.Parse("2003-10-12"),
+                    Skills = [".NET", "Java", "Architecture"]
+                },
+                new User
+                {
+                    Id = Guid.Parse("789d82a4-e7ea-458b-aacd-039fc2f30fc4"),
+                    FirstName = "Chi",
+                    LastName = "Nguyen",
+                    Email = "chi.nguyen@gmail.com",
+                    Username = "user2",
+                    Password = "$2y$10$uRRTkqzKKlF5u0Zpq8cjDujsFWyMjmx65oYZc8kO10GiTXpp3Gaxe",
+                    DateOfBirth = DateOnly.Parse("2003-10-12"),
+                    Skills = ["Marketing", "Digital Marketing", "Communication", "SEO", "AI Technologies"]
                 }
-            };
+            ];
         }
         public static IEnumerable<Company> GetCompanySeeds()
         {
-            return new[]
-            {
+            return
+            [
                 new Company
                 {
                     Id = Guid.Parse("7f9b407b-80e0-4f0c-a301-5a8bbf813b05"),
@@ -76,8 +88,8 @@ namespace JobFinder.DataAccess.Seed
                     Description = "An Inc. is a an incident company.",
                     Logo =
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsowdkWEAhFe0idqRamO_CAvGutpD1CHKpcA&s"
-                },
-            };
+                }
+            ];
         }
 
         public static IEnumerable<Metadata> GetMetadataSeeds()
