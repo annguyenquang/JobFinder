@@ -15,6 +15,8 @@ public static class GeminiDependencyInjection
             (serviceProvider, httpClient) =>
             {
                 var geminiOptions = serviceProvider.GetRequiredService<IOptions<GeminiOptions>>().Value;
+                if (string.IsNullOrEmpty(geminiOptions.Url)) 
+                    return;
                 var url = geminiOptions.Url;
                 httpClient.BaseAddress = new Uri(url);
             }).AddHttpMessageHandler<GeminiDelegatingHandler>();
