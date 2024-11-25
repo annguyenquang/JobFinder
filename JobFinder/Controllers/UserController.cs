@@ -1,8 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using JobFinder.Core.Entity;
-using JobFinder.Model;
-using JobFinder.Model.Utils.Constants;
+﻿using JobFinder.Model;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
