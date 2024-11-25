@@ -9,6 +9,7 @@ namespace JobFinder.Service.AutoMapper
         public UserProfile()
         {
             CreateMap<User, UserModel>();
+            CreateMap<User, UpdateUserResponseModel>();
         }
     }
 }
