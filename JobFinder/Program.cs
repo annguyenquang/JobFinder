@@ -52,6 +52,9 @@ builder.Services.AddSwaggerGen(c =>
             new List<string>()
         }
     });
+    c.MapType<DateOnly>(() => new OpenApiSchema { 
+        Type = "string",
+        Format = "date" });
 });
 //Authentication
 builder.Services
