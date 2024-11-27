@@ -27,6 +27,7 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
                                                        Each job recommendation should be tailored based on the user's preferences and profile information and should respect the values provided below.
                                                        Return the recommendations in the following structure:
                                                        {{JobSuggestionList.GetTypeStructure()}}
+                                                       JobSuggestionList.explanation: refer to the skills that user given before.
                                                        Use these mappings for matching job requirements: 
                                                        CommitmentType:
                                                        Contract (ID: "44b668b2-09ee-499e-af95-73598f9153a2")
