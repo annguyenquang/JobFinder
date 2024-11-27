@@ -76,7 +76,7 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
 
        UserInfo userInfo = new()
        {
-           Skills = user.Skills, 
+           Skills = user.Skills.Concat(suggestibleUser.AdditionSkills), 
            SelfDescription = user.SelfDescription, 
            Certifications = user.Certifications,
            LatestSearchKeywords = suggestibleUser.LatestSearchKeywords
