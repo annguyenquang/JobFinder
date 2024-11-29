@@ -19,6 +19,10 @@ public class UserService(IUserRepository _userRepository, IMapper _mapper) : IUs
             throw new BadRequestException($"User with not found");
         userEntity.FirstName = user.FirstName;
         userEntity.LastName = user.LastName;
+        if (user.DateOfBirth != null)
+        {
+            userEntity.DateOfBirth = user.DateOfBirth.Value; 
+        }
         userEntity.Certifications = user.Certifications;
         userEntity.Skills = user.Skills;
         userEntity.SelfDescription = user.SelfDescription;
