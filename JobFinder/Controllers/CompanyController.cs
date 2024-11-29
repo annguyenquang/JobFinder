@@ -39,7 +39,7 @@ namespace JobFinder.Controllers
             return ApiResult<CreateCompanyResponseModel>.Success(response);
         }
         [HttpPatch("{id}")]
-        public async Task<ApiResult<UpdateCompanyResponseModel>> UpdateCompany(Guid id, [FromBody] UpdateCompanyModel newCompanyModel)
+        public async Task<ApiResult<UpdateCompanyResponseModel>> UpdateCompany(Guid id, [FromForm] UpdateCompanyModel newCompanyModel)
         {
             var response = await _companyService.UpdateCompanyAsync(id, newCompanyModel);
             return ApiResult<UpdateCompanyResponseModel>.Success(response);

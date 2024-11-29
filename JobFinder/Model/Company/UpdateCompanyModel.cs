@@ -11,7 +11,7 @@ namespace JobFinder.Model
         public string? Website { get; set; }
         public string Slug { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public string? Logo { get; set; } = string.Empty;
+        public IFormFile? LogoFile { get; set; }
         public int? EmployeeCount { get; set; }
 
         public int ProvinceId { get; set; }

@@ -81,6 +81,11 @@ namespace JobFinder.Service
 
         public async Task<UpdateCompanyResponseModel> UpdateCompanyAsync(Guid id, UpdateCompanyModel newCompanyModel)
         {
+            if (await GetCompanyBySlugAsync(newCompanyModel.Slug) != null)
+                throw new BadRequestException("The slug is used by other companies, try new one");
+            var extension = Path.GetExtension(newCompanyModel.LogoFile.FileName.ToLower());
+            if (!FileExtension.ImageExtensions.Contains(extension))
+                throw new BadRequestException("File type is not allowed");
             Company currentCompany = await _companyRepository.GetAsync(id);
             if (currentCompany == null)
             {
@@ -95,12 +100,16 @@ namespace JobFinder.Service
             currentCompany.Website = newCompanyModel.Website;
             currentCompany.Slug = newCompanyModel.Slug;
             currentCompany.Description = newCompanyModel.Description;
-            currentCompany.Logo = newCompanyModel.Logo;
             currentCompany.EmployeeCount = newCompanyModel.EmployeeCount;
             currentCompany.ProvinceId = newCompanyModel.ProvinceId;
             currentCompany.DistrictId = newCompanyModel.DistrictId;
             var res = await _companyRepository.UpdateAsync(currentCompany);
-            return _mapper.Map<UpdateCompanyResponseModel>(res);
+            if(res == null) throw new Exception("An error occur while saving the data");
+            var fileLink =
+                await _storageService.UploadFile(newCompanyModel.LogoFile, LogosContainer, GenerateFileName(res.Slug));
+            res.Logo = fileLink;
+            var updated = await _companyRepository.UpdateAsync(res);
+            return _mapper.Map<UpdateCompanyResponseModel>(updated);
         }
 
         public async Task<ListResponseModel<JobModel>> GetCompanyJobs(Guid id, JobFilter filter, Order order,
