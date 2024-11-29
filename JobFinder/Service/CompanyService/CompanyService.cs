@@ -79,7 +79,7 @@ namespace JobFinder.Service
             return _mapper.Map<CompanyModel>(entity);
         }
 
-        public async Task<UpdateCompanyReponseModel> UpdateCompanyAsync(Guid id, UpdateCompanyModel newCompanyModel)
+        public async Task<UpdateCompanyResponseModel> UpdateCompanyAsync(Guid id, UpdateCompanyModel newCompanyModel)
         {
             Company currentCompany = await _companyRepository.GetAsync(id);
             if (currentCompany == null)
@@ -110,7 +110,7 @@ namespace JobFinder.Service
                 }
             }
             var res = await _companyRepository.UpdateAsync(currentCompany);
-            return _mapper.Map<UpdateCompanyReponseModel>(res);
+            return _mapper.Map<UpdateCompanyResponseModel>(res);
         }
 
         public async Task<ListResponseModel<JobModel>> GetCompanyJobs(Guid id, JobFilter filter, Order order,
