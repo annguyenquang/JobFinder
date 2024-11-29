@@ -14,9 +14,9 @@ public class AzureStorageService : IStorageService
         var connectionStr = _appSettings.Value.AZURE_STORAGE_CONNECTION_STRING;
         if (string.IsNullOrEmpty(connectionStr))
         {
+            return;
             throw new Exception("Azure storage connection string is null or empty");
         }
-
         _blobServiceClient = new BlobServiceClient(connectionStr);
     }
 
