@@ -79,7 +79,7 @@ namespace JobFinder.Service
             return _mapper.Map<CompanyModel>(entity);
         }
 
-        public async Task<UpdateCompanyReponseModel> UpdateCompanyAsync(Guid id, UpdateCompanyModel newCompanyModel)
+        public async Task<UpdateCompanyResponseModel> UpdateCompanyAsync(Guid id, UpdateCompanyModel newCompanyModel)
         {
             Company currentCompany = await _companyRepository.GetAsync(id);
             if (currentCompany == null)
@@ -88,29 +88,19 @@ namespace JobFinder.Service
             }
 
             //Update only changed properties
-            {
-                if (!string.IsNullOrEmpty(newCompanyModel.EmailContact))
-                {
-                    currentCompany.EmailContact = newCompanyModel.EmailContact;
-                }
-
-                if (!string.IsNullOrEmpty(newCompanyModel.PhoneContact))
-                {
-                    currentCompany.PhoneContact = newCompanyModel.PhoneContact;
-                }
-
-                if (!string.IsNullOrEmpty(newCompanyModel.Address))
-                {
-                    currentCompany.Address = newCompanyModel.Address;
-                }
-
-                if (!string.IsNullOrEmpty(newCompanyModel.Website))
-                {
-                    currentCompany.Website = newCompanyModel.Website;
-                }
-            }
+            currentCompany.Name = newCompanyModel.Name;
+            currentCompany.EmailContact = newCompanyModel.EmailContact;
+            currentCompany.PhoneContact = newCompanyModel.PhoneContact;
+            currentCompany.Address = newCompanyModel.Address;
+            currentCompany.Website = newCompanyModel.Website;
+            currentCompany.Slug = newCompanyModel.Slug;
+            currentCompany.Description = newCompanyModel.Description;
+            currentCompany.Logo = newCompanyModel.Logo;
+            currentCompany.EmployeeCount = newCompanyModel.EmployeeCount;
+            currentCompany.ProvinceId = newCompanyModel.ProvinceId;
+            currentCompany.DistrictId = newCompanyModel.DistrictId;
             var res = await _companyRepository.UpdateAsync(currentCompany);
-            return _mapper.Map<UpdateCompanyReponseModel>(res);
+            return _mapper.Map<UpdateCompanyResponseModel>(res);
         }
 
         public async Task<ListResponseModel<JobModel>> GetCompanyJobs(Guid id, JobFilter filter, Order order,

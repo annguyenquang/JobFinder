@@ -11,7 +11,7 @@ namespace JobFinder.Service
         Task<CompanyModel> GetCompanyBySlugAsync(string slug);
         Task<ListResponseModel<CompanyModel>> GetAllCompanyAsync(CompanyFilter filter, Order order, Pagination pagination);
         Task<CreateCompanyResponseModel> CreateCompanyAsync(CreateCompanyModel company);
-        Task<UpdateCompanyReponseModel> UpdateCompanyAsync(Guid id, UpdateCompanyModel companyModel);
+        Task<UpdateCompanyResponseModel> UpdateCompanyAsync(Guid id, UpdateCompanyModel companyModel);
         Task<ListResponseModel<JobModel>> GetCompanyJobs(Guid id, JobFilter filter, Order order, Pagination pagination);
     }
 }

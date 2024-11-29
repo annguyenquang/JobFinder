@@ -14,7 +14,7 @@ namespace JobFinder.Service.AutoMapper
                 .ForMember(des => des.Password, opt => opt.MapFrom(src => BC.HashPassword(src.Password)));
             CreateMap<Company, CreateCompanyResponseModel>();
             CreateMap<UpdateCompanyModel, Company>();
-            CreateMap<Company, UpdateCompanyReponseModel>();
+            CreateMap<Company, UpdateCompanyResponseModel>();
         }
     }
 }
