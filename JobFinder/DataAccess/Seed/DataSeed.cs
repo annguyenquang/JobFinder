@@ -72,7 +72,9 @@ namespace JobFinder.DataAccess.Seed
                     Industry = "Technology",
                     Description = "Tech Corp is a tech corp company.",
                     Logo =
-                        "https://images-platform.99static.com/7v8-fjWpezqDYFTxbYGvEE3gnw8=/191x0:1338x1147/500x500/top/smart/99designs-contests-attachments/60/60612/attachment_60612660"
+                        "https://images-platform.99static.com/7v8-fjWpezqDYFTxbYGvEE3gnw8=/191x0:1338x1147/500x500/top/smart/99designs-contests-attachments/60/60612/attachment_60612660",
+                    ProvinceId = 1,
+                    DistrictId = 1
                 },
                 new Company
                 {
@@ -89,7 +91,10 @@ namespace JobFinder.DataAccess.Seed
                     Industry = "Healthcare",
                     Description = "Health Inc. is a health corp company.",
                     Logo =
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyD1QcAiMJyNvRptFkjJXovZouhRkTEMlazQ&s"
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyD1QcAiMJyNvRptFkjJXovZouhRkTEMlazQ&s",
+                    ProvinceId = 79,
+                    DistrictId = 760
+                    
                 },
                 new Company
                 {
@@ -106,8 +111,11 @@ namespace JobFinder.DataAccess.Seed
                     Industry = "IT",
                     Description = "An Inc. is a an incident company.",
                     Logo =
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsowdkWEAhFe0idqRamO_CAvGutpD1CHKpcA&s"
-                }
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsowdkWEAhFe0idqRamO_CAvGutpD1CHKpcA&s",
+                    ProvinceId = 31,
+                    DistrictId = 303,
+                },
+                
             ];
         }
 
@@ -285,7 +293,7 @@ namespace JobFinder.DataAccess.Seed
             var skills = JsonConvert.SerializeObject(skillsArray);
 
             // Manually create 20 job instances with varied metadata
-            return new List<Job>
+            var listOfJobs = new List<Job>
             {
                 new Job
                 {
@@ -983,6 +991,14 @@ namespace JobFinder.DataAccess.Seed
                     UpdatedAt = DateTime.Now
                 }
             };
+            foreach (var job in listOfJobs)
+            {
+                job.Company = companies.FirstOrDefault(c => job.Id == c.Id);
+                if(job.Company == null) continue;
+                job.ProvinceId = job.Company.ProvinceId;
+                job.DistrictId = job.Company.DistrictId;
+            }
+            return listOfJobs;
         }
     }
 }
