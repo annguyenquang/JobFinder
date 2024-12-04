@@ -62,7 +62,7 @@ namespace JobFinder.Service
         public async Task<ListResponseModel<CompanyModel>> GetAllCompanyAsync(CompanyFilter filter, Order order,
             Pagination pagination)
         {
-            var returnPagination = Pagination.validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
+            var returnPagination = Pagination.Validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
             var entities = await _companyRepository.GetAllAsListModelAsync(filter, order, returnPagination);
             var result = new ListResponseModel<CompanyModel>
             {

@@ -45,7 +45,7 @@ namespace JobFinder.Service
         }
         public async Task<ListResponseModel<JobApplicationModel>> GetAllJobApplicationsAsync(JobApplicationFilter filter, Order order, Pagination pagination)
         {
-            var resultPagination = Pagination.validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
+            var resultPagination = Pagination.Validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
             var entities = await _jobApplicationRepo.GetAllAsListModelAsync(filter, order, resultPagination);
             var models = _mapper.Map<List<JobApplicationModel>>(entities.Data);
             return new ListResponseModel<JobApplicationModel> { Data = models, Total = entities.Total, Pagination = resultPagination };

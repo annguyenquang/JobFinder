@@ -4,7 +4,7 @@
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
-        public static Pagination validate(
+        public static Pagination Validate(
             Pagination pagination, 
             int defaultPageNumber = 1, 
             int defaultPageSize = 10,
@@ -23,9 +23,10 @@
             {
                 pagination.Page = defaultPageNumber;
             }
-            if (pagination.PageSize < 1 || pagination.PageSize > maxPageSize)
+
+            if (pagination.PageSize > maxPageSize)
             {
-                pagination.PageSize = defaultPageSize;
+                pagination.PageSize = maxPageSize;
             }
             return pagination;
         }
