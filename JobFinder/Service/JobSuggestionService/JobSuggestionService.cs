@@ -28,6 +28,7 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
                                                        Return the recommendations in the following structure:
                                                        {{JobSuggestionList.GetTypeStructure()}}
                                                        JobSuggestionList.explanation: refer to the skills that user given before.
+                                                       Both JobSuggestionList.explanation and Suggestion.explanation length should be about 20 words.
                                                        Use these mappings for matching job requirements: 
                                                        CommitmentType:
                                                        Contract (ID: "44b668b2-09ee-499e-af95-73598f9153a2")
@@ -60,7 +61,8 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
                                                        Male ("79685cdb-be26-49cc-b7f9-1fb51686f5ba")
                                                        Female ("7b5f69cb-5996-4a57-b9c6-9fee2a791bf6")
                                                        Others ("12497687-64b8-4d8e-814a-b7d1d33d3aab")
-                                                       Please evaluate these attributes for each job in the given list and return recommendations based on alignment with the user profile in the format specified. And the more suggestion, the more satisfy
+                                                       Please evaluate these attributes for each job in the given list and return recommendations based on alignment with the user profile in the format specified. And the more suggestion, the more satisfy.
+                                                       Return at least one job.
                            """
                 }
             ]
