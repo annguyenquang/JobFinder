@@ -1,5 +1,6 @@
 
 using JobFinder.Model;
+using JobFinder.Model.Utils.Fetching;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,8 +39,10 @@ namespace JobFinder.Controllers
         public async Task<ApiResult<JobSuggestionList>> GetSuggestionByLatestSearchKeyword([FromQuery] SuggestibleUserModel user,
             [FromQuery] GetJobsByPaginationParams param)
         {
+            var defaultPagination = new Pagination { Page = 1, PageSize = 999 };
+            param.Pagination ??= defaultPagination;
             var response = await _jobSuggestionService.GenerateJobSuggestionListAsync(user, param);
-            return ApiResult<JobSuggestionList>.Success(response);            
+            return ApiResult<JobSuggestionList>.Success(response);
         }
     }
 }
