@@ -62,7 +62,7 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
                                                        Female ("7b5f69cb-5996-4a57-b9c6-9fee2a791bf6")
                                                        Others ("12497687-64b8-4d8e-814a-b7d1d33d3aab")
                                                        Please evaluate these attributes for each job in the given list and return recommendations based on alignment with the user profile in the format specified. And the more suggestion, the more satisfy.
-                                                       Return at least one job.
+                                                       Return at least one job if the provided jobs is not empty, and if the provided jobs is empty return a empty array.
                            """
                 }
             ]
@@ -94,10 +94,17 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
                      $"\njobList: {JsonConvert.SerializeObject(jobList)}}}";
         var rawResponse =
             await _geminiClient.GenerateContentAsync(prompt, tokenCancellingToken, DEFAULTSYSTEMSUGGESTION);
-        var jobSuggestionList = JsonConvert.DeserializeObject<JobSuggestionList>(rawResponse);
-        if (jobSuggestionList == null) 
-            throw new Exception("Can't deserialize raw response to JobSuggestionList");
-        return jobSuggestionList;
+        try
+        {
+            var jobSuggestionList = JsonConvert.DeserializeObject<JobSuggestionList>(rawResponse);
+            if (jobSuggestionList == null)
+                throw new BadRequestException("Job suggestion list is empty");
+            return jobSuggestionList;
+        }
+        catch 
+        {
+            return new JobSuggestionList { Explanation = "Currently, there is no job match your skills, certifications, education"};
+        }
     }
 
     private class UserInfo
