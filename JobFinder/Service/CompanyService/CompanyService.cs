@@ -81,12 +81,10 @@ namespace JobFinder.Service
 
         public async Task<UpdateCompanyResponseModel> UpdateCompanyAsync(Guid id, UpdateCompanyModel newCompanyModel)
         {
-            if (await GetCompanyBySlugAsync(newCompanyModel.Slug) != null)
+            var companyWithUpdatedSlug = await GetCompanyBySlugAsync(newCompanyModel.Slug);
+            if ( companyWithUpdatedSlug != null && companyWithUpdatedSlug.Slug != newCompanyModel.Slug)
                 throw new BadRequestException("The slug is used by other companies, try new one");
-            var extension = Path.GetExtension(newCompanyModel.LogoFile.FileName.ToLower());
-            if (!FileExtension.ImageExtensions.Contains(extension))
-                throw new BadRequestException("File type is not allowed");
-            Company currentCompany = await _companyRepository.GetAsync(id);
+            var currentCompany = await _companyRepository.GetAsync(id);
             if (currentCompany == null)
             {
                 throw new Exception("Company not found");
@@ -105,9 +103,19 @@ namespace JobFinder.Service
             currentCompany.DistrictId = newCompanyModel.DistrictId;
             var res = await _companyRepository.UpdateAsync(currentCompany);
             if(res == null) throw new Exception("An error occur while saving the data");
+
+            if (newCompanyModel.LogoFile == null)
+            {
+                return _mapper.Map<UpdateCompanyResponseModel>(res);
+            }
+            
+            var extension = Path.GetExtension(newCompanyModel.LogoFile.FileName.ToLower());
+            if (!FileExtension.ImageExtensions.Contains(extension))
+                throw new BadRequestException("File type is not allowed");
             var fileLink =
                 await _storageService.UploadFile(newCompanyModel.LogoFile, LogosContainer, GenerateFileName(res.Slug));
             res.Logo = fileLink;
+            
             var updated = await _companyRepository.UpdateAsync(res);
             return _mapper.Map<UpdateCompanyResponseModel>(updated);
         }
