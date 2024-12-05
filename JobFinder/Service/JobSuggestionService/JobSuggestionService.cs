@@ -94,10 +94,17 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
                      $"\njobList: {JsonConvert.SerializeObject(jobList)}}}";
         var rawResponse =
             await _geminiClient.GenerateContentAsync(prompt, tokenCancellingToken, DEFAULTSYSTEMSUGGESTION);
-        var jobSuggestionList = JsonConvert.DeserializeObject<JobSuggestionList>(rawResponse);
-        if (jobSuggestionList == null) 
-            throw new Exception("Can't deserialize raw response to JobSuggestionList");
-        return jobSuggestionList;
+        try
+        {
+            var jobSuggestionList = JsonConvert.DeserializeObject<JobSuggestionList>(rawResponse);
+            if (jobSuggestionList == null)
+                throw new BadRequestException("Job suggestion list is empty");
+            return jobSuggestionList;
+        }
+        catch 
+        {
+            return new JobSuggestionList { Explanation = "Currently, there is no job match your skills, certifications, education"};
+        }
     }
 
     private class UserInfo
