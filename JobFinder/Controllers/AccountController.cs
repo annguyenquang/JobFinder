@@ -17,13 +17,13 @@ namespace JobFinder.Controllers
         [Authorize] 
         public async Task<ApiResult<AccountModel>> GetAccountByJwt()
         {
-            var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(id))
+            var username = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(username))
             {
                throw new UnauthorizedAccessException("Missing JWT Token");
             }
             
-            var account = await _accountService.GetAccountByUsername(id);
+            var account = await _accountService.GetAccountByUsername(username);
             return ApiResult<AccountModel>.Success(account);
         }
         
@@ -40,6 +40,19 @@ namespace JobFinder.Controllers
             AddJwtHttpOnlyCookie(res.AccessToken);
             res.AccessToken = null;
             return ApiResult<AccountModel>.Success(res);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ApiResult<string> Logout()
+        {
+            var username = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(username))
+            {
+               throw new UnauthorizedAccessException("Missing JWT Token");
+            }
+            Response.Cookies.Delete(Authentication.JwtCookieKey);
+            return ApiResult<string>.Success(username);
         }
 
         [HttpPost]
