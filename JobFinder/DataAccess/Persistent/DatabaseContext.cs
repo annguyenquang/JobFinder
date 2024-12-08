@@ -1,4 +1,5 @@
-﻿using JobFinder.Core.Entity;
+﻿using AutoMapper;
+using JobFinder.Core.Entity;
 using JobFinder.DataAccess.Seed;
 using JobFinder.Model;
 using Microsoft.EntityFrameworkCore;
@@ -7,10 +8,12 @@ using Newtonsoft.Json;
 
 namespace JobFinder.DataAccess.Persistent
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext: DbContext
     {
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
+        private IMapper _mapper;
+        public DatabaseContext(DbContextOptions<DatabaseContext> options, IMapper mapper) : base(options)
         {
+            _mapper = mapper;
         }
 
         public DbSet<Account> Accounts { get; set; }
@@ -59,7 +62,11 @@ namespace JobFinder.DataAccess.Persistent
             var metadatas = DataSeed.GetMetadataSeeds();
             var companies = DataSeed.GetCompanySeeds();
             var users = DataSeed.GetUserSeeds();
-            var position = DataSeed.GetJobSeeds(companies, metadatas);
+            IEnumerable<Job> jobs = _mapper.Map<List<Job>>(DataSeed.GetJobSeeds());
+            foreach (var job in jobs)
+            {
+                job.ProvinceId = companies.FirstOrDefault(x => x.Id == job.CompanyId).ProvinceId;
+            }
             modelBuilder.Entity<Account>().UseTpcMappingStrategy();
             modelBuilder.Entity<User>().HasData(users);
             modelBuilder.Entity<User>().Property(u => u.Skills).HasConversion<string>();
@@ -72,10 +79,10 @@ namespace JobFinder.DataAccess.Persistent
                 .SetValueComparer(new ValueComparer<IEnumerable<Certification>>(
                     (c1, c2) => c1.SequenceEqual(c2), 
                     c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), // Hash code computation
-                    c => c.ToList())); 
+                    c => c.ToList()));
             modelBuilder.Entity<Metadata>().HasData(metadatas);
             modelBuilder.Entity<Company>().HasData(companies);
-            modelBuilder.Entity<Job>().HasData(position);
+            modelBuilder.Entity<Job>().HasData(jobs);
         }
     }
 }
