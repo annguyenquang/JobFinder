@@ -61,9 +61,9 @@ namespace JobFinder.DataAccess.Persistent
             base.OnModelCreating(modelBuilder);
             var metadatas = DataSeed.GetMetadataSeeds();
             // var companies = DataSeed.GetCompanySeeds();
-            var companies = DataSeed.GetCompanySeeds1();
+            var companies = DataSeed.GetCompanySeeds();
             var users = DataSeed.GetUserSeeds();
-            IEnumerable<Job> jobs = _mapper.Map<List<Job>>(DataSeed.GetJobSeeds1());
+            IEnumerable<Job> jobs = _mapper.Map<List<Job>>(DataSeed.GetJobSeeds());
             foreach (var job in jobs)
             {
                 job.ProvinceId = companies.FirstOrDefault(x => x.Id == job.CompanyId).ProvinceId;
