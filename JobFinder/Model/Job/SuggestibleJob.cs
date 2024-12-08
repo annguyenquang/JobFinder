@@ -1,6 +1,6 @@
 namespace JobFinder.Model;
 
-public class SuggestibleJob
+public class SuggestibleJob: IBaseResponseModel
 {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
@@ -12,5 +12,6 @@ public class SuggestibleJob
         public Guid? GenderRequirementId { get; set; }
         public Guid? EducationLevelRequirementId { get; set; }
         public Guid? WorkExperienceRequirementId { get; set; }
-        public string? Skills { get; set; } 
+        public string? Skills { get; set; }
+        public Guid Id { get; set; }
 }
