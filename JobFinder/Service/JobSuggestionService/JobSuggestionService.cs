@@ -1,3 +1,4 @@
+using AutoMapper;
 using JobFinder.Model;
 using JobFinder.Service.GeminiService;
 using Newtonsoft.Json;
@@ -10,7 +11,7 @@ public interface IJobSuggestionService
         GetJobsByPaginationParams param);
 }
 
-public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobService _jobService, IUserService _userService) : IJobSuggestionService
+public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobService _jobService, IUserService _userService, IMapper _mapper) : IJobSuggestionService
 {
     private GeminiContent DEFAULTSYSTEMSUGGESTION =
         new()
@@ -70,7 +71,7 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
 
     public async Task<JobSuggestionList> GenerateJobSuggestionListAsync(SuggestibleUserModel suggestibleUser, GetJobsByPaginationParams param)
     {
-       var listJob = await _jobService.GetAllJobAsync(filer: param.JobFilter, order: param.Order, pagination: param.Pagination);
+       var listJob = await _jobService.GetAllJobAsync(filter: param.JobFilter, order: param.Order, pagination: param.Pagination);
        var user = await _userService.GetUserById(suggestibleUser.UserId);
        if (user == null)
        {
@@ -84,10 +85,10 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
            Certifications = user.Certifications,
            LatestSearchKeywords = suggestibleUser.LatestSearchKeywords
        };
-       return await GetJobSuggestionByUserAndJobListAsync(userInfo, listJob.Data);
+       return await GetJobSuggestionByUserAndJobListAsync(userInfo, _mapper.Map<List<SuggestibleJob>>(listJob.Data));
     }
     private async Task<JobSuggestionList> GetJobSuggestionByUserAndJobListAsync(UserInfo userProfile,
-        IEnumerable<JobModel> jobList)
+        IEnumerable<SuggestibleJob> jobList)
     {
         var tokenCancellingToken = CancellationToken.None;
         var prompt = $"{{userProfile: {JsonConvert.SerializeObject(userProfile)}" +
