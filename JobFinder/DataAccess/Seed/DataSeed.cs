@@ -1000,5 +1000,23 @@ namespace JobFinder.DataAccess.Seed
             }
             return listOfJobs;
         }
+
+        public static IEnumerable<Company> GetCompanySeeds1()
+        {
+            
+            var filePath = ".\\DataAccess\\Seed\\companies.json";
+            string jsonContent = File.ReadAllText(filePath);
+            List<Company> companies = JsonConvert.DeserializeObject<List<Company>>(jsonContent);
+            return companies;
+        }
+
+        public static IEnumerable<SeedJobModel> GetJobSeeds1()
+        {
+            var filePath = ".\\DataAccess\\Seed\\jobs.json";
+            string jsonContent = File.ReadAllText(filePath);
+            List<SeedJobModel> jobs = JsonConvert.DeserializeObject<List<SeedJobModel>>(jsonContent);
+            return jobs;
+        }
+
     }
 }
