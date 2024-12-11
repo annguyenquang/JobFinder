@@ -1,4 +1,6 @@
-﻿namespace JobFinder.Core.Entity;
+﻿using JobFinder.Model.Enums;
+
+namespace JobFinder.Core.Entity;
 
 public class JobApplication : IBaseEntity, IAuditableEntity
 {
@@ -9,6 +11,7 @@ public class JobApplication : IBaseEntity, IAuditableEntity
     public string CVLink { get; set; } = string.Empty;
     public string? CoverLetter { get; set; } = string.Empty;
     public string? PhoneNumber { get; set; } = string.Empty;
+    public JobApplicationState State { get; set; } = JobApplicationState.UnderReview;
     public DateTime? CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public Guid? CreatedBy { get; set; }
