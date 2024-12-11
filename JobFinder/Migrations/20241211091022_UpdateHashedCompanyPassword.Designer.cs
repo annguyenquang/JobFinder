@@ -4,6 +4,7 @@ using JobFinder.DataAccess.Persistent;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobFinder.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241211091022_UpdateHashedCompanyPassword")]
+    partial class UpdateHashedCompanyPassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,7 +148,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("WorkExperienceRequirementId");
 
-                    b.ToTable("Jobs", (string)null);
+                    b.ToTable("Jobs");
 
                     b.HasData(
                         new
@@ -17190,7 +17193,7 @@ namespace JobFinder.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("JobApplications", (string)null);
+                    b.ToTable("JobApplications");
                 });
 
             modelBuilder.Entity("JobFinder.Core.Entity.Metadata", b =>
@@ -17208,7 +17211,7 @@ namespace JobFinder.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Metadatas", (string)null);
+                    b.ToTable("Metadatas");
 
                     b.HasData(
                         new
@@ -17417,7 +17420,7 @@ namespace JobFinder.Migrations
                         .IsUnique()
                         .HasFilter("[Slug] IS NOT NULL");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
 
                     b.HasData(
                         new
@@ -19449,7 +19452,7 @@ namespace JobFinder.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
