@@ -1,4 +1,5 @@
 using JobFinder.Core.Entity;
+using JobFinder.Model.Enums;
 
 namespace JobFinder.Model;
 
@@ -9,6 +10,7 @@ public class JobApplicationWithJobId : IBaseResponseModel, IAuditableEntity
     public string CVLink { get; set; } = string.Empty;
     public string? CoverLetter { get; set; } = string.Empty;
     public string? PhoneNumber { get; set; } = string.Empty;
+    public JobApplicationState State { get; set; }
     public DateTime? CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public Guid? CreatedBy { get; set; }
