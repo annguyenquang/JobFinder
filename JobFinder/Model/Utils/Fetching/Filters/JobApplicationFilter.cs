@@ -5,6 +5,7 @@ namespace JobFinder.Model.Utils.Fetching.Filters
 {
     public class JobApplicationFilter : IFilter<JobApplication>
     {
+        public Guid? UserId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
         public Guid? JobId { get; set; }
@@ -13,6 +14,10 @@ namespace JobFinder.Model.Utils.Fetching.Filters
 
         public IQueryable<JobApplication> filters(IQueryable<JobApplication> queryable)
         {
+            if (UserId.HasValue)
+            {
+                queryable = queryable.Where(x => x.UserId == UserId);
+            }
             if (JobId.HasValue)
             {
                 queryable = queryable.Where(x => x.JobId == JobId);
