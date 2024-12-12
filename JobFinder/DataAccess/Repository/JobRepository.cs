@@ -39,6 +39,7 @@ namespace JobFinder.DataAccess.Repository
                 .Include(x => x.WorkExperienceRequirement) 
                 .Include(x => x.EducationLevelRequirement) 
                 .Include(x => x.GenderRequirement) 
+                .Include(x => x.JobApplications)
                 .AsQueryable();
             if (filter != null)
             {
