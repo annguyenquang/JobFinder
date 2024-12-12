@@ -19,8 +19,8 @@ namespace JobFinder.Controllers
         [HttpGet]
         public async Task<ApiResult<ListResponseModel<JobModel>>> GetJobsByPagination([FromQuery] GetJobsByPaginationParams param)
         {
-            var positions = await _jobService.GetAllJobAsync(param.JobFilter, param.Order, param.Pagination);
-            return ApiResult<ListResponseModel<JobModel>>.Success(positions);
+            var jobs = await _jobService.GetAllJobAsync(param.JobFilter, param.Order, param.Pagination);
+            return ApiResult<ListResponseModel<JobModel>>.Success(jobs);
         }
         [HttpPost]
         public async Task<ApiResult<CreateJobReponseModel>> CreateJob(CreateJobModel position)
