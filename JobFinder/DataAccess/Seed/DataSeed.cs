@@ -220,11 +220,11 @@ namespace JobFinder.DataAccess.Seed
             return companies;
         }
 
-        public static IEnumerable<SeedJobModel> GetJobSeeds()
+        public static IEnumerable<SeedJob> GetJobSeeds()
         {
             var filePath = ".\\DataAccess\\Seed\\jobs.json";
             string jsonContent = File.ReadAllText(filePath);
-            List<SeedJobModel> jobs = JsonConvert.DeserializeObject<List<SeedJobModel>>(jsonContent);
+            List<SeedJob> jobs = JsonConvert.DeserializeObject<List<SeedJob>>(jsonContent);
             return jobs;
         }
 
