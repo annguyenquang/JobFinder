@@ -16,9 +16,9 @@ namespace JobFinder.DataAccess.Repository
         public new async Task<ListModel<JobApplication>> GetAllAsListModelAsync(IFilter<JobApplication> filter, Order order, Pagination pagination)
         {
             var queryable = DbSet
-                    .Include(x => x.User)
-                    .Include(x => x.Job)
-                    .AsQueryable();
+                .Include(x => x.User)
+                .Include(x => x.Job)
+                .AsSplitQuery();
             if(filter != null)
             {
                 queryable = filter.filters(queryable);
