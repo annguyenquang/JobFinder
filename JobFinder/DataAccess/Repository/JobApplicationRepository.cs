@@ -23,11 +23,17 @@ namespace JobFinder.DataAccess.Repository
             {
                 queryable = filter.filters(queryable);
             }
+            
             if (order != null)
             {
                 queryable = Order.ApplyOrdering(queryable, order.By, order.IsDesc);
             }
-            int total = queryable.Count();
+            else
+            {
+                queryable = queryable.OrderByDescending(x => x.CreatedAt);
+            }
+            
+            int total = await queryable.CountAsync();
             if(pagination != null)
             {
                 queryable = queryable.Skip(pagination.PageSize * (pagination.Page - 1)).Take(pagination.PageSize);
