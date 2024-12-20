@@ -8,7 +8,7 @@ namespace JobFinder.Model.Utils.Fetching.Filters
         public virtual Guid? UserId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
-        public Guid? JobId { get; set; }
+        public virtual Guid? JobId { get; set; }
         public bool HasCoverLetter { get; set; } = false;
         public string? Keyword { get; set; }
 

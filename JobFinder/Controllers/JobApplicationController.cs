@@ -28,6 +28,16 @@ namespace JobFinder.Controllers
             var applications = await _jobApplicationService.GetAllJobApplicationsAsync(param.Filter, param.Order, param.Pagination);
             return ApiResult<ListResponseModel<JobApplicationModel>>.Success(applications);
         }
+
+        [HttpGet]
+        public async Task<ApiResult<ListResponseModel<JobApplicationModel>>> GetJobApplicationByJobId([FromQuery] Guid jobId, [FromQuery] GetJobApplicationByJobIdParam param)
+        {
+            param.Filter ??= new GetJobApplicationByJobIdFilter(); 
+            param.Filter.JobId = jobId;
+            
+            var applications = await _jobApplicationService.GetAllJobApplicationsAsync(param.Filter, param.Order, param.Pagination);
+            return ApiResult<ListResponseModel<JobApplicationModel>>.Success(applications);
+        }
         
         [HttpPost]
         public async Task<ApiResult<CreateJobApplicationResponseModel>> CreateJobApplication([FromForm] CreateJobApplicationModel newApplication)
@@ -35,6 +45,7 @@ namespace JobFinder.Controllers
             var response = await _jobApplicationService.CreateJobApplicationAsync(newApplication);
             return ApiResult<CreateJobApplicationResponseModel>.Success(response);
         }
+
 
     }
 }
