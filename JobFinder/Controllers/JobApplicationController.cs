@@ -36,15 +36,5 @@ namespace JobFinder.Controllers
             return ApiResult<CreateJobApplicationResponseModel>.Success(response);
         }
 
-        public class GetJobApplicationByUserIdFilter : JobApplicationFilter
-        {
-            [JsonIgnore] [BindNever] public override Guid? UserId { get; set; }
-        }
-        public class GetJobApplicationByUserIdParam
-        {
-            public GetJobApplicationByUserIdFilter? Filter { get; set; }
-            public Order? Order { get; set; }
-            public Pagination? Pagination { get; set; }
-        }
     }
 }
