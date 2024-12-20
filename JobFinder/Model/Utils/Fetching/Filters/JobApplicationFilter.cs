@@ -5,7 +5,7 @@ namespace JobFinder.Model.Utils.Fetching.Filters
 {
     public class JobApplicationFilter : IFilter<JobApplication>
     {
-        public Guid? UserId { get; set; }
+        public virtual Guid? UserId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
         public Guid? JobId { get; set; }
