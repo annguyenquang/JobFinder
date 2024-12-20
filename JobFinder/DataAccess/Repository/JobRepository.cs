@@ -34,8 +34,6 @@ namespace JobFinder.DataAccess.Repository
         
         public new async Task<ListModel<Job>> GetAllAsListModelAsync(IFilter<Job> filter, Order order, Pagination pagination)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
             var queryable = DbSet
                 .Include(x => x.Company)
                 .Include(x => x.WorkArrangement)
@@ -69,8 +67,6 @@ namespace JobFinder.DataAccess.Repository
                 queryable = queryable.Skip(skip).Take(take);
             }
             var entityList = await queryable.ToListAsync();
-            watch.Stop();
-            Console.WriteLine($"Total time: {watch.ElapsedMilliseconds} ms");
             return new ListModel<Job>() { Data = entityList, Total = total };
 
         }
