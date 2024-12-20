@@ -33,6 +33,7 @@ namespace JobFinder.DataAccess.Repository
                     .ThenInclude(x => x.EducationLevelRequirement)
                 .Include(x => x.Jobs)   
                     .ThenInclude(x => x.WorkExperienceRequirement)
+                .AsNoTracking()
                 .AsSplitQuery();
             queryableCompany = queryableCompany.Where(x => x.Id == companyId);
 
