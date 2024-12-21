@@ -16,6 +16,18 @@ namespace JobFinder.Service
         private const int DEFAULT_PAGENUMBER = 1;
         private const int DEFAULT_PAGESIZE = 10;
         private const int MAX_PAGESIZE = 30;
+        public async Task<ListResponseModel<UserApplication>> GetApplicationsByUserId(Guid userId, GetJobApplicationByUserIdParam param)
+        {
+            param.Filter ??= new GetJobApplicationByUserIdFilter(); 
+            param.Filter.UserId = userId;
+            param.Pagination = Pagination.Validate(param.Pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE);
+
+            var entities =
+                await _jobApplicationRepo.GetAllAsListModelAsync(param.Filter, param.Order, param.Pagination);
+            var models = _mapper.Map<List<UserApplication>>(entities.Data);
+            return new ListResponseModel<UserApplication>{ Data = models, Total = entities.Total, Pagination = param.Pagination };
+        }
+
         public async Task<CreateJobApplicationResponseModel> CreateJobApplicationAsync(CreateJobApplicationModel newApplication)
         {
             if(Path.GetExtension(newApplication.CVFile.FileName.ToLower()) != ".pdf")
@@ -45,10 +57,10 @@ namespace JobFinder.Service
         }
         public async Task<ListResponseModel<JobApplicationModel>> GetAllJobApplicationsAsync(JobApplicationFilter filter, Order order, Pagination pagination)
         {
-            var resultPagination = Pagination.Validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
-            var entities = await _jobApplicationRepo.GetAllAsListModelAsync(filter, order, resultPagination);
+            pagination = Pagination.Validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
+            var entities = await _jobApplicationRepo.GetAllAsListModelAsync(filter, order, pagination);
             var models = _mapper.Map<List<JobApplicationModel>>(entities.Data);
-            return new ListResponseModel<JobApplicationModel> { Data = models, Total = entities.Total, Pagination = resultPagination };
+            return new ListResponseModel<JobApplicationModel> { Data = models, Total = entities.Total, Pagination = pagination };
         }
     }
 }

@@ -10,6 +10,7 @@ namespace JobFinder.Service.AutoMapper
         {
             CreateMap<JobApplication, JobApplicationModel>();
             CreateMap<JobApplication, CreateJobApplicationResponseModel>();
+            CreateMap<JobApplication, UserApplication>();
             CreateMap<JobApplication, JobApplicationWithJobId>();
             CreateMap<CreateJobApplicationModel, JobApplication>()
                 .ForMember(x => x.CVLink, opt => opt.Ignore());
