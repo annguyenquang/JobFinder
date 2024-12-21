@@ -20,13 +20,13 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        public async Task<ApiResult<ListResponseModel<JobApplicationModel>>> GetJobApplicationByUserId([FromQuery] Guid userId, [FromQuery] GetJobApplicationByUserIdParam param)
+        public async Task<ApiResult<ListResponseModel<UserApplication>>> GetJobApplicationByUserId([FromQuery] Guid userId, [FromQuery] GetJobApplicationByUserIdParam param)
         {
             param.Filter ??= new GetJobApplicationByUserIdFilter(); 
             param.Filter.UserId = userId;
             
-            var applications = await _jobApplicationService.GetAllJobApplicationsAsync(param.Filter, param.Order, param.Pagination);
-            return ApiResult<ListResponseModel<JobApplicationModel>>.Success(applications);
+            var applications = await _jobApplicationService.GetApplicationsByUserId(userId, param);
+            return ApiResult<ListResponseModel<UserApplication>>.Success(applications);
         }
 
         [HttpGet]

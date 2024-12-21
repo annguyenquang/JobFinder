@@ -18,6 +18,7 @@ namespace JobFinder.DataAccess.Repository
             var queryable = DbSet
                 .Include(x => x.User)
                 .Include(x => x.Job)
+                    .ThenInclude(x => x.Company)
                 .AsNoTracking()
                 .AsSplitQuery();
             if(filter != null)

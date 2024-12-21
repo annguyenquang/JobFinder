@@ -6,7 +6,8 @@ namespace JobFinder.Service
 {
     public interface IJobApplicationService
     {
-        Task<ListResponseModel<JobApplicationModel>> GetAllJobApplicationsAsync(JobApplicationFilter fitler, Order order, Pagination pagination);
+        Task<ListResponseModel<JobApplicationModel>> GetAllJobApplicationsAsync(JobApplicationFilter filter, Order order, Pagination pagination);
+        Task<ListResponseModel<UserApplication>> GetApplicationsByUserId(Guid userId, GetJobApplicationByUserIdParam param);
         Task<CreateJobApplicationResponseModel> CreateJobApplicationAsync(CreateJobApplicationModel newApplication);
     }
 }
