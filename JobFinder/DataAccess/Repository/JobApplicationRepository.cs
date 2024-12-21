@@ -16,18 +16,25 @@ namespace JobFinder.DataAccess.Repository
         public new async Task<ListModel<JobApplication>> GetAllAsListModelAsync(IFilter<JobApplication> filter, Order order, Pagination pagination)
         {
             var queryable = DbSet
-                    .Include(x => x.User)
-                    .Include(x => x.Job)
-                    .AsQueryable();
+                .Include(x => x.User)
+                .Include(x => x.Job)
+                .AsNoTracking()
+                .AsSplitQuery();
             if(filter != null)
             {
                 queryable = filter.filters(queryable);
             }
+            
             if (order != null)
             {
                 queryable = Order.ApplyOrdering(queryable, order.By, order.IsDesc);
             }
-            int total = queryable.Count();
+            else
+            {
+                queryable = queryable.OrderByDescending(x => x.CreatedAt);
+            }
+            
+            int total = await queryable.CountAsync();
             if(pagination != null)
             {
                 queryable = queryable.Skip(pagination.PageSize * (pagination.Page - 1)).Take(pagination.PageSize);

@@ -150,7 +150,7 @@ namespace JobFinder.DataAccess.Repository
 
         public async Task<ListModel<TEntity>> GetAllAsListModelAsync(IFilter<TEntity> filer, Order order, Pagination pagination)
         {
-            var queryable = DbSet.AsQueryable();
+            var queryable = DbSet.AsNoTracking().AsQueryable();
             if (filer != null)
             {
                 queryable = filer.filters(queryable);

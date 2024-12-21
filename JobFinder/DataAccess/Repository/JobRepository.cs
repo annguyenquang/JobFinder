@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
@@ -22,8 +23,9 @@ namespace JobFinder.DataAccess.Repository
                 .Include(x => x.WorkArrangement) 
                 .Include(x => x.CommitmentType) 
                 .Include(x => x.WorkExperienceRequirement) 
-                .Include(x => x.EducationLevelRequirement) 
+                .Include(x => x.EducationLevelRequirement)
                 .Include(x => x.GenderRequirement) 
+                .AsSplitQuery()
                 .SingleAsync(x => x.Id == id);
             if (result == null) throw new NotFoundException($"Resouce of type {typeof(Job)} is not founded");
             return result;
@@ -34,22 +36,30 @@ namespace JobFinder.DataAccess.Repository
         {
             var queryable = DbSet
                 .Include(x => x.Company)
-                .Include(x => x.WorkArrangement) 
-                .Include(x => x.CommitmentType) 
-                .Include(x => x.WorkExperienceRequirement) 
-                .Include(x => x.EducationLevelRequirement) 
-                .Include(x => x.GenderRequirement) 
+                .Include(x => x.WorkArrangement)
+                .Include(x => x.CommitmentType)
+                .Include(x => x.WorkExperienceRequirement)
+                .Include(x => x.EducationLevelRequirement)
+                .Include(x => x.GenderRequirement)
                 .Include(x => x.JobApplications)
-                .AsQueryable();
+                .AsNoTracking()
+                .AsSplitQuery();
             if (filter != null)
             {
                 queryable = filter.filters(queryable);
             }
+            
             if(order != null)
             {
                 queryable = Order.ApplyOrdering(queryable, order.By, order.IsDesc);                
             }
-            int total = queryable.Count();
+            else
+            {
+                queryable = queryable.OrderByDescending(x => x.UpdatedAt);
+            }
+            
+            int total = await queryable.CountAsync();
+            
             if (pagination != null)
             {
                 int skip = pagination.PageSize * (pagination.Page - 1);

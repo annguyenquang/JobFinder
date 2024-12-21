@@ -5,7 +5,6 @@ using JobFinder.Model;
 using JobFinder.Model.Utils.Fetching;
 using JobFinder.Model.Utils.Fetching.Filters;
 using Microsoft.EntityFrameworkCore;
-using System.Numerics;
 
 namespace JobFinder.DataAccess.Repository
 {
@@ -34,7 +33,8 @@ namespace JobFinder.DataAccess.Repository
                     .ThenInclude(x => x.EducationLevelRequirement)
                 .Include(x => x.Jobs)   
                     .ThenInclude(x => x.WorkExperienceRequirement)
-                .AsQueryable();
+                .AsNoTracking()
+                .AsSplitQuery();
             queryableCompany = queryableCompany.Where(x => x.Id == companyId);
 
             var queryableJob = queryableCompany.SelectMany(x => x.Jobs);
@@ -47,6 +47,10 @@ namespace JobFinder.DataAccess.Repository
             if (order != null)
             {
                 queryableJob = Order.ApplyOrdering(queryableJob, order.By, order.IsDesc);
+            }
+            else
+            {
+                queryableJob = queryableJob.OrderBy(x => x.CreatedAt);
             }
 
             int total = await queryableJob.CountAsync();

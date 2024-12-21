@@ -13,11 +13,9 @@ namespace JobFinder.Model.Utils.Fetching
             if(isDesc)
             {
                 return queryable.OrderByDescending(q => EF.Property<T>(q, by));
-            } 
-            else
-            {
-                return queryable.OrderBy(q => EF.Property<T>(q, by));
             }
+            
+            return queryable.OrderBy(q => EF.Property<T>(q, by));
         } 
 
     }
