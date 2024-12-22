@@ -1,5 +1,6 @@
 ﻿using System.IO.Hashing;
 using JobFinder.Core.Entity;
+using JobFinder.Model.Enums;
 
 namespace JobFinder.Model.Utils.Fetching.Filters
 {
@@ -11,6 +12,7 @@ namespace JobFinder.Model.Utils.Fetching.Filters
         public virtual Guid? JobId { get; set; }
         public bool HasCoverLetter { get; set; } = false;
         public string? Keyword { get; set; }
+        public JobApplicationState? State { get; set; }
 
         public IQueryable<JobApplication> filters(IQueryable<JobApplication> queryable)
         {
@@ -38,10 +40,16 @@ namespace JobFinder.Model.Utils.Fetching.Filters
                 queryable = queryable.Where(x => !string.IsNullOrEmpty(x.CoverLetter));
             }
 
+            if (State.HasValue)
+            {
+                queryable = queryable.Where(x => x.State == State);
+            }
+
             if (!string.IsNullOrEmpty(Keyword))
             {
                 queryable = queryable.Where(x => x.CoverLetter != null && x.CoverLetter.Contains(Keyword, StringComparison.OrdinalIgnoreCase));
             }
+            
             return queryable;
         }
     }
