@@ -21,6 +21,8 @@ public class UserApplicationJob : IBaseResponseModel
 {
     public string Title { get; set; } = string.Empty;
     public UserApplicationCompany Company { get; set; } = null!;
+    public int? ProvinceId { get; set; }
+    public int? DistrictId { get; set; }
     public Guid Id { get; set; }
 }
 
@@ -29,6 +31,6 @@ public class UserApplicationCompany : IBaseResponseModel
     public string Name { get; set; } = string.Empty;
     public string? Slug { get; set; } = string.Empty;
     public string? Logo { get; set; } = string.Empty;
-    
+
     public Guid Id { get; set; }
 }
