@@ -1,10 +1,8 @@
 ﻿using JobFinder.Model;
-using JobFinder.Model.Utils.Fetching;
+using JobFinder.Model.Enums;
 using JobFinder.Model.Utils.Fetching.Filters;
 using JobFinder.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Newtonsoft.Json;
 
 namespace JobFinder.Controllers
 {
@@ -46,6 +44,18 @@ namespace JobFinder.Controllers
             return ApiResult<CreateJobApplicationResponseModel>.Success(response);
         }
 
-
+        [HttpPatch]
+        public async Task<ApiResult<Guid>> UpdateJobApplicationState(
+            UpdateJobApplicationModelParam param)
+        {
+            if (!Enum.IsDefined(typeof(JobApplicationState), param.State))
+            {
+                throw new BadRequestException("Invalid job application state.");
+            }
+            var updatedStateJobApplication = new UpdateJobApplicationModel() { State = param.State };
+            var res = await _jobApplicationService.UpdateJobApplicationAsync(param.JobApplicationId, updatedStateJobApplication);
+            return ApiResult<Guid>.Success(res);
+        }
+        
     }
 }

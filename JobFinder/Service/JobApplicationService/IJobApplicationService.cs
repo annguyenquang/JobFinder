@@ -9,5 +9,6 @@ namespace JobFinder.Service
         Task<ListResponseModel<JobApplicationModel>> GetAllJobApplicationsAsync(JobApplicationFilter filter, Order order, Pagination pagination);
         Task<ListResponseModel<UserApplication>> GetApplicationsByUserId(Guid userId, GetJobApplicationByUserIdParam param);
         Task<CreateJobApplicationResponseModel> CreateJobApplicationAsync(CreateJobApplicationModel newApplication);
+        Task<Guid> UpdateJobApplicationAsync(Guid id, UpdateJobApplicationModel jobApplication);
     }
 }
