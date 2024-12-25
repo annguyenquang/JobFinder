@@ -3,10 +3,9 @@ using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.Model;
 using JobFinder.Model.Utils.Fetching;
-using JobFinder.Model.Utils;
 using JobFinder.Model.Utils.Constants;
-using JobFinder.Service.StorageService;
 using JobFinder.Model.Utils.Fetching.Filters;
+using JobFinder.Service.StorageService;
 
 namespace JobFinder.Service
 {
@@ -51,6 +50,28 @@ namespace JobFinder.Service
             
             return _mapper.Map<CreateJobApplicationResponseModel>(saveResult);
         }
+
+        public async Task<Guid> UpdateJobApplicationAsync(Guid id, UpdateJobApplicationModel jobApplication)
+        {
+            var entity = await _jobApplicationRepo.GetAsync(id);
+            if (entity == null) throw new ResourceNotFoundException("Job Application Not Found");
+
+            if (jobApplication.CoverLetter != null)
+            {
+                entity.CoverLetter = jobApplication.CoverLetter;
+            }
+            if (jobApplication.PhoneNumber != null)
+            {
+                entity.PhoneNumber = jobApplication.PhoneNumber;
+            }
+            if (jobApplication.State.HasValue)
+            {
+                entity.State = jobApplication.State.Value;
+            }
+            var updateResult = await _jobApplicationRepo.UpdateAsync(entity);
+            return updateResult.Id;
+        }
+
         private static string GenerateFileName(string firstName, string lastName)
         {
             return $"{firstName}{lastName}_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}";
