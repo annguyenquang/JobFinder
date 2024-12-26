@@ -56,7 +56,7 @@ namespace JobFinder.Service
             var entity = await _jobApplicationRepo.GetAsync(id);
             if (entity == null) throw new ResourceNotFoundException("Job Application Not Found");
 
-            if (jobApplication.CoverLetter != null)
+            if (!string.IsNullOrEmpty(jobApplication.CoverLetter))
             {
                 entity.CoverLetter = jobApplication.CoverLetter;
             }
