@@ -21,14 +21,22 @@ namespace JobFinder.Service
         }
         public async Task<ListResponseModel<JobModel>> GetAllJobAsync(JobFilter filter, Order order, Pagination pagination)
         {
-            Pagination returnPagination = Pagination.Validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
-            var entities = await _jobRepository.GetAllAsListModelAsync(filter, order, returnPagination);
+            
+            if (pagination.PageSize == -1)
+            {
+                pagination.PageSize = 200;
+            }
+            else
+            {
+                pagination = Pagination.Validate(pagination, DEFAULT_PAGENUMBER, DEFAULT_PAGESIZE, MAX_PAGESIZE);
+            }
+            var entities = await _jobRepository.GetAllAsListModelAsync(filter, order, pagination);
             var models = _mapper.Map<List<JobModel>>(entities.Data);
             return new ListResponseModel<JobModel>()
             {
                 Data = models,
                 Total = entities.Total,
-                Pagination = returnPagination
+                Pagination = pagination
             };
         }   
         public async Task<JobModel> GetJobAsync(Guid id)

@@ -44,5 +44,14 @@ namespace JobFinder.Controllers
             var response = await _jobSuggestionService.GenerateJobSuggestionListAsync(user, param);
             return ApiResult<JobSuggestionList>.Success(response);
         }
+        [HttpGet]
+        public async Task<ApiResult<JobSuggestionList>> GetRelativeJobByJobId([FromQuery] Guid jobId,
+            [FromQuery] GetJobsByPaginationParams param)
+        {
+            var defaultPagination = new Pagination { Page = 1, PageSize = -1 };
+            param.Pagination ??= defaultPagination;
+            var response = await _jobSuggestionService.GenerateRelativeJobSuggestionListAsync(jobId, param);
+            return ApiResult<JobSuggestionList>.Success(response);
+        }
     }
 }
