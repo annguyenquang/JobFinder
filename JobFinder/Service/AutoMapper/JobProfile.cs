@@ -18,7 +18,8 @@ namespace JobFinder.Service.AutoMapper
                 .ForMember(des => des.Skills, opt => opt.MapFrom(src => JsonConvert.SerializeObject(src.Skills)));
             CreateMap<UpdateJobModel, Job>()
                 .ForMember(des => des.Skills, opt => opt.MapFrom(src => JsonConvert.SerializeObject(src.Skills)));
-            CreateMap<JobModel, SuggestibleJob>();
+            CreateMap<JobModel, SuggestibleJob>()
+                .ForMember(des => des.Skills, opt => opt.MapFrom(src => JsonConvert.SerializeObject(src.Skills)));
             CreateMap<Job, UserApplicationJob>()
                 .ForMember(x => x.Company,
                     opt => opt.MapFrom(src => new UserApplicationCompany()
