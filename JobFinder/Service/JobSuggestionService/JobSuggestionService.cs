@@ -69,6 +69,14 @@ public sealed class JobSuggestionService(IGeminiClient _geminiClient, IJobServic
             ]
         };
 
+    private GeminiContent DEFAULT_RELATIVE_JOB_CONTENT = new()
+    {
+        Role = "user",
+        Parts = [ new GeminiPart()
+        {
+            Text = ""
+        }]
+    };
     public async Task<JobSuggestionList> GenerateJobSuggestionListAsync(SuggestibleUserModel suggestibleUser, GetJobsByPaginationParams param)
     {
        var listJob = await _jobService.GetAllJobAsync(filter: param.JobFilter, order: param.Order, pagination: param.Pagination);
