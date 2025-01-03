@@ -24,7 +24,7 @@ namespace JobFinder.Service
             
             if (pagination.PageSize == -1)
             {
-                pagination.PageSize = 200;
+                pagination.PageSize = 100;
             }
             else
             {
