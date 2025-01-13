@@ -23,7 +23,7 @@ namespace JobFinder.Controllers
                throw new UnauthorizedAccessException("Missing JWT Token");
             }
             
-            var account = await _accountService.GetAccountByUsername(username);
+            var account = await _accountService.GetAccountModelByUsername(username);
             return ApiResult<AccountModel>.Success(account);
         }
         

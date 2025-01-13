@@ -28,7 +28,6 @@ namespace JobFinder.DataAccess
 
         private static void AddRepository(IServiceCollection services)
         {
-            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IUserRepository, UserRepository>();

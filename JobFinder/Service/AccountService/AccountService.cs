@@ -1,28 +1,31 @@
-﻿using AutoMapper;
-using JobFinder.Core.Repository;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using JobFinder.Model;
 using JobFinder.Core.Entity;
+using JobFinder.DataAccess.Persistent;
+using Microsoft.EntityFrameworkCore;
 using BC = BCrypt.Net.BCrypt;
 
 namespace JobFinder.Service
 {
-    public class AccountService(IAccountRepository _accountRepository, IMapper _mapper, IJwtService _jwtService) : IAccountService
+    public class AccountService(DatabaseContext _dbContext, IMapper _mapper, IJwtService _jwtService) : IAccountService
     {
+        DbSet<Account> _accountsDbSet = _dbContext.Accounts;
         public async Task<AccountModel> GetAccount(Guid id)
         {
-            var entity = await _accountRepository.GetAsync(id);
+            var entity = await _accountsDbSet.FindAsync(id);
             return _mapper.Map<AccountModel>(entity);
         }
 
-        public async Task<AccountModel> GetAccountByUsername(string username)
+        public async Task<AccountModel> GetAccountModelByUsername(string username)
         {
-            var entity = await _accountRepository.GetAccountByUsername(username);
+            var entity = await GetAccountByUsername(username);
             return _mapper.Map<AccountModel>(entity);
         }
 
         public async Task<AccountModel> Login(AuthAccountModel account)
         {
-            var accountEntity = await _accountRepository.GetAccountByUsername(account.Username);
+            var accountEntity = await GetAccountByUsername(account.Username);
             if (accountEntity != null)
             {
                 bool isValidPassword = BC.Verify(account.Password, accountEntity.Password);
@@ -42,15 +45,21 @@ namespace JobFinder.Service
 
         public async Task<CreateAccountModelResponse> CreateAccount(CreateAccountModel accountModel)
         {
-            bool isExistAccount = await _accountRepository.GetAccountByUsername(accountModel.Username) != null;
+            bool isExistAccount = await GetAccountByUsername(accountModel.Username) != null;
             if (isExistAccount)
             {
                 throw new BadRequestException("Username already exist");
             }
            Account account = _mapper.Map<Account>(accountModel);
            account.Password = BC.HashPassword(accountModel.Password);
-           var res =  await _accountRepository.AddAsync(account);
+           var res =  await _accountsDbSet.AddAsync(account);
            return _mapper.Map<CreateAccountModelResponse>(res);
+        }
+
+        private async Task<Account?> GetAccountByUsername(string username)
+        {
+            var entity = await _accountsDbSet.SingleOrDefaultAsync(x => x.Username == username);
+            return entity;
         }
 
     }
