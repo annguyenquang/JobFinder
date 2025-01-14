@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using AutoMapper;
+﻿using AutoMapper;
 using JobFinder.Model;
 using JobFinder.Core.Entity;
 using JobFinder.DataAccess.Persistent;

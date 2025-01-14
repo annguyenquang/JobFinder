@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using JobFinder.Core.Entity;
 using JobFinder.Core.Repository;
 using JobFinder.DataAccess.Persistent;
