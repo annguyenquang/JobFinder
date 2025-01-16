@@ -17,18 +17,18 @@ namespace JobFinder.DataAccess
         private static void AddDatabase(IServiceCollection services)
         {
             var config = services.BuildServiceProvider().GetService<IConfiguration>();
-            services.AddDbContext<DatabaseContext>(options =>
-            {
-                options.UseSqlServer(connectionString: config.GetConnectionString("DefaultConnection"), opt =>
+            services.AddDbContextFactory<DatabaseContext>(options =>
                 {
-                    opt.MigrationsAssembly(System.Reflection.Assembly.GetExecutingAssembly().FullName);
-                }).EnableSensitiveDataLogging();
-            });
+                    options.UseSqlServer(connectionString: config.GetConnectionString("DefaultConnection"), opt =>
+                    {
+                        opt.MigrationsAssembly(System.Reflection.Assembly.GetExecutingAssembly().FullName);
+                    }).EnableSensitiveDataLogging();
+                }
+            );
         }
 
         private static void AddRepository(IServiceCollection services)
         {
-            services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
         }

@@ -10,7 +10,7 @@ namespace JobFinder.DataAccess.Repository
 {
     public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
-        public CompanyRepository(DatabaseContext _dbContext) : base(_dbContext)
+        public CompanyRepository(IDbContextFactory<DatabaseContext> contextFactory) : base(contextFactory)
         {
         }
         public async Task<Company> GetCompanyBySlug(string slug)

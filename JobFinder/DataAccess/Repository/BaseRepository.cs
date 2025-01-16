@@ -13,13 +13,15 @@ namespace JobFinder.DataAccess.Repository
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity
     {
-        protected readonly DatabaseContext Context;
+        private readonly IDbContextFactory<DatabaseContext> _contextFactory; 
+        protected readonly DatabaseContext _context;
         protected readonly DbSet<TEntity> DbSet;
         const int LIMIT = 50;
-        protected BaseRepository(DatabaseContext context)
+        protected BaseRepository(IDbContextFactory<DatabaseContext> contextFactory)
         {
-            Context = context;
-            DbSet = context.Set<TEntity>();
+            _contextFactory = contextFactory;
+            _context = contextFactory.CreateDbContext();
+            DbSet = _context.Set<TEntity>();
         }
 
         public async Task<TEntity> GetAsync(Guid id)
@@ -33,7 +35,7 @@ namespace JobFinder.DataAccess.Repository
         public async Task<TEntity> AddAsync(TEntity entity)
         {
             var addedEntity = (await DbSet.AddAsync(entity)).Entity;
-            await Context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return addedEntity;
         }
@@ -41,14 +43,14 @@ namespace JobFinder.DataAccess.Repository
         public async Task<int> AddRangeAsync(IEnumerable<TEntity> entities)
         {
             await DbSet.AddRangeAsync(entities);
-            var count = await Context.SaveChangesAsync();
+            var count = await _context.SaveChangesAsync();
             return count;
         }
 
         public async Task<TEntity> DeleteAsync(TEntity entity)
         {
             var removedEntity = DbSet.Remove(entity).Entity;
-            await Context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return removedEntity;
         }
@@ -78,7 +80,7 @@ namespace JobFinder.DataAccess.Repository
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             DbSet.Update(entity);
-            await Context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return entity;
         }
@@ -143,7 +145,7 @@ namespace JobFinder.DataAccess.Repository
                     property.SetValue(currentEntity, newValue);
                 }
             }
-            int result = await Context.SaveChangesAsync();
+            int result = await _context.SaveChangesAsync();
             return currentEntity;
 
         }

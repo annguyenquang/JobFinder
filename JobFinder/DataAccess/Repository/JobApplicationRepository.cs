@@ -10,7 +10,7 @@ namespace JobFinder.DataAccess.Repository
 {
     public class JobApplicationRepository : BaseRepository<JobApplication>, IJobApplicationRepository
     {
-        public JobApplicationRepository(DatabaseContext context) : base(context)
+        public JobApplicationRepository(IDbContextFactory<DatabaseContext> contextFactory) : base(contextFactory)
         {
         }
         public new async Task<ListModel<JobApplication>> GetAllAsListModelAsync(IFilter<JobApplication> filter, Order order, Pagination pagination)
