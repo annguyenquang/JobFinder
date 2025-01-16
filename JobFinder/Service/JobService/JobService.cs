@@ -32,8 +32,6 @@ namespace JobFinder.Service
         public async Task<ListResponseModel<JobModel>> GetAllJobAsync(JobFilter filter, Order order,
             Pagination pagination)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             await using var dbContext = await dbContextFactory.CreateDbContextAsync();
             if (pagination != null)
             {
@@ -49,8 +47,6 @@ namespace JobFinder.Service
 
             var entities = await GetAllEntities(filter, order, pagination);
             var models = mapper.Map<List<JobModel>>(entities.Data);
-            Console.WriteLine("Execute time: " + sw.ElapsedMilliseconds);
-            sw.Stop();
             return new ListResponseModel<JobModel>()
             {
                 Data = models,
